@@ -1,0 +1,17 @@
+spring:
+  devtools:
+    restart:
+      enabled: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/helloworld?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: 123456
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+          dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+          format_sql: true
+    show-sql: true
