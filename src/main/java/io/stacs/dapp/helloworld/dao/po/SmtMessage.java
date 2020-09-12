@@ -1,4 +1,4 @@
-package io.stacs.dapp.helloworld.dao;
+package io.stacs.dapp.helloworld.dao.po;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author HuangShengli
  * @ClassName SmtMessage
- * @Description TODO
+ * @Description 报文记录实体
  * @since 2020/9/11
  */
 @Data
@@ -51,10 +51,10 @@ public class SmtMessage {
     private String responseCode ;
     @Column(nullable = true,columnDefinition = "varchar(10) comment 'DRS返回的版本号'")
     private String version ;
-    @Column(nullable = true,columnDefinition = "longtext comment '该报文发生的交易ID，可能多笔，json格式'")
-    private String txs ;
-    @Column(nullable = false,columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP comment '创建时间'")
-    private Date create_at ;
-    @Column(nullable = false,columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间'")
-    private Date update_at ;
+    @Column(nullable = true, columnDefinition = "longtext comment '该报文发生的交易ID，可能多笔，json格式'")
+    private String txs;
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP comment '创建时间'")
+    private Date createAt;
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间'")
+    private Date updateAt;
 }

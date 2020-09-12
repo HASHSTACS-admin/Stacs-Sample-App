@@ -23,6 +23,18 @@
     <logger name="io.stacs.dapp.*.**" level="INFO" additivity="false">
         <appender-ref ref="console"/>
     </logger>
+    <logger name="jdbc.connection" level="INFO" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="jdbc.sqlonly" level="INFO" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="jdbc.audit" level="OFF" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="jdbc.resultset" level="OFF" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
 
     <!-- 设置日志级别 -->
     <root level="INFO">
