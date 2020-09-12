@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @since 2020/9/12
  */
 @Data
-@ApiModel(value = "发行数字货币简要参数", description = "为了快速体验，发行数字货币的参数极简，系统为报文的其他参数做了默认填充，完整报文请参考...")
+@ApiModel(value = "发行数字货币简要参数")
 public class DigitalCurrencySimpleRequest implements Serializable {
     /**
      * 资产ID
