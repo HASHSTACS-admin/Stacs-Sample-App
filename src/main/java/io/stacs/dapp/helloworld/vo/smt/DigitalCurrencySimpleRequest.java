@@ -18,11 +18,11 @@ public class DigitalCurrencySimpleRequest implements Serializable {
     /**
      * 资产ID
      */
-    @ApiModelProperty(value = "资产ID")
+    @ApiModelProperty(value = "资产ID", required = true)
     private String assetId;
     /**
      * 资产名称
      */
-    @ApiModelProperty(value = "资产名称")
+    @ApiModelProperty(value = "资产名称", required = true)
     private String assetName;
 }
