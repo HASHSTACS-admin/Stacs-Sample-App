@@ -1,7 +1,7 @@
 package io.stacs.dapp.helloworld.controller;
 
 import com.alibaba.fastjson.JSON;
-import io.stacs.dapp.helloworld.config.MyConfig;
+import io.stacs.dapp.helloworld.config.DrsConfig;
 import io.stacs.dapp.helloworld.crypto.AESUtil;
 import io.stacs.dapp.helloworld.crypto.RsaEncryptUtil;
 import io.stacs.dapp.helloworld.crypto.RsaSignUtil;
@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,13 +30,15 @@ import java.nio.charset.StandardCharsets;
  * 为清晰展示加解密处理过程，本入口处理逻辑较为冗长，正式项目建议使用Web Filter的方式统一处理加解密
  * @since 2020/9/11
  */
+
+@ApiIgnore
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/notify/transaction")
 public class DrsNotifyController {
 
     @Autowired
-    private MyConfig myConfig;
+    private DrsConfig drsConfig;
     @Autowired
     private SmtNotifyService smtNotifyService;
 
@@ -57,13 +60,13 @@ public class DrsNotifyController {
             //3.获取字节流数据
             byte[] requestEncryptBytes = IOUtils.toByteArray(request.getInputStream());
             //4.使用DRS公钥验签
-            if (!RsaSignUtil.check(requestEncryptBytes, signature, myConfig.getPublicKey())) {
+            if (!RsaSignUtil.check(requestEncryptBytes, signature, drsConfig.getPublicKey())) {
                 log.error("验签失败");
                 errorResponse(response, 403);
                 return;
             }
             //5.使用商户自己的私钥解密AESKEY
-            String decryptAesKey = RsaEncryptUtil.byte2string(RsaEncryptUtil.decryptByPrivateKeyString(aesKey, myConfig.getMyPrivateKey()));
+            String decryptAesKey = RsaEncryptUtil.byte2string(RsaEncryptUtil.decryptByPrivateKeyString(aesKey, drsConfig.getMyPrivateKey()));
             //6.使用解密的AESKEY解密请求数据
             byte[] decryptBytes = AESUtil.decryptBinary(requestEncryptBytes, decryptAesKey);
             //7.json反序列化得到整个报文
@@ -80,13 +83,13 @@ public class DrsNotifyController {
             //2.使用AESKEY对回执数据加密
             byte[] respEncryptBytes = AESUtil.encryptBinary(JSON.toJSONString(drsResponse).getBytes(DEFAULT_CHARSET), respAesKey);
             //3.使用商户自己的私钥对加密数据签名
-            String respSign = RsaSignUtil.sign(respEncryptBytes, myConfig.getMyPrivateKey());
+            String respSign = RsaSignUtil.sign(respEncryptBytes, drsConfig.getMyPrivateKey());
             //4.使用DRS公钥对AESKEY加密
-            String respEncryptAesKey = RsaEncryptUtil.base64Byte2string(RsaEncryptUtil.encryptByPublicKeyString(respAesKey, myConfig.getPublicKey()));
+            String respEncryptAesKey = RsaEncryptUtil.base64Byte2string(RsaEncryptUtil.encryptByPublicKeyString(respAesKey, drsConfig.getPublicKey()));
             //5.添加到header
             response.addHeader("Content-Type", "application/json;charset=utf-8");
             //商户号
-            response.addHeader("identifierId", myConfig.getMyIdentifierId());
+            response.addHeader("identifierId", drsConfig.getMyIdentifierId());
             //AESKEY
             response.addHeader("aesKey", respEncryptAesKey);
             //签名
@@ -115,7 +118,7 @@ public class DrsNotifyController {
             log.warn("DRS回调请求参数不合法");
             return false;
         }
-        if (!identifierId.equals(myConfig.getMyIdentifierId())) {
+        if (!identifierId.equals(drsConfig.getMyIdentifierId())) {
             log.warn("收到无效请求,identifierId={}", identifierId);
             return false;
         }

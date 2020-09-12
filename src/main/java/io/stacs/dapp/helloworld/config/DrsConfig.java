@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "helloworld.drs")
-public class MyConfig implements DrsApiConstant {
+public class DrsConfig implements DrsApiConstant {
     private String url;
     private String publicKey;
     private String myPublicKey;

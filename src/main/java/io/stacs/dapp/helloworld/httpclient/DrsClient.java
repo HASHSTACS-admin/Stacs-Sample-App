@@ -2,7 +2,7 @@ package io.stacs.dapp.helloworld.httpclient;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.stacs.dapp.helloworld.config.MyConfig;
+import io.stacs.dapp.helloworld.config.DrsConfig;
 import io.stacs.dapp.helloworld.crypto.AESUtil;
 import io.stacs.dapp.helloworld.crypto.RsaEncryptUtil;
 import io.stacs.dapp.helloworld.crypto.RsaSignUtil;
@@ -39,7 +39,7 @@ public class DrsClient {
     /**
      * 公私钥及商户号配置
      */
-    private static MyConfig CONFIG;
+    private static DrsConfig CONFIG;
 
     /**
      * 创建httpclient实例,采用okHttpClient
@@ -54,11 +54,11 @@ public class DrsClient {
             .build();
 
     @Autowired
-    private MyConfig myConfig;
+    private DrsConfig drsConfig;
 
     @PostConstruct
     public void init() {
-        CONFIG = myConfig;
+        CONFIG = drsConfig;
     }
 
     /**

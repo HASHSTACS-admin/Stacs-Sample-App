@@ -13,16 +13,9 @@ import java.math.BigDecimal;
 @Builder
 @Data
 public class DigitalCurrencyBody implements Serializable {
+
     /**
-     * 资产ID
-     */
-    private String assetId;
-    /**
-     * 资产名称
-     */
-    private String assetName;
-    /**
-     * BD id
+     * BD id，demo使用SystemBD
      */
     private String bdId;
     /**
@@ -34,7 +27,7 @@ public class DigitalCurrencyBody implements Serializable {
      */
     private BigDecimal quantity;
     /**
-     * 合约地址
+     * 本次发行的合约地址，合约地址与assets ID一一对应
      */
     private String contractAddress;
 
@@ -42,4 +35,22 @@ public class DigitalCurrencyBody implements Serializable {
      * 标记币种
      */
     private String underlyingCurrency;
+
+    /**
+     * KYC 个人限制
+     */
+    private String individualProhibited;
+    /**
+     * KYC 个人允许
+     */
+    private String individualPermitted;
+    /**
+     * KYC 机构限制
+     */
+    private String institutionalProhibited;
+
+    /**
+     * KYC 机构允许
+     */
+    private String institutionalPermitted;
 }
