@@ -14,7 +14,7 @@ public interface DrsApiConstant {
      */
     String CREATE_ADDRESS_URL = "/smt/address/create";
     /**
-     *
+     * 所有报文发送的统一url
      */
     String SMT_SEND_URL = "/endpoint";
     /**
