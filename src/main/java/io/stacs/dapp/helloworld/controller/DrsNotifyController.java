@@ -7,7 +7,7 @@ import io.stacs.dapp.helloworld.crypto.RsaEncryptUtil;
 import io.stacs.dapp.helloworld.crypto.RsaSignUtil;
 import io.stacs.dapp.helloworld.service.SmtNotifyService;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
-import io.stacs.dapp.helloworld.vo.DrsSmtData;
+import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +71,7 @@ public class DrsNotifyController {
             byte[] decryptBytes = AESUtil.decryptBinary(requestEncryptBytes, decryptAesKey);
             //7.json反序列化得到整个报文
             String jsonBody = new String(decryptBytes, DEFAULT_CHARSET);
-            DrsSmtData smtData = JSON.parseObject(jsonBody, DrsSmtData.class);
+            DrsSmtMessage smtData = JSON.parseObject(jsonBody, DrsSmtMessage.class);
             log.info("DRS回调请求数据解密完成:{}", smtData);
 
             /** B.业务处理阶段*/

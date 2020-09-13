@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DrsSmtData implements Serializable {
+public class DrsSmtMessage implements Serializable {
 
     @NonNull
     private SmtHeader header;
@@ -28,12 +28,13 @@ public class DrsSmtData implements Serializable {
 
     @Data
     @Builder
-    @EqualsAndHashCode(callSuper = true)
     @ToString(callSuper = true)
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SmtHeader extends DrsBaseRequest {
+    public static class SmtHeader implements Serializable {
 
+        @NonNull
+        private String identifierId;
         @NonNull
         private String uuid;
         private String messageId;

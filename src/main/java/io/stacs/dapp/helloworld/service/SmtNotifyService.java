@@ -1,7 +1,7 @@
 package io.stacs.dapp.helloworld.service;
 
 import io.stacs.dapp.helloworld.vo.DrsResponse;
-import io.stacs.dapp.helloworld.vo.DrsSmtData;
+import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SmtNotifyService {
 
-    public DrsResponse handle(DrsSmtData smtData) {
+    public DrsResponse handle(DrsSmtMessage message) {
 
         return DrsResponse.success(null);
     }

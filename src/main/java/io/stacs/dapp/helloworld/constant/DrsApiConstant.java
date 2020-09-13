@@ -1,4 +1,4 @@
-package io.stacs.dapp.helloworld.config;
+package io.stacs.dapp.helloworld.constant;
 
 /**
  * @author HuangShengli

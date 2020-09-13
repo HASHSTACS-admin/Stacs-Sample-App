@@ -82,6 +82,7 @@ public class DrsClient {
             //5.对数据签名，使用商户自己的私钥签名，DRS通过商户的公钥验签
             String signature = RsaSignUtil.sign(encryptedData, CONFIG.getMyPrivateKey());
             log.info("A.请求DRS，请求数据加密完成");
+
             /** B.执行RPC阶段：设置请求头，执行HTTP请求 */
             Request.Builder requestBuilder = new Request.Builder();
             //1.设置请求头
@@ -103,6 +104,7 @@ public class DrsClient {
 
             Response response = CLIENT.newCall(req).execute();
             log.info("B.请求DRS，HTTP调用成功");
+
             /** C.响应数据处理阶段：检查http状态码，解密响应数据 */
             //1.校验是否通讯成功
             checkResponse(response);
