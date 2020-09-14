@@ -81,7 +81,7 @@ public class DrsClient {
             String encryptAesKey = RsaEncryptUtil.base64Byte2string(RsaEncryptUtil.encryptByPublicKeyString(aesKey, CONFIG.getPublicKey()));
             //5.对数据签名，使用商户自己的私钥签名，DRS通过商户的公钥验签
             String signature = RsaSignUtil.sign(encryptedData, CONFIG.getMyPrivateKey());
-            log.info("A.请求DRS，请求数据加密完成");
+            log.info("A.请求DRS:{}，请求数据加密完成", url);
 
             /** B.执行RPC阶段：设置请求头，执行HTTP请求 */
             Request.Builder requestBuilder = new Request.Builder();
@@ -141,7 +141,7 @@ public class DrsClient {
     private static void checkResponse(Response response) {
         if (response == null) {
             log.error("响应空数据");
-            throw new RuntimeException("network error");
+            throw new RuntimeException("drs network error");
         }
         if (response.isSuccessful()) {
             return;
@@ -151,7 +151,7 @@ public class DrsClient {
             throw new RuntimeException("access drs unauthorized");
         }
         if (400 <= response.code() && response.code() < 500) {
-            throw new RuntimeException("bad request");
+            throw new RuntimeException("drs bad request");
         }
         if (500 <= response.code()) {
             throw new RuntimeException("drs internal  error");

@@ -2,7 +2,6 @@ package io.stacs.dapp.helloworld.service;
 
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
-import org.springframework.stereotype.Service;
 
 /**
  * @author HuangShengli
@@ -10,11 +9,13 @@ import org.springframework.stereotype.Service;
  * @Description DRS回调业务处理
  * @since 2020/9/12
  */
-@Service
-public class SmtNotifyService {
+public interface SmtNotifyService {
 
-    public DrsResponse handle(DrsSmtMessage message) {
-
-        return DrsResponse.success(null);
-    }
+    /**
+     * 回调处理
+     *
+     * @param message
+     * @return
+     */
+    DrsResponse handle(DrsSmtMessage message);
 }

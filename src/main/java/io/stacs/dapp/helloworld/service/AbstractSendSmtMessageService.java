@@ -12,6 +12,8 @@ import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
+
 /**
  * @author HuangShengli
  * @ClassName AbstractSendSmtMessageService
@@ -64,9 +66,12 @@ public abstract class AbstractSendSmtMessageService {
 
     private SmtMessage convert(DrsSmtMessage message) {
         SmtMessage messagePO = new SmtMessage();
+        messagePO.setCreateAt(new Date());
+        messagePO.setUpdateAt(new Date());
         //header信息
         messagePO.setIdentifierId(message.getHeader().getIdentifierId());
         messagePO.setSessionId(message.getHeader().getSessionId());
+        messagePO.setMessageId(message.getHeader().getMessageId());
         messagePO.setUuid(message.getHeader().getUuid());
         messagePO.setMessageSenderAddress(message.getHeader().getMessageSenderAddress());
         messagePO.setSmtCode(message.getHeader().getSmtCode());

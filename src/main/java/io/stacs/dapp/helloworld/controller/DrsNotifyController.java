@@ -72,7 +72,7 @@ public class DrsNotifyController {
             //7.json反序列化得到整个报文
             String jsonBody = new String(decryptBytes, DEFAULT_CHARSET);
             DrsSmtMessage smtData = JSON.parseObject(jsonBody, DrsSmtMessage.class);
-            log.info("DRS回调请求数据解密完成:{}", smtData);
+            log.info("DRS回调请求数据解密完成:{}", jsonBody);
 
             /** B.业务处理阶段*/
             DrsResponse drsResponse = smtNotifyService.handle(smtData);

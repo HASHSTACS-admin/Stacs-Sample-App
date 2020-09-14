@@ -31,13 +31,23 @@ public class DrsQueryController {
     @ResponseBody
     public DrsResponse balanceOf(@Validated @RequestBody BalanceOfRequest request) {
 
-        return smtQueryService.balanceOf(request);
+        try {
+            return smtQueryService.balanceOf(request);
+        } catch (Exception e) {
+            return DrsResponse.fail("error", e.getMessage());
+        }
     }
 
     @ApiOperation(value = "获取地址")
     @GetMapping("/getAddress")
     @ResponseBody
     public DrsResponse getAddress() {
-        return smtQueryService.getAddress();
+        try {
+            //f1f08851b4d3729b0585c7c4735d8b3f59990449
+            //78f27fa21763300002582543279ce58d9e1ed0e2
+            return smtQueryService.getAddress();
+        } catch (Exception e) {
+            return DrsResponse.fail("error", e.getMessage());
+        }
     }
 }

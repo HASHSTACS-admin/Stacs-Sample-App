@@ -61,11 +61,10 @@ public class DrsSmtMessage implements Serializable {
     public static class SmtTrailer implements Serializable {
 
         private String authenticationTrailer;
-        private List blockchainTransaction;
+        private List<BlockchainTransaction> blockchainTransaction;
         private String extraData;
         private String responseCode;
         private String responseMessage;
-        private List<Txid> txs;
 
     }
 

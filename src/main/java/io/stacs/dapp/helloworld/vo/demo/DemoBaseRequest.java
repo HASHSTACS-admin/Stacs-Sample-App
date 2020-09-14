@@ -1,13 +1,11 @@
 package io.stacs.dapp.helloworld.vo.demo;
 
-import io.stacs.dapp.helloworld.vo.Txid;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author HuangShengli
@@ -51,11 +49,7 @@ public class DemoBaseRequest implements Serializable {
 
         @ApiModelProperty(value = "附件信息(128英文字符以内)")
         private String authenticationTrailer;
-        @ApiModelProperty(value = "链上交易信息(DRS返回，示例中隐藏)", hidden = true)
-        private List blockchainTransaction;
         @ApiModelProperty(value = "其他备注信息(暂时无用，示例中隐藏)", hidden = true)
         private String extraData;
-        @ApiModelProperty(value = "链上交易IDs(DRS返回，示例中隐藏)", hidden = true)
-        private List<Txid> txs;
     }
 }

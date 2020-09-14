@@ -4,9 +4,9 @@ spring:
       enabled: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/helloworld?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    url: jdbc:mysql://localhost:3307/helloworld?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
     username: root
-    password: 12345678
+    password: 123456
   jpa:
     properties:
       hibernate:
@@ -25,9 +25,9 @@ server:
 helloworld:
   drs:
     #drs服务地址
-    url: https://192.168.58.25:9080
+    url: http://192.168.58.63:9080
     #drs的公钥
-    publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArMiyosedPU1JEgi71CdKqfJ7xzaQWrDjQhjZurGRaZOcHjd0O2pCYIci9cGcyrTGcVGpf8KL9phohCWDzWHClQO5lfaZP4+neQ3amMzewrzVshBx7VMCCc0ARoT84um+5lHDglBft3fv5WzmOu62yCeWxB/AfeMGQ5cv5KWfeNiz9N74PA0DY9zMRmwgDvv43o0cWPKi/8riDUPuriQ5c9gFggyuPBoU3N0Kf1vhK9Pxa/dQrf13fVD0VysqqFE/u22XJnBXgiSrC6B6aJVQd1fhGB8yUsMa0RBFYCWt6q4IXX63GQ/OuxVnHl9GBosnraqPpbk3aHl23SQ8ZVLD5wIDAQAB
+    publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjurOT7QzWzroV6Vk3vHJVWP5lCr+M1TawgpINXqzrmbW989rh1kUduCWIcKk27G2hlniN85eeen9FDpqYRmZJsxkGfF13K3dtUVLLLhDIlzBAQUmEQpf6Ih7Jz8D+G2TNUIHl8TZLkM1vCOSmoDhK7hTLC+u8IUoSyqeCVgwI+EuALcs4Y0rh/dHmm2xhZliNE4YFwFYyIMpeebpRWIk0h7CWZBVVKNC5wda9Mnc/+EFZi1H69zbHL8qZ9YCjFqUXEcPjaV7JQengfebTzgfdHBu9T1onyUUs6mlImYOelDzLHZyAHsHQbqWtRF9kGd1fAMIWHJ2V/ovQXAIfWRubwIDAQAB
     #商户持有的公钥
     myPublicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuj/NCg39NBUQ566d4qHMSHTr640wr2b+tFJXhdR8yjweVampDGE8Aa/EFBMtWAveVNEkaJjegmv0Q3BUAthXGtGAzOn9IMzB4LKCZakngPy5fi/MLhvFcQFtd0rDwHSIIiQgL1azuYeQYv0Eet74wBkuwMYcD0UG3Q+CZdnsbpQIDAQAB
     #商户持有的私钥
