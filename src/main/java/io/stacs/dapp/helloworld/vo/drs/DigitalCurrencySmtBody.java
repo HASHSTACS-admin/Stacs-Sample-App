@@ -35,7 +35,7 @@ public class DigitalCurrencySmtBody implements Serializable {
     /**
      * 资产拥有者
      */
-    @ApiModelProperty(value = "发行资产的持有者地址,默认和提交地址一致", required = true)
+    @ApiModelProperty(value = "发行资产的持有者地址,可以和提交地址一致", required = true)
     @NotBlank(message = "持有人地址不能为空")
     private String ownerAddress;
     /**

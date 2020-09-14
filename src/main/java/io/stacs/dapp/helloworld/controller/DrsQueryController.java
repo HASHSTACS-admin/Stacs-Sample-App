@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @Description 用户可以获取地址、查询余额等非上链交易的通用入口
  * @since 2020/9/12
  */
-@Api(tags = "DRS相关API同步接口")
+@Api(tags = "DRS非报文查询API")
 @Slf4j
 @RestController
 @RequestMapping("/smt/api")
