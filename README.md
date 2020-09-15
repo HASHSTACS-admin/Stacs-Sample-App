@@ -4,6 +4,16 @@
 #### 申请商户:
 
  1. 用户联系Settlity运营中心，运营人员会提供商户号、DRS公钥、商户公私钥、以及helloworld源码包、以及Settlity测试网络VPN账号
+  - 1.可以在[支付宝开放平台](https://ideservice.alipay.com/ide/getPluginUrl.htm?clientType=assistant&platform=win&channelType=WEB) 下载开发助手，生成公私钥对（RSA2-PKS8）
+  - 2.可以通过openssl命令生成:
+  ```shell script
+    ## 生成 RSA 私钥（传统格式的）
+    openssl genrsa -out rsa_private_key.pem 1024
+    ## 将传统格式的私钥转换成 PKCS#8 格式的（JAVA需要使用的私钥需要经过PKCS#8编码）
+    openssl pkcs8 -topk8 -inform PEM -in rsa_private_key.pem -outform PEM -nocrypt
+    ## 生成 RSA 公钥
+    openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+```
  2. 用户通过VPN接入测试网络后，需向运营中心提供测试网络分配的IP地址。
  
 ### 1.2. 用户开发环境准备
