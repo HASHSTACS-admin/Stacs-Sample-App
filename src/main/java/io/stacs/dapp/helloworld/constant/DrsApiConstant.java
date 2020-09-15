@@ -21,4 +21,9 @@ public interface DrsApiConstant {
      * 查询余额url
      */
     String BALANCE_OF_URL = "/smt/contract/balanceOf";
+
+    /**
+     * 根据商户号和UUID查询报文结果
+     */
+    String QUERY_SMT_RESULT = "/smt/message/getByIdentifierIdAndUuid";
 }

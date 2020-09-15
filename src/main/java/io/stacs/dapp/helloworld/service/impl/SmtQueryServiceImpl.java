@@ -7,7 +7,9 @@ import io.stacs.dapp.helloworld.httpclient.DrsClient;
 import io.stacs.dapp.helloworld.service.SmtQueryService;
 import io.stacs.dapp.helloworld.utils.UUIDUtil;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
+import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.BalanceOfRequest;
+import io.stacs.dapp.helloworld.vo.demo.QuerySmtResultRequest;
 import io.stacs.dapp.helloworld.vo.drs.AddressCreateRequest;
 import io.stacs.dapp.helloworld.vo.drs.BalanceQueryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,19 @@ public class SmtQueryServiceImpl implements SmtQueryService {
                 .build();
         JSONObject response = DrsClient.post(drsConfig.getBalanceOfUrl(), drsBalanceQueryRequest);
         return JSONObject.parseObject(response.toJSONString(), new TypeReference<DrsResponse<BigDecimal>>() {
+        });
+    }
+
+    /**
+     * 根据商户号和uuid查询
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public DrsResponse querySmtResult(QuerySmtResultRequest request) {
+        JSONObject response = DrsClient.post(drsConfig.getBalanceOfUrl(), request);
+        return JSONObject.parseObject(response.toJSONString(), new TypeReference<DrsResponse<DrsSmtMessage>>() {
         });
     }
 }

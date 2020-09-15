@@ -2,6 +2,7 @@ package io.stacs.dapp.helloworld.service;
 
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.demo.BalanceOfRequest;
+import io.stacs.dapp.helloworld.vo.demo.QuerySmtResultRequest;
 
 /**
  * @author HuangShengli
@@ -26,4 +27,12 @@ public interface SmtQueryService {
      * @return
      */
     DrsResponse balanceOf(BalanceOfRequest request);
+
+    /**
+     * 根据商户号和uuid查询报文结果
+     *
+     * @param request
+     * @return
+     */
+    DrsResponse querySmtResult(QuerySmtResultRequest request);
 }
