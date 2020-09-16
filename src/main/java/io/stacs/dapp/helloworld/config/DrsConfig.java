@@ -33,4 +33,8 @@ public class DrsConfig implements DrsApiConstant {
         return url + BALANCE_OF_URL;
     }
 
+    public String getQuerySmtByUuidUrl() {
+        return url + QUERY_SMT_RESULT;
+    }
+
 }
