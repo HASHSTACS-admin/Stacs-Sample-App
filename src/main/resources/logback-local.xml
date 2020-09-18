@@ -11,7 +11,7 @@
     <property name="COMMON_LOG_PATTERN"
               value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%X{X-B3-TraceId:-} %X{X-B3-SpanId:-}] [%thread] [%method-%line] %level %logger{15} - %msg %n"/>
 
-    <!-- 控制台、tomcat默认日志输出 -->
+    <!-- Tomcat default log pattern -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder charset="UTF-8">
             <pattern>${COMMON_LOG_PATTERN}
@@ -19,7 +19,7 @@
         </encoder>
     </appender>
 
-    <!-- 业务打印设置 -->
+    <!-- Logging Levels -->
     <logger name="io.stacs.dapp.*.**" level="INFO" additivity="false">
         <appender-ref ref="console"/>
     </logger>
@@ -36,7 +36,6 @@
         <appender-ref ref="console"/>
     </logger>
 
-    <!-- 设置日志级别 -->
     <root level="INFO">
         <appender-ref ref="console"/>
     </root>
