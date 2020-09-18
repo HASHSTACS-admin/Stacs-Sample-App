@@ -13,7 +13,7 @@ public class AESUtil {
         try {
             KeyGenerator kg = KeyGenerator.getInstance("AES");
             kg.init(len);
-            //要生成多少位，只需要修改这里即可128, 192或256
+            //Key Length can be specified here, 128,192,256
             SecretKey sk = kg.generateKey();
             byte[] b = sk.getEncoded();
             String s = byteToHexString(b);

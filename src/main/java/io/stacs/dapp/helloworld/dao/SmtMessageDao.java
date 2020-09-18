@@ -7,13 +7,13 @@ import org.springframework.stereotype.Repository;
 /**
  * @author HuangShengli
  * @ClassName SmtMessageDao
- * @Description TODO
+ * @Description
  * @since 2020/9/12
  */
 @Repository
 public interface SmtMessageDao extends JpaRepository<SmtMessage, Long> {
     /**
-     * 根据uuid查询报文消息
+     * Query by Uuid
      *
      * @param uuid
      * @return

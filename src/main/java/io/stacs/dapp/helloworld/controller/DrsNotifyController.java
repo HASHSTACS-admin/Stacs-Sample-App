@@ -26,8 +26,8 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author HuangShengli
  * @ClassName DrsNotifyController
- * @Description DRS回调入口
- * 为清晰展示加解密处理过程，本入口处理逻辑较为冗长，正式项目建议使用Web Filter的方式统一处理加解密
+ * @Description DRS Callback API Response handler
+ * Encryption and Decryption processes of the API response is provided below. We recommend the use of Web     Filter for encrypting and decrypting API requests and responses respectively.
  * @since 2020/9/11
  */
 
@@ -47,54 +47,54 @@ public class DrsNotifyController {
     @PostMapping
     public void notify(HttpServletRequest request, HttpServletResponse response) {
         //
-        /** A.解密阶段: 从request流中解密请求数据*/
-        //1.获取请求头
+        /** A.Decryption Phase: decrypting the request payload from the incoming API request via the DRS callback API*/
+        //1.Get the Header from the incoming HTTP Request
         String identifierId = request.getHeader("identifierId");
         String signature = request.getHeader("signature");
         String aesKey = request.getHeader("aesKey");
-        //2.基础校验
+        //2.Validate presence of required parameters
         if (!checkRequest(identifierId, signature, aesKey)) {
             return;
         }
         try {
-            //3.获取字节流数据
+            //3.Convert the request to a byte stream 
             byte[] requestEncryptBytes = IOUtils.toByteArray(request.getInputStream());
-            //4.使用DRS公钥验签
+            //4.Verify the signature using the DRS public key
             if (!RsaSignUtil.check(requestEncryptBytes, signature, drsConfig.getPublicKey())) {
-                log.error("验签失败");
+                log.error("Signature Validation Failed");
                 errorResponse(response, 403);
                 return;
             }
-            //5.使用商户自己的私钥解密AESKEY
+            //5.Decrypt and retrieve the AES key using the merchant's private key
             String decryptAesKey = RsaEncryptUtil.byte2string(RsaEncryptUtil.decryptByPrivateKeyString(aesKey, drsConfig.getMyPrivateKey()));
-            //6.使用解密的AESKEY解密请求数据
+            //6.Use the decrypted AES key to decrypt the request byte stream
             byte[] decryptBytes = AESUtil.decryptBinary(requestEncryptBytes, decryptAesKey);
-            //7.json反序列化得到整个报文
+            //7.Deserialize the JSON to retrieve the Request Message
             String jsonBody = new String(decryptBytes, DEFAULT_CHARSET);
             DrsSmtMessage smtData = JSON.parseObject(jsonBody, DrsSmtMessage.class);
-            log.info("DRS回调请求数据解密完成:{}", jsonBody);
+            log.info("DRS Callback Response decrypted is completed:{}", jsonBody);
 
-            /** B.业务处理阶段*/
+            /** B.Processing Phase*/
             DrsResponse drsResponse = smtNotifyService.handle(smtData);
 
-            /** C.回执加密阶段：加密回执数据，并返回给DRS*/
-            //1.生成AESKEY
+            /** C.Encryption of Receipt Confirmation Phase: encrypt a message to send back to the DRS to confirm receipt of the HTTP Request*/
+            //1.Generate new AES Key
             String respAesKey = AESUtil.generateKey256();
-            //2.使用AESKEY对回执数据加密
+            //2.Encrypt receipt confirmation request with AES Key
             byte[] respEncryptBytes = AESUtil.encryptBinary(JSON.toJSONString(drsResponse).getBytes(DEFAULT_CHARSET), respAesKey);
-            //3.使用商户自己的私钥对加密数据签名
+            //3.Sign the encrypted request with the merchant private key
             String respSign = RsaSignUtil.sign(respEncryptBytes, drsConfig.getMyPrivateKey());
-            //4.使用DRS公钥对AESKEY加密
+            //4.Encrypt the generated AES Key in Step 1 with the DRS public key
             String respEncryptAesKey = RsaEncryptUtil.base64Byte2string(RsaEncryptUtil.encryptByPublicKeyString(respAesKey, drsConfig.getPublicKey()));
-            //5.添加到header
+            //5.Add the header to the HTTP Request 
             response.addHeader("Content-Type", "application/json;charset=utf-8");
-            //商户号
+            //Merchant Id
             response.addHeader("identifierId", drsConfig.getMyIdentifierId());
-            //AESKEY
+            //Encrypted AES Key (for DRS to decrypt)
             response.addHeader("aesKey", respEncryptAesKey);
-            //签名
+            //Signature (using the merchant private key)
             response.addHeader("signature", respSign);
-            //6.响应数据回写
+            //6.Create the REsponse
             okResponse(response, respEncryptBytes);
         } catch (Exception e) {
             log.warn(e.getMessage(), e);
@@ -106,7 +106,7 @@ public class DrsNotifyController {
 
 
     /**
-     * DRS请求基础验证
+     * DRS Required Parameters Validation
      *
      * @param identifierId
      * @param signature
@@ -115,18 +115,18 @@ public class DrsNotifyController {
      */
     private boolean checkRequest(String identifierId, String signature, String aesKey) {
         if (StringUtils.isEmpty(identifierId) || StringUtils.isEmpty(signature) || StringUtils.isEmpty(aesKey)) {
-            log.warn("DRS回调请求参数不合法");
+            log.warn("DRS API Callback Missing Parameters");
             return false;
         }
         if (!identifierId.equals(drsConfig.getMyIdentifierId())) {
-            log.warn("收到无效请求,identifierId={}", identifierId);
+            log.warn("Invalid request received,identifierId={}", identifierId);
             return false;
         }
         return true;
     }
 
     /**
-     * 成功响应
+     * Successful Response
      *
      * @param response
      * @param body
@@ -143,7 +143,7 @@ public class DrsNotifyController {
     }
 
     /**
-     * 失败响应
+     * Failed Response
      *
      * @param response
      * @param httpStatus

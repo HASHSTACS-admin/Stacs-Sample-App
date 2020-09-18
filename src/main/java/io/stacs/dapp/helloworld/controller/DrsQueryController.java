@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @author HuangShengli
  * @ClassName DrsQueryController
- * @Description 用户可以获取地址、查询余额等非上链交易的通用入口
+ * @Description Query API Requests
  * @since 2020/9/12
  */
-@Api(tags = "DRS非报文查询API")
+@Api(tags = "DRS Query APIs")
 @Slf4j
 @RestController
 @RequestMapping("/smt/api")
@@ -27,7 +27,7 @@ public class DrsQueryController {
     SmtQueryService smtQueryService;
 
 
-    @ApiOperation(value = "余额查询", notes = "余额查询请求")
+    @ApiOperation(value = "Token Balance Query", notes = "Balance Query Request")
     @PostMapping("/balanceOf")
     @ResponseBody
     public DrsResponse balanceOf(@Validated @RequestBody BalanceOfRequest request) {
@@ -39,7 +39,7 @@ public class DrsQueryController {
         }
     }
 
-    @ApiOperation(value = "获取地址")
+    @ApiOperation(value = "Query Address")
     @GetMapping("/getAddress")
     @ResponseBody
     public DrsResponse getAddress() {
@@ -52,7 +52,7 @@ public class DrsQueryController {
         }
     }
 
-    @ApiOperation(value = "根据商户号和UUID查询SMT报文结果")
+    @ApiOperation(value = "Query Transaction Status using SMT by Merchant Id and Uuid")
     @PostMapping("/querySmtResult")
     @ResponseBody
     public DrsResponse querySmtResult(@Validated @RequestBody QuerySmtResultRequest request) {

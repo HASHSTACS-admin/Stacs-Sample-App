@@ -8,53 +8,52 @@ import java.util.Date;
 /**
  * @author HuangShengli
  * @ClassName SmtMessage
- * @Description 报文记录实体
+ * @Description SMT Message
  * @since 2020/9/11
  */
 @Data
 @Entity
 @Table(name = "smt_message",indexes = {@Index(columnList = "uuid",unique = true)})
-@org.hibernate.annotations.Table(appliesTo = "smt_message",comment="报文记录表")
+@org.hibernate.annotations.Table(appliesTo = "smt_message",comment="SMT Message")
 public class SmtMessage {
     /**
-     * 主键id
-     * 自增长
+     * Auto Increment, Unique id
      */
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(nullable = false,columnDefinition = "bigint(20)  comment '主键ID'")
+    @Column(nullable = false,columnDefinition = "bigint(20)  comment 'Primary Key ID'")
     private Long id ;
 
-    @Column(nullable = false,columnDefinition = "varchar(128) comment '报文CODE'")
+    @Column(nullable = false,columnDefinition = "varchar(128) comment 'SMT CODE'")
     private String smtCode ;
     @Column(nullable = false,columnDefinition = "varchar(128) comment 'uuid'")
     private String uuid ;
-    @Column(nullable = false,columnDefinition = "varchar(20) comment '商户号'")
+    @Column(nullable = false,columnDefinition = "varchar(20) comment 'Merchant Id'")
     private String identifierId ;
-    @Column(nullable = true,columnDefinition = "varchar(255) comment 'message id，由DRS返回'")
+    @Column(nullable = true,columnDefinition = "varchar(255) comment 'message id，DRS Response Parameter'")
     private String messageId ;
-    @Column(nullable = true,columnDefinition = "varchar(255) comment 'session id，由DRS返回'")
+    @Column(nullable = true,columnDefinition = "varchar(255) comment 'session id，DRS Response Parameter'")
     private String sessionId ;
-    @Column(nullable = false,columnDefinition = "varchar(64) comment '交易签名地址'")
+    @Column(nullable = false,columnDefinition = "varchar(64) comment 'Transaction Sender Address'")
     private String messageSenderAddress ;
-    @Column(nullable = false,columnDefinition = "longtext comment '报文体数据，json格式存储'")
+    @Column(nullable = false,columnDefinition = "longtext comment 'SMT Parameters，json format'")
     private String body ;
-    @Column(nullable = true,columnDefinition = "longtext comment '链上交易信息'")
+    @Column(nullable = true,columnDefinition = "longtext comment 'Blockchain Transaction Id'")
     private String blockchainTransaction;
-    @Column(nullable = true,columnDefinition = "varchar(128) comment '附加信息，暂时没用'")
+    @Column(nullable = true,columnDefinition = "varchar(128) comment 'additional, optional data payload'")
     private String extraData;
-    @Column(nullable = true,columnDefinition = "varchar(128) comment '备注信息'")
+    @Column(nullable = true,columnDefinition = "varchar(128) comment 'remarks'")
     private String authenticationTrailer;
-    @Column(nullable = true,columnDefinition = "varchar(255) comment 'DRS错误信息'")
+    @Column(nullable = true,columnDefinition = "varchar(255) comment 'Error Message from DRS'")
     private String responseMessage ;
-    @Column(nullable = true,columnDefinition = "varchar(64) comment 'DRS错误码,成功:success'")
+    @Column(nullable = true,columnDefinition = "varchar(64) comment 'Error Code from DRS, if no errors will reflect:success'")
     private String responseCode ;
-    @Column(nullable = true,columnDefinition = "varchar(10) comment 'DRS返回的版本号'")
+    @Column(nullable = true,columnDefinition = "varchar(10) comment 'Version from DRS'")
     private String version ;
-    @Column(nullable = true, columnDefinition = "longtext comment '该报文发生的交易ID，可能多笔，json格式'")
+    @Column(nullable = true, columnDefinition = "longtext comment 'may return multiple blockchain transaction IDs in json format'")
     private String txs;
-    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP comment '创建时间'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP")
     private Date createAt;
-    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date updateAt;
 }
