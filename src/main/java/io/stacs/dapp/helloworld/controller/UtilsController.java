@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author HuangShengli
  * @ClassName UtilsController
- * @Description 提供一些系统工具，比如生成RSA密钥对
+ * @Description Provide an alternative way to create RSA-based asymmetric keys for registration
  * @since 2020/9/18
  */
-@Api(tags = "一些系统工具")
+@Api(tags = "Utility")
 @Slf4j
 @RestController
 @RequestMapping("/system/utils")
 public class UtilsController {
 
 
-    @ApiOperation(value = "生成RSA密钥对", notes = "生成RSA密钥对")
+    @ApiOperation(value = "create RSA keypair", notes = "Create RSA keypair")
     @PostMapping("/getRsaKeyPair")
     @ResponseBody
     public DrsResponse getRsaKeyPair() {
