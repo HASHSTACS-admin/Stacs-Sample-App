@@ -17,7 +17,7 @@ import java.util.Date;
 /**
  * @author HuangShengli
  * @ClassName AbstractSendSmtMessageService
- * @Description 报文发送服务
+ * @Description SMT Message Service
  * @since 2020/9/12
  */
 @Slf4j
@@ -29,7 +29,7 @@ public abstract class AbstractSendSmtMessageService {
     protected DrsConfig drsConfig;
 
     /**
-     * 发送报文并保存到报文记录表
+     *Send HTTP API Request (with SMT)
      *
      * @param message
      * @return
@@ -37,23 +37,23 @@ public abstract class AbstractSendSmtMessageService {
     protected DrsResponse<DrsResponse.SmtResult> doSend(DrsSmtMessage message) {
 
         try {
-            //http 发送报文
-            log.info("发送报文开始,smtCode={}，uuid={}", message.getHeader().getSmtCode(), message.getHeader().getUuid());
+            //http request message format
+            log.info("Starting sending of HTTP API Request,smtCode={}，uuid={}", message.getHeader().getSmtCode(), message.getHeader().getUuid());
             JSONObject response = DrsClient.post(drsConfig.getSmtSendUrl(), message);
-            //反序列化为DrsResponse对象
+            //Retrieve HTTP Response
             DrsResponse<DrsResponse.SmtResult> result = JSONObject.parseObject(response.toJSONString(), new TypeReference<DrsResponse<DrsResponse.SmtResult>>() {
             });
-            //取出响应码
+            //Retrieve Status Code from Response
             DrsRespCode respCode = DrsRespCode.getByCode(result.getCode());
-            //判断DRS受理结果
+            //Check if Status is successful
             if (respCode == DrsRespCode.SUCCESS || respCode == DrsRespCode.ACCEPTED) {
-                log.info("报文发送成功");
+                log.info("Request was sent successful");
                 message.getHeader().setMessageId(result.getData().getMessageId());
                 message.getHeader().setSessionId(result.getData().getSessionId());
-                //保存到数据库
+                //Save to database
                 smtMessageDao.save(convert(message));
             } else {
-                log.warn("报文发送失败");
+                log.warn("Response failed to send.");
             }
             return result;
         } catch (Exception e) {
@@ -68,7 +68,7 @@ public abstract class AbstractSendSmtMessageService {
         SmtMessage messagePO = new SmtMessage();
         messagePO.setCreateAt(new Date());
         messagePO.setUpdateAt(new Date());
-        //header信息
+        //setup message header
         messagePO.setIdentifierId(message.getHeader().getIdentifierId());
         messagePO.setSessionId(message.getHeader().getSessionId());
         messagePO.setMessageId(message.getHeader().getMessageId());

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author Huang Shengli
- * @Description 发行数字货币
+ * @Description Digital Currency Issuance - SMT Code Example
  * @date 2020-09-13
  */
 @Service("smta-dc-dc-issue-1-v1")
@@ -20,7 +20,7 @@ public class DigitalCurrencyDemoServiceImpl extends AbstractSendSmtMessageServic
 
 
     /**
-     * 数字货币发行
+     * Issuance of Digital Currency
      *
      * @param request
      * @return
@@ -28,18 +28,18 @@ public class DigitalCurrencyDemoServiceImpl extends AbstractSendSmtMessageServic
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
         DigitalCurrencySmtRequest dcRequest = (DigitalCurrencySmtRequest) request;
-        //组装报文数据
-        //1.报文头
+        //Composing the SMT Message for sending via HTTP API
+        //1. Setup of the Request Header
         DrsSmtMessage.SmtHeader header = DrsSmtMessage.SmtHeader.builder().
                 identifierId(drsConfig.getMyIdentifierId())
                 .messageSenderAddress(dcRequest.getHeader().getMessageSenderAddress())
                 .smtCode("smta-dc-dc-issue-1-v1")
-                //uuid由商户生成
+                //unique identifier to be created by the developer
                 .uuid(UUIDUtil.uuid())
                 .build();
-        //报文体
+        //Setup of the Request Body 
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(dcRequest.getBody()), DrsSmtMessage.SmtBody.class);
-        //报文尾
+        //Setup of the Request trailer field
         DrsSmtMessage.SmtTrailer trailer = null;
         if (null != dcRequest.getTrailer()) {
             trailer = DrsSmtMessage.SmtTrailer

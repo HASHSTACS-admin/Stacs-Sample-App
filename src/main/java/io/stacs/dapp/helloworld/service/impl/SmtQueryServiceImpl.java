@@ -29,7 +29,7 @@ public class SmtQueryServiceImpl implements SmtQueryService {
     private DrsConfig drsConfig;
 
     /**
-     * 获取地址
+     * Get Address
      *
      * @return
      */
@@ -37,9 +37,9 @@ public class SmtQueryServiceImpl implements SmtQueryService {
     public DrsResponse getAddress() {
 
         AddressCreateRequest createRequest = AddressCreateRequest.builder()
-                //生成uuid
+                //Create unique uuid
                 .uuid(UUIDUtil.uuid())
-                //设置商户号
+                //Set merchant id
                 .identifierId(drsConfig.getMyIdentifierId())
                 .build();
         JSONObject response = DrsClient.post(drsConfig.getCreateAddressUrl(), createRequest);
@@ -49,7 +49,7 @@ public class SmtQueryServiceImpl implements SmtQueryService {
     }
 
     /**
-     * 余额查询
+     * Query balance of an address
      *
      * @param request
      * @return
@@ -57,11 +57,11 @@ public class SmtQueryServiceImpl implements SmtQueryService {
     @Override
     public DrsResponse balanceOf(BalanceOfRequest request) {
         BalanceQueryRequest drsBalanceQueryRequest = BalanceQueryRequest.builder()
-                //查询地址
+                //Set address
                 .address(request.getAddress())
-                //查询的资产ID
+                //set digital asset id
                 .assetId(request.getAssetId())
-                //商户号
+                //set merchant id
                 .identifierId(drsConfig.getMyIdentifierId())
                 .build();
         JSONObject response = DrsClient.post(drsConfig.getBalanceOfUrl(), drsBalanceQueryRequest);
@@ -70,7 +70,7 @@ public class SmtQueryServiceImpl implements SmtQueryService {
     }
 
     /**
-     * 根据商户号和uuid查询
+     * Query Transaction status using Merchant Id and Uuid
      *
      * @param request
      * @return

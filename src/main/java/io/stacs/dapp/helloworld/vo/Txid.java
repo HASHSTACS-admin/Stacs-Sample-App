@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * @author HuangShengli
  * @ClassName Txid
- * @Description txids respond by drs,like [{txid:xxx,txType:xxx}]
+ * @Description transaction ids are returned in this format [{txid:xxx,txType:xxx}]
  * @since 2020/5/11
  */
 @Data

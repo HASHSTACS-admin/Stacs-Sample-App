@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author Huang Shengli
- * @Description 转账类
+ * @Description Transfer of Digital Assets
  * @date 2020-09-13
  */
 @Service("transfer")
@@ -20,7 +20,7 @@ public class TransferDemoServiceImpl extends AbstractSendSmtMessageService imple
 
 
     /**
-     * 数字货币发行
+     * Transfer Digital Asset
      *
      * @param request
      * @return
@@ -29,17 +29,17 @@ public class TransferDemoServiceImpl extends AbstractSendSmtMessageService imple
     public DrsResponse doDemo(DemoBaseRequest request) {
         TransferSmtRequest transferRequest = (TransferSmtRequest) request;
 
-        //1.报文头
+        //1. Response header
         DrsSmtMessage.SmtHeader header = DrsSmtMessage.SmtHeader.builder().
                 identifierId(drsConfig.getMyIdentifierId())
                 .messageSenderAddress(transferRequest.getHeader().getMessageSenderAddress())
                 .smtCode(transferRequest.getHeader().getSmtCode())
-                //uuid由商户生成
+                //unique uuid creation
                 .uuid(UUIDUtil.uuid())
                 .build();
-        //报文体
+        //Response body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(transferRequest.getBody()), DrsSmtMessage.SmtBody.class);
-        //报文尾
+        //Response trailer
         DrsSmtMessage.SmtTrailer trailer = null;
         if (null != transferRequest.getTrailer()) {
             trailer = DrsSmtMessage.SmtTrailer
@@ -47,7 +47,7 @@ public class TransferDemoServiceImpl extends AbstractSendSmtMessageService imple
                     .authenticationTrailer(transferRequest.getTrailer().getAuthenticationTrailer())
                     .build();
         }
-        //组装报文数据
+        //Assemble the header, body, trailer into the message to be sent as a HTTP API request
         DrsSmtMessage message = DrsSmtMessage.builder()
                 .header(header)
                 .body(body)

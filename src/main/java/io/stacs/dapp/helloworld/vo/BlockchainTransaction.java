@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author HuangShengli
  * @ClassName BlockchainTransaction
- * @Description 报文尾中，交易数据结构
+ * @Description Transaction Base Data Structure
  * @since 2020/9/14
  */
 @Data

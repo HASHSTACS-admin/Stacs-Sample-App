@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author HuangShengli
  * @ClassName TXEvent
- * @Description 合约中event事件
+ * @Description Smart Contract Event
  * @since 2020/9/14
  */
 @Data

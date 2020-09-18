@@ -7,13 +7,13 @@ import io.stacs.dapp.helloworld.vo.demo.QuerySmtResultRequest;
 /**
  * @author HuangShengli
  * @ClassName SmtDemoService
- * @Description DRS 查询API
+ * @Description DRS API Query Service
  * @since 2020/9/12
  */
 public interface SmtQueryService {
 
     /**
-     * 获取地址
+     * Get Address
      *
      * @param
      * @return
@@ -21,7 +21,7 @@ public interface SmtQueryService {
     DrsResponse getAddress();
 
     /**
-     * 余额查询
+     * Get Balance of address
      *
      * @param request
      * @return
@@ -29,7 +29,7 @@ public interface SmtQueryService {
     DrsResponse balanceOf(BalanceOfRequest request);
 
     /**
-     * 根据商户号和uuid查询报文结果
+     * Get Transaction status using Merchant Id and Uuid
      *
      * @param request
      * @return

@@ -6,13 +6,13 @@ import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 /**
  * @author HuangShengli
  * @ClassName SmtNotifyService
- * @Description DRS回调业务处理
+ * @Description DRS Callback Notification Service
  * @since 2020/9/12
  */
 public interface SmtNotifyService {
 
     /**
-     * 回调处理
+     * Callback Response Handler
      *
      * @param message
      * @return

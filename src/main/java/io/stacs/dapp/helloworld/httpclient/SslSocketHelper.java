@@ -7,15 +7,15 @@ import java.security.cert.X509Certificate;
 /**
  * @author HuangShengli
  * @ClassName SslSocketHelper
- * @Description 由于测试网络中drs服务可能使用的自签证书，需要本地client配置相关ssl协议，正式网络中可以去掉
+ * @Description The defaut implementation in this class assumes use of a self-signed X.509 certificate on the DRS for a test environent. Additional implementation for a signed certificate will need to be built.
  * @since 2020/9/11
  */
 public class SslSocketHelper {
 
     /**
-     * 获取SSLSocketFactory
-     * 测试网络drs可能使用自签证书
-     * 正式网络里可以忽略该配置
+     * SSLSocketFactory
+     * The default method here assumes use of a self-signed certificate on a test DRS environment
+     * This will not be used if self-signed certificates are not used
      *
      * @return
      */
@@ -31,7 +31,7 @@ public class SslSocketHelper {
 
 
     /**
-     * 信任所有
+     * Trust Manager
      *
      * @return
      */
@@ -57,7 +57,7 @@ public class SslSocketHelper {
 
 
     /**
-     * 域名验证
+     * Hostname Verification
      *
      * @return
      */

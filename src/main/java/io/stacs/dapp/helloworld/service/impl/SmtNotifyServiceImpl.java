@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author HuangShengli
  * @ClassName SmtNotifyService
- * @Description DRS回调业务处理
+ * @Description DRS Callback Notification Service Implementation
  * @since 2020/9/12
  */
 @Slf4j
@@ -31,26 +31,26 @@ public class SmtNotifyServiceImpl implements SmtNotifyService {
     public DrsResponse handle(DrsSmtMessage message) {
 
         SmtMessage messagePO = smtMessageDao.findByUuid(message.getHeader().getUuid());
-        //收到无效消息，直接返回成功
+        //If message object is null, return success
         if (messagePO == null) {
-            log.info("收到无效回调消息,uuid={},messageId={}", message.getHeader().getUuid(), message.getHeader().getMessageId());
+            log.info("received null message,uuid={},messageId={}", message.getHeader().getUuid(), message.getHeader().getMessageId());
             return DrsResponse.success(null);
         }
-        log.info("收到DRS回调消息:{}", message);
+        log.info("received DRS response message:{}", message);
         messagePO.setResponseCode(message.getTrailer().getResponseCode());
         messagePO.setResponseMessage(message.getTrailer().getResponseMessage());
         messagePO.setBlockchainTransaction(JSON.toJSONString(message.getTrailer().getBlockchainTransaction()));
         messagePO.setTxs(parseTxs(message.getTrailer().getBlockchainTransaction()));
-        //更新body，因为有些信息需要上链成功才能返回
+        //Update message body as some transactions need to be on the blockchain before it can be returned
         messagePO.setBody(message.getBody().toJSONString());
         messagePO.setUpdateAt(new Date());
         smtMessageDao.save(messagePO);
         if (DrsRespCode.SUCCESS.getCode().equals(message.getTrailer().getResponseCode()) || DrsRespCode.ACCEPTED.getCode().equals(message.getTrailer().getResponseCode())) {
-            log.info("您发送的报文,已上链成功，交易IDs:{}", messagePO.getTxs());
+            log.info("The transactions are on the blockchain and are successful, Transaction IDs are:{}", messagePO.getTxs());
         } else {
-            log.info("您发送的报文,已上链失败，错误原因:{}", message.getTrailer().getResponseMessage());
+            log.info("The transactions are on the blockchain but have failed with the error message:{}", message.getTrailer().getResponseMessage());
         }
-        log.info("DRS回调处理成功");
+        log.info("DRS Response is received successfully.");
         return DrsResponse.success(null);
     }
 
