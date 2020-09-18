@@ -4,8 +4,8 @@
 #### 申请商户:
 
  1. 用户联系Settlity运营中心，运营人员会提供商户号、DRS公钥、商户公私钥、以及helloworld源码包、以及Settlity测试网络VPN账号
-  - 1.可以在[支付宝开放平台](https://ideservice.alipay.com/ide/getPluginUrl.htm?clientType=assistant&platform=win&channelType=WEB) 下载开发助手，生成公私钥对（RSA2-PKS8）
-  - 2.可以通过openssl命令生成:
+  - 可以在[支付宝开放平台](https://ideservice.alipay.com/ide/getPluginUrl.htm?clientType=assistant&platform=win&channelType=WEB) 下载开发助手，生成公私钥对（RSA2-PKS8）
+  - 可以通过openssl命令生成:
   ```shell script
     ## 生成 RSA 私钥（传统格式的）
     openssl genrsa -out rsa_private_key.pem 1024
@@ -13,8 +13,9 @@
     openssl pkcs8 -topk8 -inform PEM -in rsa_private_key.pem -outform PEM -nocrypt
     ## 生成 RSA 公钥
     openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
-```
+  ```
  2. 用户通过VPN接入测试网络后，需向运营中心提供测试网络分配的IP地址。
+ 3. 以上是需要DRS主动回调helloworld,如果不需要回调，用户可以不用接入VPN网络，由用户自己实现主动查询报文结果。可以在Swagger`DRS非报文查询API`中找到`/smt/api/querySmtResult`接口示例。
  
 ### 1.2. 用户开发环境准备
 

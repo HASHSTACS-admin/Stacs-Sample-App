@@ -77,7 +77,7 @@ public class SmtQueryServiceImpl implements SmtQueryService {
      */
     @Override
     public DrsResponse querySmtResult(QuerySmtResultRequest request) {
-        JSONObject response = DrsClient.post(drsConfig.getBalanceOfUrl(), request);
+        JSONObject response = DrsClient.post(drsConfig.getQuerySmtByUuidUrl(), request);
         return JSONObject.parseObject(response.toJSONString(), new TypeReference<DrsResponse<DrsSmtMessage>>() {
         });
     }
