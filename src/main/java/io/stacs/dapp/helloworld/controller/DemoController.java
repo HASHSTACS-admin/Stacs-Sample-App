@@ -16,11 +16,11 @@ import java.util.Map;
 /**
  * @author HuangShengli
  * @ClassName DemoController
- * @Description 用户可以体验发送已提供的各种报文
- * 当用户启动helloworld服务后，可以使用curl、postman、swagger等工具来尝试发送报文
+ * @Description API Controller
+ * Allows access via curl, postman, swagger
  * @since 2020/9/12
  */
-@Api(tags = "SMT报文体验入口")
+@Api(tags = "DRS APIs with SMT")
 @Slf4j
 @RestController
 @RequestMapping("/smt/demo/")
@@ -33,7 +33,7 @@ public class DemoController {
      *
      * @return
      */
-    @ApiOperation(value = "数字货币报文")
+    @ApiOperation(value = "Issue Digital Currency")
     @PostMapping("issueDigitalCurrency")
     @ResponseBody
     public DrsResponse issueDigitalCurrency(@Validated @RequestBody DigitalCurrencySmtRequest request) {
@@ -45,7 +45,7 @@ public class DemoController {
      *
      * @return
      */
-    @ApiOperation(value = "转账(债券、数字货币、ABS、凭证)")
+    @ApiOperation(value = "Transfer (Bonds, ABS, DIgital Currency, Certificates)")
     @PostMapping("transfer")
     @ResponseBody
     public DrsResponse transfer(@Validated @RequestBody TransferSmtRequest request) {

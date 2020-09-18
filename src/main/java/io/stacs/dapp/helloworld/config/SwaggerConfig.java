@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * @author HuangShengli
  * @ClassName SwaggerConfig
- * @Description TODO
+ * @Description Swagger UI Config
  * @since 2020/9/12
  */
 @Configuration
@@ -28,19 +28,19 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .pathMapping("/")
                 .select()
-                // 选择哪些路径和api会生成document
+                //select specific api request
                 .apis(RequestHandlerSelectors.any())
-                //不显示错误的接口地址
+                //configure not to display errors
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
-                // 对根下所有路径进行监控
+                //set path monitoring to root '/' 
                 .paths(PathSelectors.regex("/.*"))
                 .build();
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("报文体验Helloworld示例文档")
-                .contact(new Contact("Captain", "", "huangshengli@stacs.cn"))
-                .description("这是SWAGGER_2生成的接口文档")
+        return new ApiInfoBuilder().title("Sample Document")
+                .contact(new Contact("Support", "", "support@stacs.io"))
+                .description("This is the sample API document using Swagger 2")
                 .build();
     }
 }

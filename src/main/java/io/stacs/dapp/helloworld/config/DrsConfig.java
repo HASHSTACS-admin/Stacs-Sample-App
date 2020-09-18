@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author HuangShengli
  * @ClassName MyConfig
- * @Description TODO
+ * @Description Config Properties
  * @since 2020/9/12
  */
 @Data
