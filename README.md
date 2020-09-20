@@ -35,7 +35,7 @@
  1. 用户启动程序后，打开Swagger网页找到`DRS非报文查询API`,获取一个地址，并记下。
  2. 用户找到`SMT报文体验入口`,先发行一个数字货币资产。提交后会返回messageId，用户可以记下这个ID，等待DRS通知发行是否成功。
  3. DRS回调通知可能会1~5s间，用户可以使用上一步骤中的messageId搜索helloworld服务日志，查看回调结果，或者可以根据messageId查询数据库表smt_message查看回调结果。
- 4. 开发dapp过程中，报文参数一定要谨慎，请认真参考[报文使用手册](https://confluence.primeledger.cn/pages/viewpage.action?pageId=30999870)
+ 4. 开发dapp过程中，报文参数一定要谨慎，请认真参考[报文手册](https://confluence.primeledger.cn/display/ProductManage/SMT+Reference+Guide++1.0.0)
   > 1. select * from smt_message where message_id=${messageId}，检查response_code字段。
   > 2. 查看response_code,如果为空表示，DRS还未回调;如果为success,表示您发送的报文已成功上链，txs字段中可以找到txid(可能多个)，通过区块链浏览器查看该笔交易
   > 3. 否则表示该报文上链失败。可以通过response_message看到失败原因。

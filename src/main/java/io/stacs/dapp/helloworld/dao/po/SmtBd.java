@@ -7,15 +7,15 @@ import java.util.Date;
 
 /**
  * @author HuangShengli
- * @ClassName SmtPermission
- * @Description permission实体
- * @since 2020/9/11
+ * @ClassName SmtBd
+ * @Description bd实体
+ * @since 2020/9/19
  */
 @Data
 @Entity
-@Table(name = "smt_permission", indexes = {@Index(columnList = "uuid", unique = true)})
-@org.hibernate.annotations.Table(appliesTo = "smt_permission", comment = "权限记录表")
-public class SmtPermission {
+@Table(name = "smt_bd", indexes = {@Index(columnList = "uuid", unique = true)})
+@org.hibernate.annotations.Table(appliesTo = "smt_bd", comment = "BD记录表")
+public class SmtBd {
     /**
      * 主键id
      * 自增长
@@ -24,11 +24,11 @@ public class SmtPermission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, columnDefinition = "bigint(20)  comment '主键ID'")
     private Long id;
-    @Column(columnDefinition = "varchar(128) comment 'permission id,发布成功后返回'")
-    private String permissionId;
 
     @Column(nullable = false, columnDefinition = "varchar(128) comment '报文CODE'")
     private String smtCode;
+    @Column(nullable = true, columnDefinition = "varchar(128) comment 'BD id,发行BD成功后DRS返回'")
+    private String bdId;
     @Column(nullable = false, columnDefinition = "varchar(128) comment '状态:0-PROCESSING,1-SUCCESS,2-FAIL'")
     private Byte status;
     @Column(nullable = false, columnDefinition = "varchar(128) comment 'uuid'")
@@ -39,10 +39,6 @@ public class SmtPermission {
     private String messageId;
     @Column(nullable = true, columnDefinition = "varchar(255) comment 'session id，由DRS返回'")
     private String sessionId;
-    @Column(nullable = false, columnDefinition = "longtext comment '对此permission拥有修改权限的地址，只能填写地址,[40!c,.,40!c]数组json格式字符串'")
-    private String modifierAddress;
-    @Column(nullable = false, columnDefinition = "longtext comment '拥有permission权限的地址，只能填写地址,[40!c,.,40!c]数组json格式字符串'")
-    private String authorizedAddress;
     @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP comment '创建时间'")
     private Date createAt;
     @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间'")
