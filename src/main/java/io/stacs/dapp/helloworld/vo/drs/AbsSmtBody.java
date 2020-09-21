@@ -1,5 +1,6 @@
 package io.stacs.dapp.helloworld.vo.drs;
 
+import io.stacs.dapp.helloworld.vo.Kyc;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author HuangShengli
@@ -42,22 +44,22 @@ public class AbsSmtBody implements Serializable {
     private String settlementCurrency;
     @ApiModelProperty(value = "日计数约定，一种用来确定两个券息日期之间天数的共识约定,Eg.360/365")
     private Integer dayCountConvention;
-    @ApiModelProperty(value = "付息频率,QUARTER:Quarterly, HALF_YEAR:Semi-annually, YEAR:Annually")
+    @ApiModelProperty(value = "付息频率,QUARTER:Quarterly, HALF_YEAR:Semi-annually, YEAR:Annually", allowableValues = "QUARTER,HALF_YEAR,YEAR")
     private String couponFrequency;
     @ApiModelProperty(value = "第一次结算日期")
     private Date firstSettlementDate;
-    @ApiModelProperty(value = "约定赎回日期,[10!n,...,10!n]数组格式")
-    private String callDate;
+    @ApiModelProperty(value = "约定赎回日期,数组格式")
+    private List<Date> callDate;
     @ApiModelProperty(value = "结息和回购所使用的token ID", required = true)
     @NotBlank(message = "token ID 不能为空")
     private String disbursementTokenId;
     @ApiModelProperty(value = "KYC:个人类型KYC的黑名单(参照报文格式)")
-    private String individualProhibited;
+    private List<Kyc> individualProhibited;
     @ApiModelProperty(value = "KYC:个人类型KYC的白名单(参照报文格式)")
-    private String individualPermitted;
+    private List<Kyc> individualPermitted;
     @ApiModelProperty(value = "KYC:机构类型KYC的黑名单(参照报文格式)")
-    private String institutionalProhibited;
+    private List<Kyc> institutionalProhibited;
 
     @ApiModelProperty(value = "KYC:机构类型KYC的白名单(参照报文格式)")
-    private String institutionalPermitted;
+    private List<Kyc> institutionalPermitted;
 }

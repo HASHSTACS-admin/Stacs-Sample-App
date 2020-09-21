@@ -7,7 +7,6 @@ import io.stacs.dapp.helloworld.dao.SmtMessageDao;
 import io.stacs.dapp.helloworld.dao.po.SmtMessage;
 import io.stacs.dapp.helloworld.httpclient.DrsClient;
 import io.stacs.dapp.helloworld.utils.UUIDUtil;
-import io.stacs.dapp.helloworld.vo.DrsRespCode;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
@@ -76,17 +75,15 @@ public abstract class AbstractSendSmtMessageService {
             //反序列化为DrsResponse对象
             DrsResponse<DrsResponse.SmtResult> result = JSONObject.parseObject(response.toJSONString(), new TypeReference<DrsResponse<DrsResponse.SmtResult>>() {
             });
-            //取出响应码
-            DrsRespCode respCode = DrsRespCode.getByCode(result.getCode());
             //判断DRS受理结果
-            if (respCode == DrsRespCode.SUCCESS || respCode == DrsRespCode.ACCEPTED) {
+            if (result.success()) {
                 log.info("报文发送成功");
                 message.getHeader().setMessageId(result.getData().getMessageId());
                 message.getHeader().setSessionId(result.getData().getSessionId());
                 //保存到数据库
                 smtMessageDao.save(convert(message));
             } else {
-                log.warn("报文发送失败");
+                log.warn("报文发送失败:{},{}", result.getCode(), result.getMessage());
             }
             return result;
         } catch (Exception e) {
