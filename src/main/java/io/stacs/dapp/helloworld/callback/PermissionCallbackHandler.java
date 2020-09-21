@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Su Wenbo
  * @since 2020/9/21
  */
-@Component("permissionCallbackHandler")
+@Component("smtpm-fix-permission-set-1-v1_callback")
 @RequiredArgsConstructor
 public class PermissionCallbackHandler implements SmtCallbackHandler {
 
@@ -24,6 +24,7 @@ public class PermissionCallbackHandler implements SmtCallbackHandler {
         DrsSmtMessage.SmtBody body = message.getBody();
         String permissionId = body.getString("permissionId");
 
+        //更新表Smt Permission
         SmtPermission smtPermission = smtPermissionDao.findByUuid(uuid);
         smtPermission.setPermissionId(permissionId);
         if (message.success()) {

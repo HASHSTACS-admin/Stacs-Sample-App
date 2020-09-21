@@ -72,7 +72,7 @@ public class DemoController {
     }
 
     /**
-     * 列表格式的权限创建报文API
+     * 机构业务类的BD创建报文API
      *
      * @param request the request
      * @return the permission

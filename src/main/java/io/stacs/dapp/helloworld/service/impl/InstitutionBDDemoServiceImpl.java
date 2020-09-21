@@ -41,19 +41,18 @@ public class InstitutionBDDemoServiceImpl extends AbstractSendSmtMessageService 
             return drsResponse;
         }
         //做额外逻辑
-        doBusiness(institutionBDRequest, message, drsResponse);
+        doBusiness(message, drsResponse);
         return drsResponse;
     }
 
-    private void doBusiness(InstitutionBDRequest institutionBDRequest,
-                            DrsSmtMessage message,
+    private void doBusiness(DrsSmtMessage message,
                             DrsResponse<DrsResponse.SmtResult> smtResultDrsResponse) {
         //组装报文SMT DB数据，存数据库
         SmtBd smtBd = new SmtBd();
         smtBd.setSmtCode(message.getHeader().getSmtCode());
         smtBd.setStatus((byte) 0);
         smtBd.setUuid(message.getHeader().getUuid());
-        smtBd.setIdentifierId(drsConfig.getMyIdentifierId());
+        smtBd.setIdentifierId(message.getHeader().getIdentifierId());
         smtBd.setMessageId(smtResultDrsResponse.getData().getMessageId());
         smtBd.setSessionId(smtResultDrsResponse.getData().getSessionId());
         smtBd.setCreateAt(new Date());

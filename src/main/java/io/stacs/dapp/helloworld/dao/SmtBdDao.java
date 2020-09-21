@@ -13,11 +13,19 @@ public interface SmtBdDao extends CrudRepository<SmtBd, Long> {
 
     /**
      * 根据商户号查询bd
+     *
      * @param identifierId
      * @return
      */
     List<SmtBd> findByIdentifierId(String identifierId);
 
+    /**
+     * Find by uuid smt bd.
+     *
+     * @param uuid the uuid
+     * @return the smt bd
+     */
+    SmtBd findByUuid(String uuid);
 
 }
 

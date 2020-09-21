@@ -60,7 +60,7 @@ public class PermissionDemoServiceImpl extends AbstractSendSmtMessageService imp
         smtPermission.setSmtCode(message.getHeader().getSmtCode());
         smtPermission.setStatus((byte) 0);
         smtPermission.setUuid(message.getHeader().getUuid());
-        smtPermission.setIdentifierId(drsConfig.getMyIdentifierId());
+        smtPermission.setIdentifierId(message.getHeader().getIdentifierId());
         smtPermission.setMessageId(smtResultDrsResponse.getData().getMessageId());
         smtPermission.setSessionId(smtResultDrsResponse.getData().getSessionId());
         smtPermission.setModifierAddress(Strings.join(permissionRequest.getBody().getModifierAddress(), ','));
