@@ -2,7 +2,13 @@ package io.stacs.dapp.helloworld.dao.po;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -13,7 +19,7 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "bd_function_permission_relation", indexes = {@Index(columnList = "bdId,permissionId", unique = true)})
+@Table(name = "bd_function_permission_relation", indexes = {@Index(columnList = "bdId,functionName", unique = true)})
 @org.hibernate.annotations.Table(appliesTo = "bd_function_permission_relation", comment = "BD方法和权限的关系表")
 public class BdFunctionPermissionRelation {
     /**

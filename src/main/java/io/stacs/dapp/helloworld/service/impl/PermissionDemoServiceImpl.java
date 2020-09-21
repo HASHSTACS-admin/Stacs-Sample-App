@@ -1,6 +1,7 @@
 package io.stacs.dapp.helloworld.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import io.stacs.dapp.helloworld.constant.StatusEnum;
 import io.stacs.dapp.helloworld.dao.SmtPermissionDao;
 import io.stacs.dapp.helloworld.dao.po.SmtPermission;
 import io.stacs.dapp.helloworld.service.AbstractSendSmtMessageService;
@@ -58,7 +59,7 @@ public class PermissionDemoServiceImpl extends AbstractSendSmtMessageService imp
         //组装报文Permission数据，存数据库
         SmtPermission smtPermission = new SmtPermission();
         smtPermission.setSmtCode(message.getHeader().getSmtCode());
-        smtPermission.setStatus((byte) 0);
+        smtPermission.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
         smtPermission.setUuid(message.getHeader().getUuid());
         smtPermission.setIdentifierId(message.getHeader().getIdentifierId());
         smtPermission.setMessageId(smtResultDrsResponse.getData().getMessageId());

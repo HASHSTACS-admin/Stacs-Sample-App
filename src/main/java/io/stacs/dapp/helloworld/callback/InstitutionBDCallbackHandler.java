@@ -1,5 +1,6 @@
 package io.stacs.dapp.helloworld.callback;
 
+import io.stacs.dapp.helloworld.constant.StatusEnum;
 import io.stacs.dapp.helloworld.dao.BdFunctionPermissionRelationDao;
 import io.stacs.dapp.helloworld.dao.SmtBdDao;
 import io.stacs.dapp.helloworld.dao.po.BdFunctionPermissionRelation;
@@ -14,11 +15,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import static io.stacs.dapp.helloworld.callback.SmtCallbackHandler.SUFFIX_CALLBACK;
+
 /**
  * @author Su Wenbo
  * @since 2020/9/21
  */
-@Component("smtbd-institution-business-special-1-v1_callback")
+@Component("smtbd-institution-business-special-1-v1" + SUFFIX_CALLBACK)
 @RequiredArgsConstructor
 public class InstitutionBDCallbackHandler implements SmtCallbackHandler {
 
@@ -36,9 +39,9 @@ public class InstitutionBDCallbackHandler implements SmtCallbackHandler {
         SmtBd smtBd = smtBdDao.findByUuid(uuid);
         smtBd.setBdId(bdId);
         if (message.success()) {
-            smtBd.setStatus((byte) 1);
+            smtBd.setStatus(StatusEnum.ChainStatus.SUCCESS.getCode());
         } else {
-            smtBd.setStatus((byte) 2);
+            smtBd.setStatus(StatusEnum.ChainStatus.FAIL.getCode());
         }
         smtBd.setMessageId(message.getHeader().getMessageId());
         smtBd.setSessionId(message.getHeader().getSessionId());

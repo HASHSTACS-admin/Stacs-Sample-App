@@ -1,5 +1,6 @@
 package io.stacs.dapp.helloworld.callback;
 
+import io.stacs.dapp.helloworld.constant.StatusEnum;
 import io.stacs.dapp.helloworld.dao.SmtPermissionDao;
 import io.stacs.dapp.helloworld.dao.po.SmtPermission;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
@@ -8,11 +9,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+import static io.stacs.dapp.helloworld.callback.SmtCallbackHandler.SUFFIX_CALLBACK;
+
 /**
  * @author Su Wenbo
  * @since 2020/9/21
  */
-@Component("smtpm-fix-permission-set-1-v1_callback")
+@Component("smtpm-fix-permission-set-1-v1" + SUFFIX_CALLBACK)
 @RequiredArgsConstructor
 public class PermissionCallbackHandler implements SmtCallbackHandler {
 
@@ -28,9 +31,9 @@ public class PermissionCallbackHandler implements SmtCallbackHandler {
         SmtPermission smtPermission = smtPermissionDao.findByUuid(uuid);
         smtPermission.setPermissionId(permissionId);
         if (message.success()) {
-            smtPermission.setStatus((byte) 1);
+            smtPermission.setStatus(StatusEnum.ChainStatus.SUCCESS.getCode());
         } else {
-            smtPermission.setStatus((byte) 2);
+            smtPermission.setStatus(StatusEnum.ChainStatus.FAIL.getCode());
         }
         smtPermission.setMessageId(message.getHeader().getMessageId());
         smtPermission.setSessionId(message.getHeader().getSessionId());

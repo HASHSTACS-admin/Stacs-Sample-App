@@ -1,6 +1,7 @@
 package io.stacs.dapp.helloworld.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import io.stacs.dapp.helloworld.constant.StatusEnum;
 import io.stacs.dapp.helloworld.dao.SmtBdDao;
 import io.stacs.dapp.helloworld.dao.po.SmtBd;
 import io.stacs.dapp.helloworld.service.AbstractSendSmtMessageService;
@@ -50,7 +51,7 @@ public class InstitutionBDDemoServiceImpl extends AbstractSendSmtMessageService 
         //组装报文SMT DB数据，存数据库
         SmtBd smtBd = new SmtBd();
         smtBd.setSmtCode(message.getHeader().getSmtCode());
-        smtBd.setStatus((byte) 0);
+        smtBd.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
         smtBd.setUuid(message.getHeader().getUuid());
         smtBd.setIdentifierId(message.getHeader().getIdentifierId());
         smtBd.setMessageId(smtResultDrsResponse.getData().getMessageId());
