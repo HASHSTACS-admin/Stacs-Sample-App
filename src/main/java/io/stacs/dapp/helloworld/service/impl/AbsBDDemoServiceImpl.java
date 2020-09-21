@@ -8,6 +8,7 @@ import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.AbsBDRequest;
 import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Huang Shengli
@@ -19,11 +20,12 @@ public class AbsBDDemoServiceImpl extends AbstractSendSmtMessageService implemen
 
 
     /**
-     * 数字货币发行
+     * abs的BD发布
      *
      * @param request
      * @return
      */
+    @Transactional
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
         AbsBDRequest bdRequest = (AbsBDRequest) request;
@@ -33,8 +35,17 @@ public class AbsBDDemoServiceImpl extends AbstractSendSmtMessageService implemen
         //报文体
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(bdRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
-
+        DrsResponse drsResponse = doSend(message);
+        if (!drsResponse.success()) {
+            return drsResponse;
+        }
+        //todo 业务处理
+        //doBusiness
         //请求DRS
-        return doSend(message);
+        return drsResponse;
+    }
+
+    private void doBusiness(DrsResponse drsResponse) {
+
     }
 }
