@@ -8,6 +8,8 @@ import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
  */
 public interface SmtCallbackHandler {
 
+    String SUFFIX_CALLBACK = "_callback";
+
     /**
      * 回调时的特殊处理逻辑, DRS回调时调用
      *

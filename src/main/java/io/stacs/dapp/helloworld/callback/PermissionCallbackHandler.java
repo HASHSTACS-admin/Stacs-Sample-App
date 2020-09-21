@@ -26,7 +26,11 @@ public class PermissionCallbackHandler implements SmtCallbackHandler {
 
         SmtPermission smtPermission = smtPermissionDao.findByUuid(uuid);
         smtPermission.setPermissionId(permissionId);
-        smtPermission.setStatus((byte) 1);
+        if (message.success()) {
+            smtPermission.setStatus((byte) 1);
+        } else {
+            smtPermission.setStatus((byte) 2);
+        }
         smtPermission.setMessageId(message.getHeader().getMessageId());
         smtPermission.setSessionId(message.getHeader().getSessionId());
         smtPermission.setUpdateAt(new Date());

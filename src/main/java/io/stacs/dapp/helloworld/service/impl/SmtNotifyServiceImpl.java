@@ -1,6 +1,7 @@
 package io.stacs.dapp.helloworld.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import io.stacs.dapp.helloworld.callback.SmtCallbackHandler;
 import io.stacs.dapp.helloworld.dao.SmtMessageDao;
 import io.stacs.dapp.helloworld.dao.po.SmtMessage;
 import io.stacs.dapp.helloworld.service.SmtNotifyService;
@@ -18,6 +19,8 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author HuangShengli
@@ -28,8 +31,12 @@ import java.util.List;
 @Slf4j
 @Service
 public class SmtNotifyServiceImpl implements SmtNotifyService {
+
     @Autowired
     SmtMessageDao smtMessageDao;
+
+    @Autowired
+    Map<String, SmtCallbackHandler> smtCallbackHandlerMap;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -54,6 +61,11 @@ public class SmtNotifyServiceImpl implements SmtNotifyService {
             log.info("您发送的报文,已上链成功，交易IDs:{}", messagePO.getTxs());
         } else {
             log.info("您发送的报文,已上链失败，错误原因:{}", message.getTrailer().getResponseMessage());
+        }
+        //回调处理, 如果存在回调方法，就执行回调逻辑
+        SmtCallbackHandler smtCallbackHandler = smtCallbackHandlerMap.get(message.getHeader().getSmtCode() + SmtCallbackHandler.SUFFIX_CALLBACK);
+        if (Objects.nonNull(smtCallbackHandler)) {
+            smtCallbackHandler.handle(message);
         }
         log.info("DRS回调处理成功");
         return DrsResponse.success(null);

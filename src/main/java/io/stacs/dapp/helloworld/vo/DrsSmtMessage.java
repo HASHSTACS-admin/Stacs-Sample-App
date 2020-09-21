@@ -1,7 +1,13 @@
 package io.stacs.dapp.helloworld.vo;
 
 import com.alibaba.fastjson.JSONObject;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.List;
@@ -61,11 +67,20 @@ public class DrsSmtMessage implements Serializable {
     public static class SmtTrailer implements Serializable {
 
         private String authenticationTrailer;
+
         private List<BlockchainTransaction> blockchainTransaction;
+
         private String extraData;
+
         private String responseCode;
+
         private String responseMessage;
 
+    }
+
+    public boolean success() {
+        return DrsRespCode.SUCCESS.getCode().equalsIgnoreCase(this.getTrailer().getResponseCode())
+                || DrsRespCode.ACCEPTED.getCode().equalsIgnoreCase(this.getTrailer().getResponseCode());
     }
 
 }
