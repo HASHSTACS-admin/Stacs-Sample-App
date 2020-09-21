@@ -28,6 +28,10 @@ public class DrsResponse<T> implements Serializable {
         this.data = t;
     }
 
+    public boolean success() {
+        return DrsRespCode.SUCCESS.getCode().equalsIgnoreCase(code) || DrsRespCode.ACCEPTED.getCode().equalsIgnoreCase(code);
+    }
+
     public static <T> DrsResponse<T> success(T t) {
         return new DrsResponse(DrsRespCode.SUCCESS.getCode(), null, t);
     }

@@ -6,9 +6,11 @@ import io.stacs.dapp.helloworld.config.DrsConfig;
 import io.stacs.dapp.helloworld.dao.SmtMessageDao;
 import io.stacs.dapp.helloworld.dao.po.SmtMessage;
 import io.stacs.dapp.helloworld.httpclient.DrsClient;
+import io.stacs.dapp.helloworld.utils.UUIDUtil;
 import io.stacs.dapp.helloworld.vo.DrsRespCode;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
+import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,6 +29,37 @@ public abstract class AbstractSendSmtMessageService {
     SmtMessageDao smtMessageDao;
     @Autowired
     protected DrsConfig drsConfig;
+
+    /**
+     * 统一处理报文头和报文尾
+     *
+     * @param request
+     * @return
+     */
+    protected DrsSmtMessage buildBaseMessage(DemoBaseRequest request) {
+        //报文头
+        DrsSmtMessage.SmtHeader header = DrsSmtMessage.SmtHeader.builder().
+                identifierId(drsConfig.getMyIdentifierId())
+                .messageSenderAddress(request.getHeader().getMessageSenderAddress())
+                .smtCode(request.getHeader().getSmtCode())
+                //uuid由商户生成
+                .uuid(UUIDUtil.uuid())
+                .build();
+        //报文尾
+        DrsSmtMessage.SmtTrailer trailer = null;
+        if (null != request.getTrailer()) {
+            trailer = DrsSmtMessage.SmtTrailer
+                    .builder()
+                    .authenticationTrailer(request.getTrailer().getAuthenticationTrailer())
+                    .build();
+        }
+
+        DrsSmtMessage message = DrsSmtMessage.builder()
+                .header(header)
+                .trailer(trailer)
+                .build();
+        return message;
+    }
 
     /**
      * 发送报文并保存到报文记录表
