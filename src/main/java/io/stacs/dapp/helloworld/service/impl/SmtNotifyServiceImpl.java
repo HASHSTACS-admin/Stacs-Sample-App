@@ -4,10 +4,15 @@ import com.alibaba.fastjson.JSON;
 import io.stacs.dapp.helloworld.dao.SmtMessageDao;
 import io.stacs.dapp.helloworld.dao.po.SmtMessage;
 import io.stacs.dapp.helloworld.service.SmtNotifyService;
-import io.stacs.dapp.helloworld.vo.*;
+import io.stacs.dapp.helloworld.vo.BlockchainTransaction;
+import io.stacs.dapp.helloworld.vo.DrsRespCode;
+import io.stacs.dapp.helloworld.vo.DrsResponse;
+import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
+import io.stacs.dapp.helloworld.vo.Txid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -26,8 +31,8 @@ public class SmtNotifyServiceImpl implements SmtNotifyService {
     @Autowired
     SmtMessageDao smtMessageDao;
 
-
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public DrsResponse handle(DrsSmtMessage message) {
 
         SmtMessage messagePO = smtMessageDao.findByUuid(message.getHeader().getUuid());
