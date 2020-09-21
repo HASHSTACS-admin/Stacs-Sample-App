@@ -3,7 +3,6 @@ package io.stacs.dapp.helloworld.service.impl;
 import com.alibaba.fastjson.JSON;
 import io.stacs.dapp.helloworld.service.AbstractSendSmtMessageService;
 import io.stacs.dapp.helloworld.service.SmtDemoService;
-import io.stacs.dapp.helloworld.utils.UUIDUtil;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
@@ -29,30 +28,11 @@ public class DigitalCurrencyDemoServiceImpl extends AbstractSendSmtMessageServic
     public DrsResponse doDemo(DemoBaseRequest request) {
         DigitalCurrencySmtRequest dcRequest = (DigitalCurrencySmtRequest) request;
         //组装报文数据
-        //1.报文头
-        DrsSmtMessage.SmtHeader header = DrsSmtMessage.SmtHeader.builder().
-                identifierId(drsConfig.getMyIdentifierId())
-                .messageSenderAddress(dcRequest.getHeader().getMessageSenderAddress())
-                .smtCode("smta-dc-dc-issue-1-v1")
-                //uuid由商户生成
-                .uuid(UUIDUtil.uuid())
-                .build();
+        DrsSmtMessage message = buildBaseMessage(request);
+        message.getHeader().setSmtCode("smta-dc-dc-issue-1-v1");
         //报文体
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(dcRequest.getBody()), DrsSmtMessage.SmtBody.class);
-        //报文尾
-        DrsSmtMessage.SmtTrailer trailer = null;
-        if (null != dcRequest.getTrailer()) {
-            trailer = DrsSmtMessage.SmtTrailer
-                    .builder()
-                    .authenticationTrailer(dcRequest.getTrailer().getAuthenticationTrailer())
-                    .build();
-        }
-
-        DrsSmtMessage message = DrsSmtMessage.builder()
-                .header(header)
-                .body(body)
-                .trailer(trailer)
-                .build();
+        message.setBody(body);
 
         return doSend(message);
     }
