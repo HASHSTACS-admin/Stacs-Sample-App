@@ -1,15 +1,21 @@
 package io.stacs.dapp.helloworld.dao;
 
 import io.stacs.dapp.helloworld.dao.po.SmtPermission;
+
 import org.springframework.data.repository.CrudRepository;
 
-/**
- * The interface Smt permission dao.
- *
- * @author Su Wenbo
- * @since 2020 /9/21
- */
+import java.util.List;
+
 public interface SmtPermissionDao extends CrudRepository<SmtPermission, Long> {
+
+    /**
+     * 根据商户号查询permission
+     * @param identifierId
+     * @return
+     */
+    List<SmtPermission> findByIdentifierId(String identifierId);
+
+
 
     /**
      * Find by uuid smt permission.
@@ -18,5 +24,6 @@ public interface SmtPermissionDao extends CrudRepository<SmtPermission, Long> {
      * @return the smt permission
      */
     SmtPermission findByUuid(String uuid);
+
 
 }

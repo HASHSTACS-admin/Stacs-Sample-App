@@ -1,14 +1,17 @@
 package io.stacs.dapp.helloworld.dao;
 
 import io.stacs.dapp.helloworld.dao.po.AssetAbs;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-/**
- * The interface abs dao.
- *
- * @author Huangshengli
- * @since 2020 /9/21
- */
-public interface AssetAbsDao extends CrudRepository<AssetAbs, Long> {
+import java.util.List;
+
+public interface AssetAbsDao extends JpaRepository<AssetAbs, Long> {
+
+    /**
+     * 根据商户号查询abs
+     * @param identifierId
+     * @return
+     */
+    List<AssetAbs> findByIdentifierId(String identifierId);
 
 }
