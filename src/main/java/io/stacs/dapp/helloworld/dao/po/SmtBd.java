@@ -29,7 +29,7 @@ public class SmtBd {
     private String smtCode;
     @Column(nullable = true, columnDefinition = "varchar(128) comment 'BD id,发行BD成功后DRS返回'")
     private String bdId;
-    @Column(nullable = false, columnDefinition = "varchar(128) comment '状态:0-PROCESSING,1-SUCCESS,2-FAIL'")
+    @Column(nullable = false, columnDefinition = "tinyint comment '状态:0-PROCESSING,1-SUCCESS,2-FAIL'")
     private Byte status;
     @Column(nullable = false, columnDefinition = "varchar(128) comment 'uuid'")
     private String uuid;

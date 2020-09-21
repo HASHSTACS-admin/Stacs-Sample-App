@@ -31,7 +31,7 @@ public class BdFunctionPermissionRelation {
     private String permissionId;
     @Column(nullable = false, columnDefinition = "varchar(128) comment '报文中描述的'")
     private String functionName;
-    @Column(nullable = false, columnDefinition = "varchar(20) comment '商户号'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '创建时间'")
     private Date createAt;
     @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间'")
     private Date updateAt;

@@ -29,7 +29,7 @@ public class SmtPermission {
 
     @Column(nullable = false, columnDefinition = "varchar(128) comment '报文CODE'")
     private String smtCode;
-    @Column(nullable = false, columnDefinition = "varchar(128) comment '状态:0-PROCESSING,1-SUCCESS,2-FAIL'")
+    @Column(nullable = false, columnDefinition = "tinyint comment '状态:0-PROCESSING,1-SUCCESS,2-FAIL'")
     private Byte status;
     @Column(nullable = false, columnDefinition = "varchar(128) comment 'uuid'")
     private String uuid;
@@ -37,7 +37,7 @@ public class SmtPermission {
     private String identifierId;
     @Column(nullable = true, columnDefinition = "varchar(255) comment 'message id，由DRS返回'")
     private String messageId;
-    @Column(nullable = true, columnDefinition = "varchar(255) comment 'session id，由DRS返回'")
+    @Column(nullable = true, columnDefinition = "varchar(255) comment 'message id，由DRS返回'")
     private String sessionId;
     @Column(nullable = false, columnDefinition = "longtext comment '对此permission拥有修改权限的地址，只能填写地址,[40!c,.,40!c]数组json格式字符串'")
     private String modifierAddress;
