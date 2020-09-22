@@ -52,6 +52,8 @@ public class TradeOfferOrder {
     private Date orderStartTime;
     @Column(nullable = false, columnDefinition = "datetime comment '买家下单截止时间，unix时间戳格式，必须大于等于orderStartTime'")
     private Date orderEndTime;
+    @Column(nullable = false, columnDefinition = "datetime comment '买家付款截止时间，unix时间戳格式，必须大于等于orderEndTime'")
+    private Date paymentEndTime;
     @Column(nullable = true, columnDefinition = "datetime comment '结算时间，不填写则在条件满足后立即自动结算，填写后则在结算时间到达以及交易条件满足后，需要一方（通常是买方）来发起结算，必须大于orderEndTime'")
     private Date settleTime;
     @Column(nullable = true, columnDefinition = "varchar(128) comment '发起认购时想要告知的额外信息'")

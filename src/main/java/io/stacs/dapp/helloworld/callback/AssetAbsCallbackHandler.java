@@ -30,7 +30,7 @@ public class AssetAbsCallbackHandler implements SmtCallbackHandler {
         DrsSmtMessage.SmtBody body = message.getBody();
         String contractAddress = body.getString("contractAddress");
 
-        //更新表Smt BD
+        //更新表abs表
         AssetAbs abs = assetAbsDao.findByUuid(uuid);
         abs.setContractAddress(contractAddress);
         if (message.success()) {
