@@ -11,4 +11,6 @@ public interface TradeOfferOrderDao extends CrudRepository<TradeOfferOrder, Long
 
     TradeOfferOrder findBySessionId(String sessionId);
 
+    TradeOfferOrder findByUuid(String uuid);
+
 }

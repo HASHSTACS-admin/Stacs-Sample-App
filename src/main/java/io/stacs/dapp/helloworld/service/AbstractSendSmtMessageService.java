@@ -6,7 +6,7 @@ import io.stacs.dapp.helloworld.config.DrsConfig;
 import io.stacs.dapp.helloworld.dao.SmtMessageDao;
 import io.stacs.dapp.helloworld.dao.po.SmtMessage;
 import io.stacs.dapp.helloworld.httpclient.DrsClient;
-import io.stacs.dapp.helloworld.utils.UUIDUtil;
+import io.stacs.dapp.helloworld.utils.CommonUtil;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
@@ -42,7 +42,7 @@ public abstract class AbstractSendSmtMessageService {
                 .messageSenderAddress(request.getHeader().getMessageSenderAddress())
                 .smtCode(request.getHeader().getSmtCode())
                 //uuid由商户生成
-                .uuid(UUIDUtil.uuid())
+                .uuid(CommonUtil.uuid())
                 .build();
         //报文尾
         DrsSmtMessage.SmtTrailer trailer = null;

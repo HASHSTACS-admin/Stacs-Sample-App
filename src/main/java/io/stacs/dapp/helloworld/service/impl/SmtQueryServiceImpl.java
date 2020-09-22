@@ -5,7 +5,7 @@ import com.alibaba.fastjson.TypeReference;
 import io.stacs.dapp.helloworld.config.DrsConfig;
 import io.stacs.dapp.helloworld.httpclient.DrsClient;
 import io.stacs.dapp.helloworld.service.SmtQueryService;
-import io.stacs.dapp.helloworld.utils.UUIDUtil;
+import io.stacs.dapp.helloworld.utils.CommonUtil;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.BalanceOfRequest;
@@ -38,7 +38,7 @@ public class SmtQueryServiceImpl implements SmtQueryService {
 
         AddressCreateRequest createRequest = AddressCreateRequest.builder()
                 //生成uuid
-                .uuid(UUIDUtil.uuid())
+                .uuid(CommonUtil.uuid())
                 //设置商户号
                 .identifierId(drsConfig.getMyIdentifierId())
                 .build();

@@ -18,19 +18,19 @@ public class AbsBDSmtBody implements Serializable {
     @NotNull(message = "permission id 不能为空")
     private String buybackPermissionId;
 
-    @ApiModelProperty(value = "回购冻结使用的permission", required = true)
+    @ApiModelProperty(value = "回购冻结使用的permission,默认权限:DEFAULT", required = true)
     @NotNull(message = "permission id 不能为空")
     private String buybackFreezePermissionId;
-    @ApiModelProperty(value = "结息使用的permission", required = true)
+    @ApiModelProperty(value = "结息使用的permission,默认权限:DEFAULT", required = true)
     @NotNull(message = "permission id 不能为空")
     private String interestSettlePermissionId;
-    @ApiModelProperty(value = "增发使用的permission", required = true)
+    @ApiModelProperty(value = "增发使用的permission,默认权限:DEFAULT", required = true)
     @NotNull(message = "permission id 不能为空")
     private String additionalIssuePermissionId;
-    @ApiModelProperty(value = "资产冻结使用的permission", required = true)
+    @ApiModelProperty(value = "资产冻结使用的permission,默认权限:DEFAULT", required = true)
     @NotNull(message = "permission id 不能为空")
     private String tokenFreezePermissionId;
-    @ApiModelProperty(value = "资产解冻使用的permission", required = true)
+    @ApiModelProperty(value = "资产解冻使用的permission,默认权限:DEFAULT", required = true)
     @NotNull(message = "permission id 不能为空")
     private String tokenUnfreezePermissionId;
 }
