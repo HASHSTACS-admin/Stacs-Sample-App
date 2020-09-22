@@ -6,9 +6,10 @@ import io.stacs.dapp.helloworld.config.DrsConfig;
 import io.stacs.dapp.helloworld.dao.SmtMessageDao;
 import io.stacs.dapp.helloworld.dao.po.SmtMessage;
 import io.stacs.dapp.helloworld.httpclient.DrsClient;
-import io.stacs.dapp.helloworld.vo.DrsRespCode;
+import io.stacs.dapp.helloworld.utils.UUIDUtil;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
+import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +18,7 @@ import java.util.Date;
 /**
  * @author HuangShengli
  * @ClassName AbstractSendSmtMessageService
- * @Description SMT Message Service
+ * @Description 报文发送服务
  * @since 2020/9/12
  */
 @Slf4j
@@ -29,7 +30,38 @@ public abstract class AbstractSendSmtMessageService {
     protected DrsConfig drsConfig;
 
     /**
-     *Send HTTP API Request (with SMT)
+     * 统一处理报文头和报文尾
+     *
+     * @param request
+     * @return
+     */
+    protected DrsSmtMessage buildBaseMessage(DemoBaseRequest request) {
+        //报文头
+        DrsSmtMessage.SmtHeader header = DrsSmtMessage.SmtHeader.builder().
+                identifierId(drsConfig.getMyIdentifierId())
+                .messageSenderAddress(request.getHeader().getMessageSenderAddress())
+                .smtCode(request.getHeader().getSmtCode())
+                //uuid由商户生成
+                .uuid(UUIDUtil.uuid())
+                .build();
+        //报文尾
+        DrsSmtMessage.SmtTrailer trailer = null;
+        if (null != request.getTrailer()) {
+            trailer = DrsSmtMessage.SmtTrailer
+                    .builder()
+                    .authenticationTrailer(request.getTrailer().getAuthenticationTrailer())
+                    .build();
+        }
+
+        DrsSmtMessage message = DrsSmtMessage.builder()
+                .header(header)
+                .trailer(trailer)
+                .build();
+        return message;
+    }
+
+    /**
+     * 发送报文并保存到报文记录表
      *
      * @param message
      * @return
@@ -37,23 +69,21 @@ public abstract class AbstractSendSmtMessageService {
     protected DrsResponse<DrsResponse.SmtResult> doSend(DrsSmtMessage message) {
 
         try {
-            //http request message format
-            log.info("Starting sending of HTTP API Request,smtCode={}，uuid={}", message.getHeader().getSmtCode(), message.getHeader().getUuid());
+            //http 发送报文
+            log.info("发送报文开始,smtCode={}，uuid={}", message.getHeader().getSmtCode(), message.getHeader().getUuid());
             JSONObject response = DrsClient.post(drsConfig.getSmtSendUrl(), message);
-            //Retrieve HTTP Response
+            //反序列化为DrsResponse对象
             DrsResponse<DrsResponse.SmtResult> result = JSONObject.parseObject(response.toJSONString(), new TypeReference<DrsResponse<DrsResponse.SmtResult>>() {
             });
-            //Retrieve Status Code from Response
-            DrsRespCode respCode = DrsRespCode.getByCode(result.getCode());
-            //Check if Status is successful
-            if (respCode == DrsRespCode.SUCCESS || respCode == DrsRespCode.ACCEPTED) {
-                log.info("Request was sent successful");
+            //判断DRS受理结果
+            if (result.success()) {
+                log.info("报文发送成功");
                 message.getHeader().setMessageId(result.getData().getMessageId());
                 message.getHeader().setSessionId(result.getData().getSessionId());
-                //Save to database
+                //保存到数据库
                 smtMessageDao.save(convert(message));
             } else {
-                log.warn("Response failed to send.");
+                log.warn("报文发送失败:{},{}", result.getCode(), result.getMessage());
             }
             return result;
         } catch (Exception e) {
@@ -68,7 +98,7 @@ public abstract class AbstractSendSmtMessageService {
         SmtMessage messagePO = new SmtMessage();
         messagePO.setCreateAt(new Date());
         messagePO.setUpdateAt(new Date());
-        //setup message header
+        //header信息
         messagePO.setIdentifierId(message.getHeader().getIdentifierId());
         messagePO.setSessionId(message.getHeader().getSessionId());
         messagePO.setMessageId(message.getHeader().getMessageId());
