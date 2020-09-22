@@ -60,7 +60,7 @@ public class AbsOfferDemoServiceImpl extends AbstractSendSmtMessageService imple
             return drsResponse;
         }
         //doBusiness
-        doBusiness(drsResponse, offerRequest);
+        doBusiness(drsResponse, offerRequest, message.getHeader());
         //请求DRS
         return drsResponse;
     }
@@ -71,7 +71,7 @@ public class AbsOfferDemoServiceImpl extends AbstractSendSmtMessageService imple
      * @param drsResponse
      * @param offerRequest
      */
-    private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsOfferRequest offerRequest) {
+    private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsOfferRequest offerRequest, DrsSmtMessage.SmtHeader header) {
         //保存到bd表
         TradeOfferOrder order = new TradeOfferOrder();
         //业务数据
@@ -79,13 +79,13 @@ public class AbsOfferDemoServiceImpl extends AbstractSendSmtMessageService imple
         //通用信息
         order.setCreateAt(new Date());
         order.setUpdateAt(new Date());
-        order.setIdentifierId(offerRequest.getHeader().getIdentifierId());
+        order.setIdentifierId(header.getIdentifierId());
         order.setMessageId(drsResponse.getData().getMessageId());
         order.setSessionId(drsResponse.getData().getSessionId());
         order.setSmtCode("smtt-abs-subscription-offer-3-v1");
         order.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
         order.setBizStatus(StatusEnum.OfferBizStatus.OFFER.getCode());
-        order.setUuid(offerRequest.getHeader().getUuid());
+        order.setUuid(header.getUuid());
         order.setOfferAddress(offerRequest.getHeader().getMessageSenderAddress());
         //save
         tradeOfferOrderDao.save(order);

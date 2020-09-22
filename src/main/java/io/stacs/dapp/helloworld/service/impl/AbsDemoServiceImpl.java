@@ -61,7 +61,7 @@ public class AbsDemoServiceImpl extends AbstractSendSmtMessageService implements
             return drsResponse;
         }
         //doBusiness
-        doBusiness(drsResponse, absRequest);
+        doBusiness(drsResponse, absRequest, message.getHeader());
         //请求DRS
         return drsResponse;
     }
@@ -71,17 +71,17 @@ public class AbsDemoServiceImpl extends AbstractSendSmtMessageService implements
      *
      * @param drsResponse
      */
-    private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsCreateRequest absRequest) {
+    private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsCreateRequest absRequest, DrsSmtMessage.SmtHeader header) {
         //保存到bd表
         AssetAbs abs = new AssetAbs();
         abs.setCreateAt(new Date());
         abs.setUpdateAt(new Date());
-        abs.setIdentifierId(absRequest.getHeader().getIdentifierId());
+        abs.setIdentifierId(header.getIdentifierId());
         abs.setMessageId(drsResponse.getData().getMessageId());
         abs.setSessionId(drsResponse.getData().getSessionId());
         abs.setSmtCode("smta-abs-corporation-issue-1-v1");
         abs.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
-        abs.setUuid(absRequest.getHeader().getUuid());
+        abs.setUuid(header.getUuid());
         //业务数据
         AbsSmtBody absBody = absRequest.getBody();
         abs.setAbsType(absBody.getAbsType());
