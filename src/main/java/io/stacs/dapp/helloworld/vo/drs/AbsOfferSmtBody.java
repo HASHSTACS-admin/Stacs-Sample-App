@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Min;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -23,13 +23,13 @@ public class AbsOfferSmtBody implements Serializable {
     private String assetId;
 
     @ApiModelProperty(value = "售卖数量", required = true)
-    @NotNull(message = "售卖数量大于0")
-    @Min(0)
+    @NotNull(message = "售卖数量需大于0")
+    @DecimalMin(value = "0.00000001", message = "售卖数量需大于0")
     private BigDecimal quantity;
 
     @ApiModelProperty(value = "单价", required = true)
-    @NotNull(message = "单价大于0")
-    @Min(0)
+    @NotNull(message = "单价需大于0")
+    @DecimalMin(value = "0.00000001", message = "单价需大于0")
     private BigDecimal unitPrice;
 
     @ApiModelProperty(value = "接受的付款法币", required = true)
@@ -38,13 +38,13 @@ public class AbsOfferSmtBody implements Serializable {
     private String paymentCurrency;
 
     @ApiModelProperty(value = "单个地址能购买的总量", required = true)
-    @NotNull(message = "单个地址能购买的总量大于0")
-    @Min(0)
+    @NotNull(message = "单个地址能购买的总量需大于0")
+    @DecimalMin(value = "0.00000001", message = "单个地址能购买的总量需大于0")
     private BigDecimal maxSizePerAddress;
 
     @ApiModelProperty(value = "单次最低购买量", required = true)
-    @NotNull(message = "单次最低购买量大于0")
-    @Min(0)
+    @NotNull(message = "单次最低购买量需大于0")
+    @DecimalMin(value = "0.00000001", message = "单次最低购买量需大于0")
     private BigDecimal minSizePerTrade;
 
     @ApiModelProperty(value = "倍数，小于等于卖出数量，只能以此数字的整倍数进行购买")

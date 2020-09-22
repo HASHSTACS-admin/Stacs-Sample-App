@@ -17,4 +17,5 @@ public interface TradeBidOrderDao extends CrudRepository<TradeBidOrder, Long> {
 
     List<TradeBidOrder> findByOfferSessionId(String offerSessionId);
 
+
 }

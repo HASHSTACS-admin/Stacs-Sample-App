@@ -23,6 +23,9 @@ public class AbsSmtBody implements Serializable {
     @ApiModelProperty(value = "资产代码,全局唯一", required = true)
     @NotBlank(message = "资产代码不能为空")
     private String assetId;
+    @ApiModelProperty(value = "BD id(已经发布成功的BD id)", required = true)
+    @NotBlank(message = "BD id不能为空")
+    private String bdId;
     @ApiModelProperty(value = "资产名称", required = true)
     @NotBlank(message = "资产名称不能为空")
     private String assetName;
