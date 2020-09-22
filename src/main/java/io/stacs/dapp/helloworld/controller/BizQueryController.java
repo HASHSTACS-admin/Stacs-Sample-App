@@ -18,7 +18,7 @@ import java.util.List;
  * @author: yezaiyong
  * @create: 2020-09-21 16:37
  **/
-@Api(tags = "SMT BIZ 查询入口")
+@Api(tags = "SMT Business Query Endpoints")
 @Slf4j
 @RestController
 @RequestMapping("/smt/biz/query")
