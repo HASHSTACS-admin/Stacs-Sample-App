@@ -1,8 +1,6 @@
 package io.stacs.dapp.helloworld.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import io.stacs.dapp.helloworld.dao.TradeBidOrderDao;
-import io.stacs.dapp.helloworld.dao.TradeOfferOrderDao;
 import io.stacs.dapp.helloworld.service.AbstractSendSmtMessageService;
 import io.stacs.dapp.helloworld.service.SmtDemoService;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
@@ -13,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * 买方主动撤单ABS报文服务
+ * 买方付款ABS报文服务
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -22,12 +20,8 @@ import org.springframework.stereotype.Service;
 @Service("smtt-abs-subscription-payment-1-v1")
 public class AbsPaymentDemoServiceImpl extends AbstractSendSmtMessageService implements SmtDemoService {
 
-    private final TradeOfferOrderDao tradeOfferOrderDao;
-
-    private final TradeBidOrderDao tradeBidOrderDao;
-
     /**
-     * 买方主动撤单ABS
+     * 买方付款ABS
      *
      * @param request permission request
      * @return drs response

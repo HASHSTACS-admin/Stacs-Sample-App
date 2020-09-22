@@ -89,4 +89,18 @@ public class AbsDemoController {
         return smtDemoService.get("smtt-abs-subscription-payment-1-v1").doDemo(request);
     }
 
+    /**
+     * 卖方确认收款ABS报文
+     *
+     * @param request the request
+     * @return the drs response
+     */
+    @ApiOperation(value = "卖方确认收款ABS报文")
+    @PostMapping("confirmAbs")
+    @ResponseBody
+    public DrsResponse confirmAbs(@Validated @RequestBody AbsPaymentRequest request) {
+        Assert.hasLength(request.getHeader().getSessionId(), "Session Id不能为空");
+        return smtDemoService.get("smtt-abs-subscription-confirm-1-v1").doDemo(request);
+    }
+
 }
