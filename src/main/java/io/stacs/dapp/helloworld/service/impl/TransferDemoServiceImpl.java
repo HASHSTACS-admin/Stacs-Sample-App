@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author Huang Shengli
- * @Description 转账类
+ * @Description Transfer Asset
  * @date 2020-09-13
  */
 @Service("transfer")
@@ -19,7 +19,7 @@ public class TransferDemoServiceImpl extends AbstractSendSmtMessageService imple
 
 
     /**
-     * 数字货币发行
+     * Transfer Request
      *
      * @param request
      * @return
@@ -27,9 +27,9 @@ public class TransferDemoServiceImpl extends AbstractSendSmtMessageService imple
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
         TransferSmtRequest transferRequest = (TransferSmtRequest) request;
-        //组装报文数据
+        //Create Message with SMT format
         DrsSmtMessage message = buildBaseMessage(request);
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(transferRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
 

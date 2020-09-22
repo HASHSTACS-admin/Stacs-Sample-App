@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 业务查询
+ * Query Functions
  */
 @Slf4j
 @Service
@@ -35,7 +35,7 @@ public class BizQueryServiceImpl implements BizQueryService {
     @Autowired
     private BdFunctionPermissionRelationDao bdFunctionPermissionRelationDao;
     /**
-     * 查询abs
+     * Query ABS asset
      *
      * @param identifierId
      * @return
@@ -55,7 +55,7 @@ public class BizQueryServiceImpl implements BizQueryService {
     }
 
     /**
-     * 查询bd
+     * Query BD
      *
      * @param identifierId
      * @return
@@ -75,7 +75,7 @@ public class BizQueryServiceImpl implements BizQueryService {
     }
 
     /**
-     * 查询permission
+     * Query permission
      *
      * @param identifierId
      * @return
@@ -95,7 +95,7 @@ public class BizQueryServiceImpl implements BizQueryService {
     }
 
     /**
-     * 查询function
+     * Query by BdId
      *
      * @param bdId
      * @return

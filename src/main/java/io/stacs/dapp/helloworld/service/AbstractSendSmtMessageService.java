@@ -18,7 +18,7 @@ import java.util.Date;
 /**
  * @author HuangShengli
  * @ClassName AbstractSendSmtMessageService
- * @Description 报文发送服务
+ * @Description SMT Format Message service
  * @since 2020/9/12
  */
 @Slf4j
@@ -30,21 +30,21 @@ public abstract class AbstractSendSmtMessageService {
     protected DrsConfig drsConfig;
 
     /**
-     * 统一处理报文头和报文尾
+     * base impl for message Header and Trailer
      *
      * @param request
      * @return
      */
     protected DrsSmtMessage buildBaseMessage(DemoBaseRequest request) {
-        //报文头
+        //Message Header
         DrsSmtMessage.SmtHeader header = DrsSmtMessage.SmtHeader.builder().
                 identifierId(drsConfig.getMyIdentifierId())
                 .messageSenderAddress(request.getHeader().getMessageSenderAddress())
                 .smtCode(request.getHeader().getSmtCode())
-                //uuid由商户生成
+                //UUID has to be unique and created here
                 .uuid(UUIDUtil.uuid())
                 .build();
-        //报文尾
+        //Message Trailer
         DrsSmtMessage.SmtTrailer trailer = null;
         if (null != request.getTrailer()) {
             trailer = DrsSmtMessage.SmtTrailer
@@ -61,7 +61,7 @@ public abstract class AbstractSendSmtMessageService {
     }
 
     /**
-     * 发送报文并保存到报文记录表
+     * Send API Request and save to database
      *
      * @param message
      * @return
@@ -69,21 +69,21 @@ public abstract class AbstractSendSmtMessageService {
     protected DrsResponse<DrsResponse.SmtResult> doSend(DrsSmtMessage message) {
 
         try {
-            //http 发送报文
+            //send HTTP API request
             log.info("发送报文开始,smtCode={}，uuid={}", message.getHeader().getSmtCode(), message.getHeader().getUuid());
             JSONObject response = DrsClient.post(drsConfig.getSmtSendUrl(), message);
-            //反序列化为DrsResponse对象
+            //Retrieve the synchronous response from the DRS
             DrsResponse<DrsResponse.SmtResult> result = JSONObject.parseObject(response.toJSONString(), new TypeReference<DrsResponse<DrsResponse.SmtResult>>() {
             });
-            //判断DRS受理结果
+            //Check if API request was received successfully by the DRS
             if (result.success()) {
-                log.info("报文发送成功");
+                log.info("API Request was sent successfully.");
                 message.getHeader().setMessageId(result.getData().getMessageId());
                 message.getHeader().setSessionId(result.getData().getSessionId());
-                //保存到数据库
+                //Save to database
                 smtMessageDao.save(convert(message));
             } else {
-                log.warn("报文发送失败:{},{}", result.getCode(), result.getMessage());
+                log.warn("API request was not sent successfully.:{},{}", result.getCode(), result.getMessage());
             }
             return result;
         } catch (Exception e) {

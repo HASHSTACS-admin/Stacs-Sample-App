@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author Huang Shengli
- * @Description 发布ABS
+ * @Description Issue Asset Backed Securities (ABS)
  * @date 2020-09-21
  */
 @Service("smta-abs-corporation-issue-1-v1")
@@ -32,7 +32,7 @@ public class AbsDemoServiceImpl extends AbstractSendSmtMessageService implements
     private AssetAbsDao assetAbsDao;
 
     /**
-     * abs的BD发布
+     * issue BD for ABS asset
      *
      * @param request
      * @return
@@ -41,12 +41,12 @@ public class AbsDemoServiceImpl extends AbstractSendSmtMessageService implements
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
         AbsCreateRequest absRequest = (AbsCreateRequest) request;
-        //组装报文数据
+        //Setup message using SMT format
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smta-abs-corporation-issue-1-v1");
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(absRequest.getBody()), DrsSmtMessage.SmtBody.class);
-        //需要特殊处理两个日期问题
+        //Requires 2 unique timestamps
         if (!CollectionUtils.isEmpty(absRequest.getBody().getCallDate())) {
             List<Long> calldate = absRequest.getBody().getCallDate().stream().map(x -> x.getTime() / 1000).collect(Collectors.toList());
             body.put("callDate", calldate);
@@ -55,24 +55,24 @@ public class AbsDemoServiceImpl extends AbstractSendSmtMessageService implements
             body.put("firstSettlementDate", absRequest.getBody().getFirstSettlementDate().getTime() / 1000);
         }
         message.setBody(body);
-        //发起DRS请求
+        //Send request to DRS
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
             return drsResponse;
         }
-        //doBusiness
+        //run business logic
         doBusiness(drsResponse, absRequest);
-        //请求DRS
+        //returned response from DRS
         return drsResponse;
     }
 
     /**
-     * 业务处理
+     * Run Business logic
      *
      * @param drsResponse
      */
     private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsCreateRequest absRequest) {
-        //保存到bd表
+        //Save to database
         AssetAbs abs = new AssetAbs();
         abs.setCreateAt(new Date());
         abs.setUpdateAt(new Date());
@@ -82,7 +82,7 @@ public class AbsDemoServiceImpl extends AbstractSendSmtMessageService implements
         abs.setSmtCode("smta-abs-corporation-issue-1-v1");
         abs.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
         abs.setUuid(absRequest.getHeader().getUuid());
-        //业务数据
+        //save to database
         AbsSmtBody absBody = absRequest.getBody();
         abs.setAbsType(absBody.getAbsType());
         abs.setAssetId(absBody.getAssetId());

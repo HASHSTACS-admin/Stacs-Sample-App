@@ -27,45 +27,45 @@ public class BizQueryController {
     @Autowired
     private BizQueryService bizQueryService;
     /**
-     *根据商户号查询Abs
+     * Uses Merchant Id to query Asset Backed Securities (ABS)
      * @return
      */
-    @ApiOperation(value = "根据商户号查询Abs")
+    @ApiOperation(value = "Use Merchant Id to query ABS")
     @GetMapping("absList")
     @ResponseBody
-    public DrsResponse<List<AssetAbsDemoVO>> absList(@ApiParam(value = "商户号") @Valid String identifierId) {
+    public DrsResponse<List<AssetAbsDemoVO>> absList(@ApiParam(value = "MerchantId") @Valid String identifierId) {
         return DrsResponse.success(bizQueryService.absList(identifierId));
     }
 
 
     /**
-     *根据商户号查询BD
+     *Uses Merchant Id to query BD
      * @return
      */
-    @ApiOperation(value = "根据商户号查询BD")
+    @ApiOperation(value = "Uses Merchant Id to query BD")
     @GetMapping("bdList")
     @ResponseBody
-    public DrsResponse<List<SmtBdDemoVO>> bdList(@ApiParam(value = "商户号") @Valid String identifierId) {
+    public DrsResponse<List<SmtBdDemoVO>> bdList(@ApiParam(value = "MerchantId") @Valid String identifierId) {
         return DrsResponse.success(bizQueryService.bdList(identifierId));
     }
 
     /**
-     *根据商户号查询permission
+     *Uses Merchant Id to query Permission
      * @return
      */
-    @ApiOperation(value = "根据商户号查询Permission")
+    @ApiOperation(value = "Users Merchant Id to query Permission")
     @GetMapping("permissionList")
     @ResponseBody
-    public DrsResponse<List<SmtPermissionDemoVO>> permissionList(@ApiParam(value = "商户号") @Valid String identifierId) {
+    public DrsResponse<List<SmtPermissionDemoVO>> permissionList(@ApiParam(value = "MerchantId") @Valid String identifierId) {
         return DrsResponse.success(bizQueryService.permissionList(identifierId));
     }
 
 
     /**
-     * 根据bdId查询bd function
+     * Uses ID of BD to query status of BD on the blockchain
      * @return
      */
-    @ApiOperation(value = "根据bdId查询bd function")
+    @ApiOperation(value = "uses ID of BD to query status of BD on the blockchain")
     @GetMapping("functionList")
     @ResponseBody
     public DrsResponse<List<BdFunctionPermissionRelationDemoVO>> functionList(@ApiParam(value = "bdId") @Valid String bdId) {

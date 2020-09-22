@@ -27,7 +27,7 @@ public class PermissionCallbackHandler implements SmtCallbackHandler {
         DrsSmtMessage.SmtBody body = message.getBody();
         String permissionId = body.getString("permissionId");
 
-        //更新表Smt Permission
+        //Update Smt Permission
         SmtPermission smtPermission = smtPermissionDao.findByUuid(uuid);
         smtPermission.setPermissionId(permissionId);
         if (message.success()) {

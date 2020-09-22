@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 /**
- * 机构业务类的BD创建报文服务
+ * Setup BD for Institution Identity Type
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -30,25 +30,25 @@ public class InstitutionBDDemoServiceImpl extends AbstractSendSmtMessageService 
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
         InstitutionBDRequest institutionBDRequest = (InstitutionBDRequest) request;
-        //组装报文数据
+        //Setup message using SMT format
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtbd-institution-business-special-1-v1");
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(institutionBDRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
-        //发送请求
+        //Send Request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
             return drsResponse;
         }
-        //做额外逻辑
+        //Run business logic
         doBusiness(message, drsResponse);
         return drsResponse;
     }
 
     private void doBusiness(DrsSmtMessage message,
                             DrsResponse<DrsResponse.SmtResult> smtResultDrsResponse) {
-        //组装报文SMT DB数据，存数据库
+        //Save to database
         SmtBd smtBd = new SmtBd();
         smtBd.setSmtCode(message.getHeader().getSmtCode());
         smtBd.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());

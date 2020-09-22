@@ -8,7 +8,7 @@ import java.util.List;
 public interface AssetAbsDao extends JpaRepository<AssetAbs, Long> {
 
     /**
-     * 根据商户号查询abs
+     * Query by Merchant id for Asset Backed Securities (ABS)
      * @param identifierId
      * @return
      */

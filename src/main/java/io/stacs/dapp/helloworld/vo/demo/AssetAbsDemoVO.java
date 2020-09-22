@@ -18,80 +18,80 @@ import java.util.Date;
  * @author: yezaiyong
  * @create: 2020-09-21 17:09
  **/
-@ApiModel("ABS发行信息")
+@ApiModel("ABS Properties")
 @Data
 public class AssetAbsDemoVO {
 
-    @ApiModelProperty(value = "报文CODE")
+    @ApiModelProperty(value = "SMT Code")
     private String smtCode;
 
-    @ApiModelProperty(value = "资产代码")
+    @ApiModelProperty(value = "Asset Id")
     private String assetId;
 
-    @ApiModelProperty(value = "资产名称")
+    @ApiModelProperty(value = "Asset Name")
     private String assetName;
 
-    @ApiModelProperty(value = "债券子类别")
+    @ApiModelProperty(value = "ABS Type")
     private String absType;
 
-    @ApiModelProperty(value = "发行人名称")
+    @ApiModelProperty(value = "Issuer Name")
     private String issuerName;
 
-    @ApiModelProperty(value = "唯一识别码，同一证券在不同国家或体系会有不同的识别码，用以标识该证券")
+    @ApiModelProperty(value = "Unique Id for the asset")
     private String uniqueIdentifierCode;
 
-    @ApiModelProperty(value = "资产发行后，资产都会在这个地址，相当于资产发行后的首个接收地址")
+    @ApiModelProperty(value = "Address that contains the asset after issuance")
     private String ownerAddress;
 
-    @ApiModelProperty(value = "本次发行数量")
+    @ApiModelProperty(value = "Quantity of asset")
     private BigDecimal quantity;
 
-    @ApiModelProperty(value = "面值")
+    @ApiModelProperty(value = "par value per token")
     private BigDecimal parValuePerToken;
 
-    @ApiModelProperty(value = "结算币种")
+    @ApiModelProperty(value = "Settlement Currency")
     private String settlementCurrency;
 
-    @ApiModelProperty(value = "日计数约定，一种用来确定两个券息日期之间天数的共识约定,Eg.360/365")
+    @ApiModelProperty(value = "day count convention for calculating payments, e.g. 360/365")
     private Integer dayCountConvention;
 
-    @ApiModelProperty(value = "付息频率,QUARTER:Quarterly, HALF_YEAR:Semi-annually, YEAR:Annually")
+    @ApiModelProperty(value = "frequency of coupon payments, Enum Optionsa are QUARTER:Quarterly, HALF_YEAR:Semi-annually, YEAR:Annually")
     private String couponFrequency;
 
-    @ApiModelProperty(value = "第一次结算日期")
+    @ApiModelProperty(value = "First settlement date")
     private Date firstSettlementDate;
 
-    @ApiModelProperty(value = "约定赎回日期,[10!n,...,10!n]数组格式")
+    @ApiModelProperty(value = "redemption date, accepted format is [10!n,...,10!n]")
     private String callDate;
 
-    @ApiModelProperty(value = "结息和回购所使用的token ID")
+    @ApiModelProperty(value = "token id used for payments and redemption")
     private String disbursementTokenId;
 
-    @ApiModelProperty(value = "KYC:个人类型KYC的黑名单")
+    @ApiModelProperty(value = "KYC: prohibited list for Individual Type")
     private String individualProhibited;
 
-    @ApiModelProperty(value = "KYC:个人类型KYC的白名单")
+    @ApiModelProperty(value = "KYC permitted list for Individual Type")
     private String individualPermitted;
 
-    @ApiModelProperty(value = "KYC:机构类型KYC的黑名单")
+    @ApiModelProperty(value = "KYC: prohibited list for Institution Type")
     private String institutionalProhibited;
 
-    @ApiModelProperty(value = "KYC:机构类型KYC的白名单")
+    @ApiModelProperty(value = "KYC: permitted list for Institution Type")
     private String institutionalPermitted;
 
-    @ApiModelProperty(value = "本次发行的合约地址，合约地址与assets ID一一对应")
+    @ApiModelProperty(value = "Smart Contract address, is mapped 1 to 1 with the assets id")
     private String contractAddress;
 
-    @ApiModelProperty(value = "状态:PROCESSING,SUCCESS,FAIL")
+    @ApiModelProperty(value = "Status:PROCESSING,SUCCESS,FAIL")
     private String status;
 
-    @ApiModelProperty(value = "状态:NORMAL,FROZEN,REDEEM_FROZEN,REDEEM")
+    @ApiModelProperty(value = "Contract Status:NORMAL,FROZEN,REDEEM_FROZEN,REDEEM")
     private String bizStatus;
 
     @ApiModelProperty(value = "uuid")
     private String uuid;
 
-    @ApiModelProperty(value = "商户号")
+    @ApiModelProperty(value = "Merchant Id")
     private String identifierId;
 
     @ApiModelProperty(value = "message id")
@@ -100,17 +100,17 @@ public class AssetAbsDemoVO {
     @ApiModelProperty(value = "session id")
     private String sessionId;
 
-    @ApiModelProperty(value = "备注信息")
+    @ApiModelProperty(value = "remark")
     private String remark;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "creation timestamp")
     private Date createAt;
 
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "update timestamp")
     private Date updateAt;
 
     /**
-     * PO转VO
+     * PO to VO
      */
     public static AssetAbsDemoVO parsePO(AssetAbs assetAbs) {
         AssetAbsDemoVO vo = new AssetAbsDemoVO();

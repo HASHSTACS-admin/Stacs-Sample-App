@@ -9,79 +9,79 @@ import java.util.Date;
 /**
  * @author HuangShengli
  * @ClassName AssetAbs
- * @Description BD方法和权限的关系表
+ * @Description BD and Permission Relations for Asset Backed Securities
  * @since 2020/9/19
  */
 @Data
 @Entity
 @Table(name = "asset_abs", indexes = {@Index(columnList = "uuid", unique = true)})
-@org.hibernate.annotations.Table(appliesTo = "asset_abs", comment = "abs表")
+@org.hibernate.annotations.Table(appliesTo = "asset_abs", comment = "abs")
 public class AssetAbs {
     /**
-     * 主键id
-     * 自增长
+     * unique Id
+     * auto-increment
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, columnDefinition = "bigint(20)  comment '主键ID'")
+    @Column(nullable = false, columnDefinition = "bigint(20)  comment 'uniqueId'")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "varchar(128) comment '报文CODE'")
+    @Column(nullable = false, columnDefinition = "varchar(128) comment 'SMT code'")
     private String smtCode;
-    @Column(nullable = false, columnDefinition = "varchar(32) comment '资产代码,全局唯一'")
+    @Column(nullable = false, columnDefinition = "varchar(32) comment 'unique asset id'")
     private String assetId;
-    @Column(nullable = false, columnDefinition = "varchar(64) comment '资产名称'")
+    @Column(nullable = false, columnDefinition = "varchar(64) comment 'asset name'")
     private String assetName;
-    @Column(columnDefinition = "varchar(16) comment '债券子类别'")
+    @Column(columnDefinition = "varchar(16) comment 'ABS type'")
     private String absType;
-    @Column(columnDefinition = "varchar(32) comment '发行人名称，即该债券的所有人'")
+    @Column(columnDefinition = "varchar(32) comment 'issuer name'")
     private String issuerName;
-    @Column(columnDefinition = "varchar(192) comment '唯一识别码，同一证券在不同国家或体系会有不同的识别码，用以标识该证券'")
+    @Column(columnDefinition = "varchar(192) comment 'unique id for the ABS'")
     private String uniqueIdentifierCode;
-    @Column(nullable = false, columnDefinition = "varchar(40) comment '资产发行后，资产都会在这个地址，相当于资产发行后的首个接收地址'")
+    @Column(nullable = false, columnDefinition = "varchar(40) comment 'address for which assets will be held after issuance'")
     private String ownerAddress;
-    @Column(nullable = false, columnDefinition = "decimal(32,8) comment '本次发行数量'")
+    @Column(nullable = false, columnDefinition = "decimal(32,8) comment 'quantity of securities'")
     private BigDecimal quantity;
-    @Column(nullable = true, columnDefinition = "decimal(32,8) comment '面值'")
+    @Column(nullable = true, columnDefinition = "decimal(32,8) comment 'par value per token'")
     private BigDecimal parValuePerToken;
-    @Column(nullable = true, columnDefinition = "varchar(32) comment '结算币种，用来认购证券的币种，仅作展示'")
+    @Column(nullable = true, columnDefinition = "varchar(32) comment 'currency for settlement'")
     private String settlementCurrency;
-    @Column(nullable = true, columnDefinition = "int(3) comment '日计数约定，一种用来确定两个券息日期之间天数的共识约定,Eg.360/365'")
+    @Column(nullable = true, columnDefinition = "int(3) comment 'day count convention for calculating interest, for example 360 or 365'")
     private Integer dayCountConvention;
-    @Column(nullable = true, columnDefinition = "varchar(16) comment '付息频率,QUARTER:Quarterly, HALF_YEAR:Semi-annually, YEAR:Annually'")
+    @Column(nullable = true, columnDefinition = "varchar(16) comment 'coupon payment frequency, supported types include QUARTER:Quarterly, HALF_YEAR:semi-annually and YEAR:annually'")
     private String couponFrequency;
-    @Column(nullable = true, columnDefinition = "datetime comment '第一次结算日期'")
+    @Column(nullable = true, columnDefinition = "datetime comment 'first settlement date'")
     private Date firstSettlementDate;
-    @Column(nullable = true, columnDefinition = "longtext comment '约定赎回日期,[10!n,...,10!n]数组格式'")
+    @Column(nullable = true, columnDefinition = "longtext comment 'redemption date, in the format of [10!n,...,10!n]'")
     private String callDate;
-    @Column(nullable = false, columnDefinition = "varchar(32) comment '结息和回购所使用的token ID'")
+    @Column(nullable = false, columnDefinition = "varchar(32) comment 'token id used for coupon payment and redemption'")
     private String disbursementTokenId;
-    @Column(nullable = true, columnDefinition = "longtext comment 'KYC:个人类型KYC的黑名单'")
+    @Column(nullable = true, columnDefinition = "longtext comment 'KYC: Individual Type, prohibited KYC profiles'")
     private String individualProhibited;
-    @Column(nullable = true, columnDefinition = "longtext comment 'KYC:个人类型KYC的白名单'")
+    @Column(nullable = true, columnDefinition = "longtext comment 'KYC: Individual Type, permitted KYC profiles'")
     private String individualPermitted;
-    @Column(nullable = true, columnDefinition = "longtext comment 'KYC:机构类型KYC的黑名单'")
+    @Column(nullable = true, columnDefinition = "longtext comment 'KYC: Institution Type, prohibited KYC profiles'")
     private String institutionalProhibited;
-    @Column(nullable = true, columnDefinition = "longtext comment 'KYC:机构类型KYC的白名单'")
+    @Column(nullable = true, columnDefinition = "longtext comment 'KYC: Institution Type, permitted KYC profiles'")
     private String institutionalPermitted;
-    @Column(nullable = true, columnDefinition = "varchar(40) comment '本次发行的合约地址，合约地址与assets ID一一对应'")
+    @Column(nullable = true, columnDefinition = "varchar(40) comment 'contract address that corresponds to a 1-1 mapping with the asset id'")
     private String contractAddress;
-    @Column(nullable = false, columnDefinition = "tinyint comment '状态:0-PROCESSING,1-SUCCESS,2-FAIL'")
+    @Column(nullable = false, columnDefinition = "tinyint comment 'Status: 0-PROCESSING, 1-SUCCESS, 2-FAIL'")
     private Byte status;
-    @Column(nullable = false, columnDefinition = "tinyint comment '状态:0-正常,1-资产冻结,2-回购冻结,3-回购'")
+    @Column(nullable = false, columnDefinition = "tinyint comment 'Status: 0-Normal, 1-Asset Frozen, 2-Asset Redemption Disabled,3-Redeemed'")
     private Byte bizStatus;
     @Column(nullable = false, columnDefinition = "varchar(128) comment 'uuid'")
     private String uuid;
-    @Column(nullable = false, columnDefinition = "varchar(20) comment '商户号'")
+    @Column(nullable = false, columnDefinition = "varchar(20) comment 'merchantId'")
     private String identifierId;
-    @Column(nullable = true, columnDefinition = "varchar(255) comment 'message id，由DRS返回'")
+    @Column(nullable = true, columnDefinition = "varchar(255) comment 'message id sent by the DRS callback API'")
     private String messageId;
-    @Column(nullable = true, columnDefinition = "varchar(255) comment 'session id，由DRS返回'")
+    @Column(nullable = true, columnDefinition = "varchar(255) comment 'session id sent by the DRS callback API'")
     private String sessionId;
-    @Column(nullable = true, columnDefinition = "varchar(255) comment '备注信息'")
+    @Column(nullable = true, columnDefinition = "varchar(255) comment 'remark'")
     private String remark;
-    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP comment '创建时间'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP comment 'creation timestamp'")
     private Date createAt;
-    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'update timestamp'")
     private Date updateAt;
 }

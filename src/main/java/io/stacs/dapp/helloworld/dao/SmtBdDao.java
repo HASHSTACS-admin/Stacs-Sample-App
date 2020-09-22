@@ -12,7 +12,7 @@ import java.util.List;
 public interface SmtBdDao extends CrudRepository<SmtBd, Long> {
 
     /**
-     * 根据商户号查询bd
+     * BD Query using Merchant Id
      *
      * @param identifierId
      * @return

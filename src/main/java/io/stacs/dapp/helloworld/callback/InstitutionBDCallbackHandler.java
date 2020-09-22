@@ -35,7 +35,7 @@ public class InstitutionBDCallbackHandler implements SmtCallbackHandler {
         DrsSmtMessage.SmtBody body = message.getBody();
         String bdId = body.getString("bdId");
 
-        //更新表Smt BD
+        //Update Smt BD
         SmtBd smtBd = smtBdDao.findByUuid(uuid);
         smtBd.setBdId(bdId);
         if (message.success()) {
@@ -48,7 +48,7 @@ public class InstitutionBDCallbackHandler implements SmtCallbackHandler {
         smtBd.setUpdateAt(new Date());
         smtBdDao.save(smtBd);
 
-        //插入数据到Bd Function Permission Relation
+        //Update Bd Function Permission Relations in database
         List<BdFunctionPermissionRelation> bdFunctionPermissionRelationList = new ArrayList<>();
         Stream.of("freezeIdentityPermissionId", "addAttestationPermissionId", "unfreezeIdentityPermissionId", "setIdentityPermissionId")
                 .filter(o -> Objects.nonNull(body.get(o)))

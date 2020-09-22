@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 /**
- * 权限创建报文服务
+ * Setup permission
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -29,7 +29,7 @@ public class PermissionDemoServiceImpl extends AbstractSendSmtMessageService imp
     private final SmtPermissionDao smtPermissionDao;
 
     /**
-     * 列表格式的权限创建
+     * Permission setup to the blockchain
      *
      * @param request permission request
      * @return drs response
@@ -37,18 +37,18 @@ public class PermissionDemoServiceImpl extends AbstractSendSmtMessageService imp
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
         PermissionRequest permissionRequest = (PermissionRequest) request;
-        //组装报文数据
+        //Setup message using SMT format
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtpm-fix-permission-set-1-v1");
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(permissionRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
-        //发送请求
+        //Send request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
             return drsResponse;
         }
-        //做额外逻辑
+        //run business logic
         doBusiness(permissionRequest, message, drsResponse);
         return drsResponse;
     }
@@ -56,7 +56,7 @@ public class PermissionDemoServiceImpl extends AbstractSendSmtMessageService imp
     private void doBusiness(PermissionRequest permissionRequest,
                             DrsSmtMessage message,
                             DrsResponse<DrsResponse.SmtResult> smtResultDrsResponse) {
-        //组装报文Permission数据，存数据库
+        //save to database
         SmtPermission smtPermission = new SmtPermission();
         smtPermission.setSmtCode(message.getHeader().getSmtCode());
         smtPermission.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());

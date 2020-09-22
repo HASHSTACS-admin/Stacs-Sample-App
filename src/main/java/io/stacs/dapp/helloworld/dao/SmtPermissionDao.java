@@ -9,7 +9,7 @@ import java.util.List;
 public interface SmtPermissionDao extends CrudRepository<SmtPermission, Long> {
 
     /**
-     * 根据商户号查询permission
+     * Query Permission based on Merchant Id
      * @param identifierId
      * @return
      */

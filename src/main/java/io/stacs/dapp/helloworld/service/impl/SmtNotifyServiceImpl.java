@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * @author HuangShengli
  * @ClassName SmtNotifyService
- * @Description DRS回调业务处理
+ * @Description DRS Callback API Service
  * @since 2020/9/12
  */
 @Slf4j
@@ -43,31 +43,31 @@ public class SmtNotifyServiceImpl implements SmtNotifyService {
     public DrsResponse handle(DrsSmtMessage message) {
 
         SmtMessage messagePO = smtMessageDao.findByUuid(message.getHeader().getUuid());
-        //收到无效消息，直接返回成功
+        //Received empty message, return success
         if (messagePO == null) {
-            log.info("收到无效回调消息,uuid={},messageId={}", message.getHeader().getUuid(), message.getHeader().getMessageId());
+            log.info("Received empty callback message,uuid={},messageId={}", message.getHeader().getUuid(), message.getHeader().getMessageId());
             return DrsResponse.success(null);
         }
-        log.info("收到DRS回调消息:{}", message);
+        log.info("Received DRS callback message:{}", message);
         messagePO.setResponseCode(message.getTrailer().getResponseCode());
         messagePO.setResponseMessage(message.getTrailer().getResponseMessage());
         messagePO.setBlockchainTransaction(JSON.toJSONString(message.getTrailer().getBlockchainTransaction()));
         messagePO.setTxs(parseTxs(message.getTrailer().getBlockchainTransaction()));
-        //更新body，因为有些信息需要上链成功才能返回
+        //Modify message body
         messagePO.setBody(message.getBody().toJSONString());
         messagePO.setUpdateAt(new Date());
         smtMessageDao.save(messagePO);
         if (DrsRespCode.SUCCESS.getCode().equals(message.getTrailer().getResponseCode()) || DrsRespCode.ACCEPTED.getCode().equals(message.getTrailer().getResponseCode())) {
-            log.info("您发送的报文,已上链成功，交易IDs:{}", messagePO.getTxs());
+            log.info("transaction is on the chain and is successful, transaction ids:{}", messagePO.getTxs());
         } else {
-            log.info("您发送的报文,已上链失败，错误原因:{}", message.getTrailer().getResponseMessage());
+            log.info("transaction is on the chain but has failed, error message:{}", message.getTrailer().getResponseMessage());
         }
-        //回调处理, 如果存在回调方法，就执行回调逻辑
+        //Handle the DRS callback
         SmtCallbackHandler smtCallbackHandler = smtCallbackHandlerMap.get(message.getHeader().getSmtCode() + SmtCallbackHandler.SUFFIX_CALLBACK);
         if (Objects.nonNull(smtCallbackHandler)) {
             smtCallbackHandler.handle(message);
         }
-        log.info("DRS回调处理成功");
+        log.info("DRS callback handler was successful.");
         return DrsResponse.success(null);
     }
 

@@ -27,7 +27,7 @@ import java.nio.charset.StandardCharsets;
  * @author HuangShengli
  * @ClassName DrsNotifyController
  * @Description DRS Callback API Response handler
- * Encryption and Decryption processes of the API response is provided below. We recommend the use of Web     Filter for encrypting and decrypting API requests and responses respectively.
+ * Encryption and Decryption processes of the API response is provided below. We recommend the use of Web Filter for encrypting and decrypting API requests and responses respectively.
  * @since 2020/9/11
  */
 

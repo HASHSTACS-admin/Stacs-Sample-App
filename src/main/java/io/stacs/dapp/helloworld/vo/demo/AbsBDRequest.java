@@ -14,11 +14,11 @@ import javax.validation.Valid;
  * @since 2020/9/19
  */
 @Data
-@ApiModel(value = "ABS的BD创建参数")
+@ApiModel(value = "ABS BD parameter setup")
 public class AbsBDRequest extends DemoBaseRequest {
 
 
-    @ApiModelProperty(value = "创建ABS资产BD报文体", required = true)
+    @ApiModelProperty(value = "ABS BD parameter setup", required = true)
     @Valid
     private AbsBDSmtBody body;
 }

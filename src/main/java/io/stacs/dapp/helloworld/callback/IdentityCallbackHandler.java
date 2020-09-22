@@ -17,7 +17,7 @@ public class IdentityCallbackHandler {
     private final AddressKycInfoDao addressKycInfoDao;
 
     public void handleIdentityCallBack(DrsSmtMessage message, Byte identityType) {
-        //插入数据到 address kyc info
+        //address kyc info
         AddressKycInfo addressKycInfo = new AddressKycInfo();
         DrsSmtMessage.SmtBody body = message.getBody();
         addressKycInfo.setAddress(body.getString("targetAddress"));

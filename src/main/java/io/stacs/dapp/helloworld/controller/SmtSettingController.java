@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * 设置类报文体验，设置bd，权限，identity等等
- * 当用户启动helloworld服务后，可以使用curl、postman、swagger等工具来尝试发送报文
+ * SMT Format Configuration for BD, Permission, Identity
+ * After starting up this app, user can use curl, postman, swagger and other tools to try out the available APIs
  *
  * @author Su Wenbo
  * @since 2020/9/22
  */
-@Api(tags = "SMT报文体验入口")
+@Api(tags = "SMT Message Endpoints")
 @Slf4j
 @RestController
 @RequestMapping("/smt/demo/")
@@ -36,37 +36,37 @@ public class SmtSettingController {
     Map<String, SmtDemoService> smtDemoService;
 
     /**
-     * 列表格式的权限创建报文API
+     * Use SMT Format to create Permission on the chain
      *
      * @param request the request
      * @return the permission
      */
-    @ApiOperation(value = "设置列表格式的权限报文")
+    @ApiOperation(value = "setup permission using SMT format")
     @PostMapping("/setPermission")
     public DrsResponse setPermission(@Validated @RequestBody PermissionRequest request) {
         return smtDemoService.get("smtpm-fix-permission-set-1-v1").doDemo(request);
     }
 
     /**
-     * 机构业务类的BD创建报文API
+     * Set BD for the Institution
      *
      * @param request the request
      * @return the permission
      */
-    @ApiOperation(value = "设置机构业务类的BD报文")
+    @ApiOperation(value = "Setup Institution BD")
     @PostMapping("/setInstitutionBD")
     public DrsResponse setInstitutionBD(@Validated @RequestBody InstitutionBDRequest request) {
         return smtDemoService.get("smtbd-institution-business-special-1-v1").doDemo(request);
     }
 
     /**
-     * 设置地址身份信息的报文API
+     * Setup Identity using SMT format
      *
      * @param request      the request
      * @param identityType the identity type
      * @return the permission
      */
-    @ApiOperation(value = "设置地址身份信息的报文")
+    @ApiOperation(value = "Set Identity using SMT format")
     @PostMapping("/setIdentity")
     public DrsResponse setIdentity(@Validated @RequestBody IdentityRequest request,
                                    @RequestParam IdentityType identityType) {

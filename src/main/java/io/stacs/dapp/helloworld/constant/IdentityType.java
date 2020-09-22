@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * kyc类型，存在个人和机构
+ * kyc Identity feature for Individuals and Institutions
  *
  * @author Su Wenbo
  * @since 2020/9/22
@@ -14,12 +14,12 @@ import lombok.RequiredArgsConstructor;
 public enum IdentityType {
 
     /**
-     * 个人，编号0
+     * Individual Type with value 0 based on SMT format documentation
      */
     INDIVIDUAL((byte) 0, "smti-individual-identity-set-1-v1"),
 
     /**
-     * 机构，编号 1
+     * Institution Type with value 1 based on SMT format documentation
      */
     INSTITUTION((byte) 1, "smti-institution-identity-set-1-v1");
 

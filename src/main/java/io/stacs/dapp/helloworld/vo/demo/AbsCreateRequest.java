@@ -14,11 +14,11 @@ import javax.validation.Valid;
  * @since 2020/9/19
  */
 @Data
-@ApiModel(value = "ABS创建参数")
+@ApiModel(value = "ABS parameter setup")
 public class AbsCreateRequest extends DemoBaseRequest {
 
 
-    @ApiModelProperty(value = "创建ABS资产报文体", required = true)
+    @ApiModelProperty(value = "ABS parameter setup", required = true)
     @Valid
     private AbsSmtBody body;
 }

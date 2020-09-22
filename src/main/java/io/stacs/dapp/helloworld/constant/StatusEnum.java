@@ -10,7 +10,7 @@ import lombok.Getter;
 public class StatusEnum {
 
     /**
-     * ABS 业务状态
+     * Asset Backed Securities Status
      */
     @Getter
     @AllArgsConstructor
@@ -33,7 +33,7 @@ public class StatusEnum {
     }
 
     /**
-     * 链状态
+     * Blockchain Status
      */
     @Getter
     @AllArgsConstructor

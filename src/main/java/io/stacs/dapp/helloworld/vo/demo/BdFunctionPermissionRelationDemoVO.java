@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * @author HuangShengli
  * @ClassName BdFunctionPermissionRelation
- * @Description BD方法和权限的关系表
+ * @Description BD and Permission entity relation
  * @since 2020/9/18
  */
 @Data
@@ -28,18 +28,18 @@ public class BdFunctionPermissionRelationDemoVO {
     @ApiModelProperty(value = "permission id")
     private String permissionId;
 
-    @ApiModelProperty(value = "报文中描述的")
+    @ApiModelProperty(value = "SMT format function name")
     private String functionName;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "creation timestamp")
     private Date createAt;
 
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "update timestamp")
     private Date updateAt;
 
 
     /**
-     * PO转VO
+     * PO to VO
      */
     public static BdFunctionPermissionRelationDemoVO parsePO(BdFunctionPermissionRelation relation) {
         BdFunctionPermissionRelationDemoVO vo = new BdFunctionPermissionRelationDemoVO();

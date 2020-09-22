@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * 设置地址身份信息的报文服务
+ * Identity Setup using SMT format
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class IdentityDemoServiceImpl extends AbstractSendSmtMessageService implements SmtDemoService {
 
     /**
-     * 设置地址身份信息
+     * Setup Identity to send to the chain
      *
      * @param request permission request
      * @return drs response
@@ -29,13 +29,13 @@ public class IdentityDemoServiceImpl extends AbstractSendSmtMessageService imple
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
         IdentityRequest identityRequest = (IdentityRequest) request;
-        //组装报文数据
+        //Setup message using SMT format
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode(identityRequest.getIdentityType().getSmtCode());
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(identityRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
-        //发送请求
+        //Send request
         return doSend(message);
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
 public interface BdFunctionPermissionRelationDao extends JpaRepository<BdFunctionPermissionRelation, Long> {
 
     /**
-     * 根据bdId查询function
+     * Query by BD ID
      * @param bdId
      * @return
      */

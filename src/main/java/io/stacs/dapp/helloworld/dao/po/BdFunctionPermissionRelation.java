@@ -14,31 +14,31 @@ import java.util.Date;
 /**
  * @author HuangShengli
  * @ClassName BdFunctionPermissionRelation
- * @Description BD方法和权限的关系表
+ * @Description BD and Permission Relation Entity
  * @since 2020/9/18
  */
 @Data
 @Entity
 @Table(name = "bd_function_permission_relation", indexes = {@Index(columnList = "bdId,functionName", unique = true)})
-@org.hibernate.annotations.Table(appliesTo = "bd_function_permission_relation", comment = "BD方法和权限的关系表")
+@org.hibernate.annotations.Table(appliesTo = "bd_function_permission_relation", comment = "BD and Permission Entity relation")
 public class BdFunctionPermissionRelation {
     /**
-     * 主键id
-     * 自增长
+     * unique id
+     * auto-increment
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, columnDefinition = "bigint(20)  comment '主键ID'")
+    @Column(nullable = false, columnDefinition = "bigint(20)  comment 'primary unique ID'")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "varchar(128) comment 'BD id,发行BD成功后DRS返回'")
+    @Column(nullable = false, columnDefinition = "varchar(128) comment 'BD id, sent back by DRS callback API'")
     private String bdId;
-    @Column(nullable = false, columnDefinition = "varchar(128) comment 'permission id,发布成功后返回'")
+    @Column(nullable = false, columnDefinition = "varchar(128) comment 'permission id, sent back by DRS callback API'")
     private String permissionId;
-    @Column(nullable = false, columnDefinition = "varchar(128) comment '报文中描述的'")
+    @Column(nullable = false, columnDefinition = "varchar(128) comment 'SMT format function name'")
     private String functionName;
-    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '创建时间'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'creation timestamp'")
     private Date createAt;
-    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'update timestamp'")
     private Date updateAt;
 }

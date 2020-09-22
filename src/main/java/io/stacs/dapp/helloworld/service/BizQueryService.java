@@ -6,12 +6,12 @@ import io.stacs.dapp.helloworld.vo.demo.*;
 import java.util.List;
 
 /**
- * 业务查询
+ * Query API
  */
 public interface BizQueryService {
 
     /**
-     * 查询abs
+     * Query ABS by Merchant Id
      *
      * @param identifierId
      * @return
@@ -20,7 +20,7 @@ public interface BizQueryService {
 
 
     /**
-     * 查询bd
+     *  Query BD by Merchant Id
      *
      * @param identifierId
      * @return
@@ -28,7 +28,7 @@ public interface BizQueryService {
     List<SmtBdDemoVO> bdList(String identifierId);
 
     /**
-     * 查询permission
+     * Query Permission by Merchant Id
      *
      * @param identifierId
      * @return
@@ -36,7 +36,7 @@ public interface BizQueryService {
     List<SmtPermissionDemoVO> permissionList(String identifierId);
 
     /**
-     * 查询function
+     * Query by BD ID
      *
      * @param bdId
      * @return

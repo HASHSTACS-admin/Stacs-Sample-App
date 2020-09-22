@@ -14,15 +14,15 @@ import java.io.Serializable;
  * @since 2020/9/12
  */
 @Data
-@ApiModel(value = "余额查询参数")
+@ApiModel(value = "query wallet balance")
 public class BalanceOfRequest implements Serializable {
 
 
-    @ApiModelProperty(value = "需要查询的资产ID", required = true)
-    @NotBlank(message = "资产ID不能为空")
+    @ApiModelProperty(value = "asset id is required", required = true)
+    @NotBlank(message = "asset id cannot be blank")
     private String assetId;
 
-    @ApiModelProperty(value = "需要查询的地址", required = true)
-    @NotBlank(message = "查询地址不能为空")
+    @ApiModelProperty(value = "address is required", required = true)
+    @NotBlank(message = "address cannot be blank")
     private String address;
 }

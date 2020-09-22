@@ -15,11 +15,11 @@ import java.util.Map;
 /**
  * @author HuangShengli
  * @ClassName DemoController
- * @Description 用户可以体验发送已提供的各种报文
- * 当用户启动helloworld服务后，可以使用curl、postman、swagger等工具来尝试发送报文
+ * @Description User can send and receive via API SMT messages
+ * After starting up this app, user can use curl, postman, swagger and other tools to try out the available APIs
  * @since 2020/9/12
  */
-@Api(tags = "SMT报文体验入口")
+@Api(tags = "SMT Message API Endpoints")
 @Slf4j
 @RestController
 @RequestMapping("/smt/demo/abs")
@@ -31,7 +31,7 @@ public class AbsDemoController {
     /**
      * @return
      */
-    @ApiOperation(value = "发行ABS得BD报文")
+    @ApiOperation(value = "Issue ABS in SMT Format")
     @PostMapping("issueAbsBd")
     @ResponseBody
     public DrsResponse issueBD(@Validated @RequestBody AbsBDRequest request) {
