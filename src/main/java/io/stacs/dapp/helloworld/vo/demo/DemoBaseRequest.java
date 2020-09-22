@@ -35,7 +35,7 @@ public class DemoBaseRequest implements Serializable {
         @ApiModelProperty(value = "提交地址(用户先使用获取地址API获取一个属于自己的地址)", required = true)
         @NotBlank(message = "提交地址不能为空")
         private String messageSenderAddress;
-        @ApiModelProperty(value = "sessionId(DRS返回，示例中隐藏)", hidden = true)
+        @ApiModelProperty(value = "sessionId(DRS返回，示例中隐藏)")
         private String sessionId;
         @NotBlank(message = "报文code不能为空")
         @ApiModelProperty(value = "报文Code(用户需要体验的报文code)", required = true)

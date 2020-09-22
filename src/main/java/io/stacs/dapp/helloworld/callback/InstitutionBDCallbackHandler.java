@@ -43,8 +43,6 @@ public class InstitutionBDCallbackHandler implements SmtCallbackHandler {
         } else {
             smtBd.setStatus(StatusEnum.ChainStatus.FAIL.getCode());
         }
-        smtBd.setMessageId(message.getHeader().getMessageId());
-        smtBd.setSessionId(message.getHeader().getSessionId());
         smtBd.setUpdateAt(new Date());
         smtBdDao.save(smtBd);
 

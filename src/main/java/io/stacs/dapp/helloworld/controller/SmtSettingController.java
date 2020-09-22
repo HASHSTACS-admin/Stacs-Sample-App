@@ -1,6 +1,5 @@
 package io.stacs.dapp.helloworld.controller;
 
-import io.stacs.dapp.helloworld.constant.IdentityType;
 import io.stacs.dapp.helloworld.service.SmtDemoService;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.demo.IdentityRequest;
@@ -10,11 +9,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -62,15 +61,13 @@ public class SmtSettingController {
     /**
      * 设置地址身份信息的报文API
      *
-     * @param request      the request
-     * @param identityType the identity type
+     * @param request the request
      * @return the permission
      */
     @ApiOperation(value = "设置地址身份信息的报文")
     @PostMapping("/setIdentity")
-    public DrsResponse setIdentity(@Validated @RequestBody IdentityRequest request,
-                                   @RequestParam IdentityType identityType) {
-        request.setIdentityType(identityType);
+    public DrsResponse setIdentity(@Validated @RequestBody IdentityRequest request) {
+        Assert.hasLength(request.getHeader().getSmtCode(), "Smt code不能为空");
         return smtDemoService.get("smti-individual-identity-set-1-v1").doDemo(request);
     }
 

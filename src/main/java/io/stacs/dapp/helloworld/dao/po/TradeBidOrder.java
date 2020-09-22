@@ -2,7 +2,13 @@ package io.stacs.dapp.helloworld.dao.po;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -32,13 +38,16 @@ public class TradeBidOrder {
     private String assetId;
     @Column(nullable = false, columnDefinition = "varchar(64) comment '售卖单sessionId'")
     private String offerSessionId;
-    @Column(nullable = false, columnDefinition = "varchar(32) comment '售卖人地址'")
+
+    @Column(nullable = false, columnDefinition = "varchar(32) comment '购买人地址'")
     private String bidAddress;
     @Column(nullable = false, columnDefinition = "decimal(32,8) comment '购买数量'")
     private BigDecimal quantity;
-    @Column(nullable = false, columnDefinition = "decimal(32,8) comment '支付token数量'")
+
+    @Column(nullable = true, columnDefinition = "decimal(32,8) comment '支付token数量'")
     private BigDecimal paymentAmount;
-    @Column(nullable = false, columnDefinition = "varchar(32) comment '支付的token ID'")
+
+    @Column(nullable = true, columnDefinition = "varchar(32) comment '支付的token ID'")
     private String paymentCurrencyId;
 
     @Column(nullable = true, columnDefinition = "varchar(128) comment '额外信息'")
