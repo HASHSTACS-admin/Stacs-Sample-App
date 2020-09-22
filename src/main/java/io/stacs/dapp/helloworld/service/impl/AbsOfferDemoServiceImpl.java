@@ -2,23 +2,21 @@ package io.stacs.dapp.helloworld.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import io.stacs.dapp.helloworld.constant.StatusEnum;
-import io.stacs.dapp.helloworld.dao.AssetAbsDao;
-import io.stacs.dapp.helloworld.dao.po.AssetAbs;
+import io.stacs.dapp.helloworld.dao.TradeOfferOrderDao;
+import io.stacs.dapp.helloworld.dao.po.TradeOfferOrder;
 import io.stacs.dapp.helloworld.service.AbstractSendSmtMessageService;
 import io.stacs.dapp.helloworld.service.SmtDemoService;
+import io.stacs.dapp.helloworld.utils.CommonUtil;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
-import io.stacs.dapp.helloworld.vo.demo.AbsCreateRequest;
+import io.stacs.dapp.helloworld.vo.demo.AbsOfferRequest;
 import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
-import io.stacs.dapp.helloworld.vo.drs.AbsSmtBody;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Huang Shengli
@@ -29,7 +27,7 @@ import java.util.stream.Collectors;
 public class AbsOfferDemoServiceImpl extends AbstractSendSmtMessageService implements SmtDemoService {
 
     @Autowired
-    private AssetAbsDao assetAbsDao;
+    private TradeOfferOrderDao tradeOfferOrderDao;
 
     /**
      * abs的BD发布
@@ -40,20 +38,21 @@ public class AbsOfferDemoServiceImpl extends AbstractSendSmtMessageService imple
     @Transactional
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
-        AbsCreateRequest absRequest = (AbsCreateRequest) request;
+        AbsOfferRequest offerRequest = (AbsOfferRequest) request;
         //组装报文数据
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-subscription-offer-3-v1");
         //报文体
-        DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(absRequest.getBody()), DrsSmtMessage.SmtBody.class);
-        //需要特殊处理两个日期问题
-        if (!CollectionUtils.isEmpty(absRequest.getBody().getCallDate())) {
-            List<Long> calldate = absRequest.getBody().getCallDate().stream().map(x -> x.getTime() / 1000).collect(Collectors.toList());
-            body.put("callDate", calldate);
+        DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(offerRequest.getBody()), DrsSmtMessage.SmtBody.class);
+        //特殊处理日期格式
+        body.put("orderStartTime", CommonUtil.getSmtDateTime(offerRequest.getBody().getOrderStartTime()));
+        body.put("orderEndTime", CommonUtil.getSmtDateTime(offerRequest.getBody().getOrderEndTime()));
+        body.put("paymentEndTime", CommonUtil.getSmtDateTime(offerRequest.getBody().getPaymentEndTime()));
+
+        if (null != offerRequest.getBody().getSettleTime()) {
+            body.put("settleTime", CommonUtil.getSmtDateTime(offerRequest.getBody().getSettleTime()));
         }
-        if (null != absRequest.getBody().getFirstSettlementDate()) {
-            body.put("firstSettlementDate", absRequest.getBody().getFirstSettlementDate().getTime() / 1000);
-        }
+
         message.setBody(body);
         //发起DRS请求
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
@@ -61,7 +60,7 @@ public class AbsOfferDemoServiceImpl extends AbstractSendSmtMessageService imple
             return drsResponse;
         }
         //doBusiness
-        doBusiness(drsResponse, absRequest);
+        doBusiness(drsResponse, offerRequest);
         //请求DRS
         return drsResponse;
     }
@@ -70,48 +69,25 @@ public class AbsOfferDemoServiceImpl extends AbstractSendSmtMessageService imple
      * 业务处理
      *
      * @param drsResponse
+     * @param offerRequest
      */
-    private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsCreateRequest absRequest) {
+    private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsOfferRequest offerRequest) {
         //保存到bd表
-        AssetAbs abs = new AssetAbs();
-        abs.setCreateAt(new Date());
-        abs.setUpdateAt(new Date());
-        abs.setIdentifierId(absRequest.getHeader().getIdentifierId());
-        abs.setMessageId(drsResponse.getData().getMessageId());
-        abs.setSessionId(drsResponse.getData().getSessionId());
-        abs.setSmtCode("smta-abs-corporation-issue-1-v1");
-        abs.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
-        abs.setUuid(absRequest.getHeader().getUuid());
+        TradeOfferOrder order = new TradeOfferOrder();
         //业务数据
-        AbsSmtBody absBody = absRequest.getBody();
-        abs.setAbsType(absBody.getAbsType());
-        abs.setAssetId(absBody.getAssetId());
-        abs.setAssetName(absBody.getAssetName());
-        abs.setBizStatus(StatusEnum.BizStatus.NORMAL.getCode());
-        abs.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
-        abs.setIssuerName(absBody.getIssuerName());
-        if (!CollectionUtils.isEmpty(absBody.getCallDate())) {
-            List<Long> calldate = absBody.getCallDate().stream().map(x -> x.getTime() / 1000).collect(Collectors.toList());
-            abs.setCallDate(JSON.toJSONString(calldate));
-        }
-        abs.setCouponFrequency(absBody.getCouponFrequency());
-        abs.setDayCountConvention(absBody.getDayCountConvention());
-        abs.setDisbursementTokenId(absBody.getDisbursementTokenId());
-        abs.setFirstSettlementDate(absBody.getFirstSettlementDate());
-        if (!CollectionUtils.isEmpty(absBody.getIndividualPermitted())) {
-            abs.setIndividualPermitted(JSON.toJSONString(absBody.getIndividualPermitted()));
-        }
-        if (!CollectionUtils.isEmpty(absBody.getIndividualProhibited())) {
-            abs.setIndividualPermitted(JSON.toJSONString(absBody.getIndividualProhibited()));
-        }
-        if (!CollectionUtils.isEmpty(absBody.getInstitutionalPermitted())) {
-            abs.setIndividualPermitted(JSON.toJSONString(absBody.getInstitutionalPermitted()));
-        }
-        if (!CollectionUtils.isEmpty(absBody.getInstitutionalProhibited())) {
-            abs.setIndividualPermitted(JSON.toJSONString(absBody.getInstitutionalProhibited()));
-        }
-
+        BeanUtils.copyProperties(offerRequest.getBody(), order);
+        //通用信息
+        order.setCreateAt(new Date());
+        order.setUpdateAt(new Date());
+        order.setIdentifierId(offerRequest.getHeader().getIdentifierId());
+        order.setMessageId(drsResponse.getData().getMessageId());
+        order.setSessionId(drsResponse.getData().getSessionId());
+        order.setSmtCode("smtt-abs-subscription-offer-3-v1");
+        order.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
+        order.setBizStatus(StatusEnum.OfferBizStatus.OFFER.getCode());
+        order.setUuid(offerRequest.getHeader().getUuid());
+        order.setOfferAddress(offerRequest.getHeader().getMessageSenderAddress());
         //save
-        assetAbsDao.save(abs);
+        tradeOfferOrderDao.save(order);
     }
 }

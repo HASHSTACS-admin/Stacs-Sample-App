@@ -45,7 +45,7 @@ public class AbsOfferSmtBody implements Serializable {
     @ApiModelProperty(value = "单次最低购买量", required = true)
     @NotNull(message = "单次最低购买量大于0")
     @Min(0)
-    private String minSizePerTrade;
+    private BigDecimal minSizePerTrade;
 
     @ApiModelProperty(value = "倍数，小于等于卖出数量，只能以此数字的整倍数进行购买")
     private BigDecimal lotSize;

@@ -45,7 +45,7 @@ public class TradeOfferOrder {
     @Column(nullable = false, columnDefinition = "decimal(32,8) comment '单个地址能购买的总量，必须大于等于minSizePerTrad，小于等于卖出数量'")
     private BigDecimal maxSizePerAddress;
     @Column(nullable = false, columnDefinition = "decimal(32,8) comment '单次最低购买量'")
-    private String minSizePerTrade;
+    private BigDecimal minSizePerTrade;
     @Column(nullable = true, columnDefinition = "decimal(32,8) comment '倍数，小于等于卖出数量，只能以此数字的整倍数进行购买'")
     private BigDecimal lotSize;
     @Column(nullable = false, columnDefinition = "datetime comment '买家可开始下单的时间'")
