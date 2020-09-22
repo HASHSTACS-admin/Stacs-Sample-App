@@ -69,7 +69,7 @@ public class AbsSettleDemoServiceImpl extends AbstractSendSmtMessageService impl
 
     private void doBusiness(TradeOfferOrder order) {
         order.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
-        order.setBizStatus(StatusEnum.OfferBizStatus.SETTLEMENT.getCode());
+        order.setBizStatus(StatusEnum.OfferBizStatus.OFFER.getCode());
         order.setUpdateAt(new Date());
         tradeOfferOrderDao.save(order);
     }

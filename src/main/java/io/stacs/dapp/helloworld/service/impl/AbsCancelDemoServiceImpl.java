@@ -53,7 +53,7 @@ public class AbsCancelDemoServiceImpl extends AbstractSendSmtMessageService impl
             return DrsResponse.fail("error", "The order to be canceled does not exist!");
         }
         if (!(StatusEnum.BidBizStatus.SUBSCRIBED.getCode().equals(tradeBidOrder.getBizStatus()) &&
-                StatusEnum.OfferBizStatus.SETTLEMENT.getCode().equals(tradeOfferOrder.getBizStatus()))) {
+                StatusEnum.OfferBizStatus.OFFER.getCode().equals(tradeOfferOrder.getBizStatus()))) {
             return DrsResponse.fail("error", "current state does not support this operation!");
         }
 

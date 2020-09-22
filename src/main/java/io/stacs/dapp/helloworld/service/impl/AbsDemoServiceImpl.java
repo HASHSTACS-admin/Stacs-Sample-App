@@ -11,6 +11,7 @@ import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.AbsCreateRequest;
 import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
 import io.stacs.dapp.helloworld.vo.drs.AbsSmtBody;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,6 +75,7 @@ public class AbsDemoServiceImpl extends AbstractSendSmtMessageService implements
     private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsCreateRequest absRequest, DrsSmtMessage.SmtHeader header) {
         //保存到bd表
         AssetAbs abs = new AssetAbs();
+        BeanUtils.copyProperties(absRequest.getBody(), abs);
         abs.setCreateAt(new Date());
         abs.setUpdateAt(new Date());
         abs.setIdentifierId(header.getIdentifierId());
@@ -84,20 +86,13 @@ public class AbsDemoServiceImpl extends AbstractSendSmtMessageService implements
         abs.setUuid(header.getUuid());
         //业务数据
         AbsSmtBody absBody = absRequest.getBody();
-        abs.setAbsType(absBody.getAbsType());
-        abs.setAssetId(absBody.getAssetId());
-        abs.setAssetName(absBody.getAssetName());
+
         abs.setBizStatus(StatusEnum.BizStatus.NORMAL.getCode());
         abs.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
-        abs.setIssuerName(absBody.getIssuerName());
         if (!CollectionUtils.isEmpty(absBody.getCallDate())) {
             List<Long> calldate = absBody.getCallDate().stream().map(x -> x.getTime() / 1000).collect(Collectors.toList());
             abs.setCallDate(JSON.toJSONString(calldate));
         }
-        abs.setCouponFrequency(absBody.getCouponFrequency());
-        abs.setDayCountConvention(absBody.getDayCountConvention());
-        abs.setDisbursementTokenId(absBody.getDisbursementTokenId());
-        abs.setFirstSettlementDate(absBody.getFirstSettlementDate());
         if (!CollectionUtils.isEmpty(absBody.getIndividualPermitted())) {
             abs.setIndividualPermitted(JSON.toJSONString(absBody.getIndividualPermitted()));
         }

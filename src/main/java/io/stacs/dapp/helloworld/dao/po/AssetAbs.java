@@ -42,8 +42,8 @@ public class AssetAbs {
     private String ownerAddress;
     @Column(nullable = false, columnDefinition = "decimal(32,8) comment '本次发行数量'")
     private BigDecimal quantity;
-    @Column(nullable = true, columnDefinition = "decimal(32,8) comment '面值'")
-    private BigDecimal parValuePerToken;
+    @Column(nullable = true, columnDefinition = "varchar(36) comment '面值'")
+    private String parValuePerToken;
     @Column(nullable = true, columnDefinition = "varchar(32) comment '结算币种，用来认购证券的币种，仅作展示'")
     private String settlementCurrency;
     @Column(nullable = true, columnDefinition = "int(3) comment '日计数约定，一种用来确定两个券息日期之间天数的共识约定,Eg.360/365'")

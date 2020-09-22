@@ -29,6 +29,7 @@ public class IndividualIdentityDemoServiceImpl extends AbstractSendSmtMessageSer
         IndividualIdentityRequest individualIdentityRequest = (IndividualIdentityRequest) request;
         //组装报文数据
         DrsSmtMessage message = buildBaseMessage(request);
+        message.getHeader().setSmtCode("smti-individual-identity-set-1-v1");
         //报文体
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(individualIdentityRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);

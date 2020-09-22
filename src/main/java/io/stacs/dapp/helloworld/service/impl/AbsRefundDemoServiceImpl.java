@@ -45,7 +45,7 @@ public class AbsRefundDemoServiceImpl extends AbstractSendSmtMessageService impl
         if (tradeOfferOrder.getPaymentEndTime().after(new Date())) {
             return DrsResponse.fail("error", "Only after the due date of payment!");
         }
-        if (!StatusEnum.OfferBizStatus.SETTLEMENT.getCode().equals(tradeOfferOrder.getBizStatus())) {
+        if (!StatusEnum.OfferBizStatus.OFFER.getCode().equals(tradeOfferOrder.getBizStatus())) {
             return DrsResponse.fail("error", "The current state does not support refund!");
         }
 

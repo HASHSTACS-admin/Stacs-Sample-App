@@ -52,7 +52,7 @@ public class AbsBidDemoServiceImpl extends AbstractSendSmtMessageService impleme
         if (Objects.isNull(tradeOfferOrder)) {
             return DrsResponse.fail("error", "Trade offer order doesn't exist!");
         }
-        if (!StatusEnum.OfferBizStatus.SETTLEMENT.getCode().equals(tradeOfferOrder.getBizStatus())) {
+        if (!StatusEnum.OfferBizStatus.OFFER.getCode().equals(tradeOfferOrder.getBizStatus())) {
             return DrsResponse.fail("error", "current state does not support this operation!");
         }
         if (tradeOfferOrder.getOrderStartTime().after(new Date())) {
@@ -74,9 +74,12 @@ public class AbsBidDemoServiceImpl extends AbstractSendSmtMessageService impleme
         if (tradeOfferOrder.getQuantity().compareTo(quantity) < 0) {
             return DrsResponse.fail("error", "remain is not enough!");
         }
-        BigDecimal number = quantity.divide(tradeOfferOrder.getLotSize(), 4, BigDecimal.ROUND_HALF_UP);
-        if (new BigDecimal(number.intValue()).compareTo(number) == 0) {
-            return DrsResponse.fail("error", "amount not an integer multiple!");
+        if (Objects.nonNull(tradeOfferOrder.getLotSize())
+                && BigDecimal.ZERO.compareTo(tradeOfferOrder.getLotSize()) != 0) {
+            BigDecimal number = quantity.divide(tradeOfferOrder.getLotSize(), 4, BigDecimal.ROUND_HALF_UP);
+            if (new BigDecimal(number.intValue()).compareTo(number) == 0) {
+                return DrsResponse.fail("error", "amount not an integer multiple!");
+            }
         }
 
         //组装报文数据

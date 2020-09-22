@@ -30,7 +30,7 @@ public class TradeOfferOrder {
     private String smtCode;
     @Column(nullable = false, columnDefinition = "varchar(32) comment '资产代码'")
     private String assetId;
-    @Column(nullable = false, columnDefinition = "varchar(32) comment '售卖人地址'")
+    @Column(nullable = false, columnDefinition = "varchar(40) comment '售卖人地址'")
     private String offerAddress;
     @Column(nullable = false, columnDefinition = "decimal(32,8) comment '本次售卖数量'")
     private BigDecimal quantity;
