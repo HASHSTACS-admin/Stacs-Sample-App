@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * 机构业务类BD报文，创建参数的Body
+ * 买方出价认购ABS参数，创建参数的Body
  *
  * @author Su Wenbo
  * @since 2020/9/21

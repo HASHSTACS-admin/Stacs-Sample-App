@@ -11,4 +11,6 @@ public interface TradeBidOrderDao extends CrudRepository<TradeBidOrder, Long> {
 
     TradeBidOrder findByUuid(String uuid);
 
+    TradeBidOrder findByMessageId(String messageId);
+
 }

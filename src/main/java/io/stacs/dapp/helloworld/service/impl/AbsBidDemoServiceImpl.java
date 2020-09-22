@@ -13,9 +13,11 @@ import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.AbsBidRequest;
 import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * 买方出价认购ABS报文服务
@@ -23,6 +25,7 @@ import java.util.Date;
  * @author Su Wenbo
  * @since 2020/9/21
  */
+@Slf4j
 @RequiredArgsConstructor
 @Service("smtt-abs-subscription-bid-2-v1")
 public class AbsBidDemoServiceImpl extends AbstractSendSmtMessageService implements SmtDemoService {
@@ -61,6 +64,10 @@ public class AbsBidDemoServiceImpl extends AbstractSendSmtMessageService impleme
                             DrsResponse<DrsResponse.SmtResult> smtResultDrsResponse) {
         //查询offer单
         TradeOfferOrder tradeOfferOrder = tradeOfferOrderDao.findBySessionId(message.getHeader().getSessionId());
+        if (Objects.isNull(tradeOfferOrder)) {
+            log.warn("Cannot find trade offer order by session id.");
+            return;
+        }
 
         //组装trade bid order，存数据库
         TradeBidOrder tradeBidOrder = new TradeBidOrder();
