@@ -9,9 +9,18 @@ public interface AssetAbsDao extends JpaRepository<AssetAbs, Long> {
 
     /**
      * 根据商户号查询abs
+     *
      * @param identifierId
      * @return
      */
     List<AssetAbs> findByIdentifierId(String identifierId);
+
+    /**
+     * 根据uuid查询
+     *
+     * @param uuid
+     * @return
+     */
+    AssetAbs findByUuid(String uuid);
 
 }
