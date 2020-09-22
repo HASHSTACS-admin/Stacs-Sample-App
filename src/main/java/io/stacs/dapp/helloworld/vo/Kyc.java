@@ -9,19 +9,19 @@ import java.io.Serializable;
 /**
  * @author HuangShengli
  * @ClassName Kyc
- * @Description Kyc 信息
+ * @Description Kyc Parameters
  * @since 2020/9/21
  */
 @Data
-@ApiModel(value = "KYC信息")
+@ApiModel(value = "KYC Parameters")
 public class Kyc implements Serializable {
-    @ApiModelProperty(value = "国籍，采用ISO 3166-1 alpha-2标准（正式分配代码）", required = true)
+    @ApiModelProperty(value = "nationality, based on ISO 3166-1 alpha-2 standard", required = true)
     private String Nationality;
-    @ApiModelProperty(value = "居住国，采用ISO 3166-1 alpha-2标准（正式分配代码）", required = true)
+    @ApiModelProperty(value = "residency, based on ISO 3166-1 alpha-2 standard", required = true)
     private String CountryOfResidency;
-    @ApiModelProperty(value = "投资者类型", required = true, allowableValues = "Retail,Accredited")
+    @ApiModelProperty(value = "investor type", required = true, allowableValues = "Retail,Accredited")
     private String InvestorType;
-    @ApiModelProperty(value = "风险等级", required = true)
+    @ApiModelProperty(value = "risk level", required = true)
     private Integer HighestRisk;
 
 

@@ -16,22 +16,22 @@ import java.math.BigDecimal;
 public class TransferSmtBody implements Serializable {
 
     /**
-     * 资产ID
+     * Asset ID
      */
-    @ApiModelProperty(value = "资产ID", required = true)
-    @NotBlank(message = "资产ID不能为空")
+    @ApiModelProperty(value = "Asset ID", required = true)
+    @NotBlank(message = "Asset Id cannot be blank")
     private String assetId;
     /**
-     * 目标地址
+     * Target Address
      */
-    @ApiModelProperty(value = "目标地址", required = true)
-    @NotBlank(message = "目标地址不能为空")
+    @ApiModelProperty(value = "target address", required = true)
+    @NotBlank(message = "target address cannot be blank")
     private String targetAddress;
 
     /**
-     * 数量
+     * transfer quantity
      */
-    @ApiModelProperty(value = "转账数量", required = true)
-    @NotNull(message = "转账数量不能为空")
+    @ApiModelProperty(value = "transfer quantity", required = true)
+    @NotNull(message = "transfer quantity cannot be null")
     private BigDecimal quantity;
 }

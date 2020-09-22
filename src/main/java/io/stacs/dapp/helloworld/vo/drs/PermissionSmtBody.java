@@ -15,13 +15,13 @@ import java.util.List;
 @Data
 public class PermissionSmtBody implements Serializable {
 
-    @ApiModelProperty(value = "对此permission拥有修改权限的地址，只能填写地址[addr1,addr2,..]格式", required = true)
-    @NotNull(message = "地址列表不能为空")
-    @NotEmpty(message = "地址列表不能为空")
+    @ApiModelProperty(value = "address with authority to modify this permission, allowed format is in the form of [addr1,addr2,...]", required = true)
+    @NotNull(message = "modiferAddress cannot be null")
+    @NotEmpty(message = "modiferAddress cannot be empty")
     private List<String> modifierAddress;
 
-    @ApiModelProperty(value = "拥有permission权限的地址，只能填写地址[addr1,addr2,..]格式", required = true)
-    @NotNull(message = "地址列表不能为空")
-    @NotEmpty(message = "地址列表不能为空")
+    @ApiModelProperty(value = "address with permission, allowed format is in the form of [addr1,addr2,...]", required = true)
+    @NotNull(message = "authorizedAddress cannot be null")
+    @NotEmpty(message = "authorizedAddress cannot be empty")
     private List<String> authorizedAddress;
 }
