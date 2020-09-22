@@ -1,6 +1,6 @@
 package io.stacs.dapp.helloworld.vo.drs;
 
-import io.stacs.dapp.helloworld.vo.Kyc;
+import io.stacs.dapp.helloworld.vo.IdentityKyc;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -23,7 +23,7 @@ public class IdentitySmtBody implements Serializable {
     @ApiModelProperty(value = "数组格式，采用ISO 3166-1 alpha-2标准（正式分配代码）表示国家或居留地", required = true)
     @NotNull(message = "Identity不能为空")
     @NotEmpty(message = "Identity不能为空")
-    private List<Kyc> identity;
+    private List<IdentityKyc> identity;
 
     @ApiModelProperty(value = "添加身份信息使用的bdId", required = true)
     @NotNull(message = "BD ID不能为空")
