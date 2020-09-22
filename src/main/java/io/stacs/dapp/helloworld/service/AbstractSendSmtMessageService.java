@@ -70,7 +70,7 @@ public abstract class AbstractSendSmtMessageService {
 
         try {
             //send HTTP API request
-            log.info("发送报文开始,smtCode={}，uuid={}", message.getHeader().getSmtCode(), message.getHeader().getUuid());
+            log.info("Start to send API request,smtCode={}，uuid={}", message.getHeader().getSmtCode(), message.getHeader().getUuid());
             JSONObject response = DrsClient.post(drsConfig.getSmtSendUrl(), message);
             //Retrieve the synchronous response from the DRS
             DrsResponse<DrsResponse.SmtResult> result = JSONObject.parseObject(response.toJSONString(), new TypeReference<DrsResponse<DrsResponse.SmtResult>>() {
@@ -98,7 +98,7 @@ public abstract class AbstractSendSmtMessageService {
         SmtMessage messagePO = new SmtMessage();
         messagePO.setCreateAt(new Date());
         messagePO.setUpdateAt(new Date());
-        //header信息
+        //header message
         messagePO.setIdentifierId(message.getHeader().getIdentifierId());
         messagePO.setSessionId(message.getHeader().getSessionId());
         messagePO.setMessageId(message.getHeader().getMessageId());
