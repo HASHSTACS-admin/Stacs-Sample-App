@@ -31,7 +31,6 @@ public class IdentityDemoServiceImpl extends AbstractSendSmtMessageService imple
         IdentityRequest identityRequest = (IdentityRequest) request;
         //组装报文数据
         DrsSmtMessage message = buildBaseMessage(request);
-        message.getHeader().setSmtCode(identityRequest.getIdentityType().getSmtCode());
         //报文体
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(identityRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);

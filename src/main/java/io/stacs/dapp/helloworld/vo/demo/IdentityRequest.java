@@ -1,6 +1,5 @@
 package io.stacs.dapp.helloworld.vo.demo;
 
-import io.stacs.dapp.helloworld.constant.IdentityType;
 import io.stacs.dapp.helloworld.vo.drs.IdentitySmtBody;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,8 +20,5 @@ public class IdentityRequest extends DemoBaseRequest {
     @ApiModelProperty(value = "Identity设置报文体", required = true)
     @Valid
     private IdentitySmtBody body;
-
-    @ApiModelProperty(value = "身份类型", hidden = true)
-    private IdentityType identityType;
 
 }
