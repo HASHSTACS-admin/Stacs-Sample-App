@@ -4,7 +4,7 @@ import io.stacs.dapp.helloworld.constant.StatusEnum;
 import io.stacs.dapp.helloworld.dao.TradeBidOrderDao;
 import io.stacs.dapp.helloworld.dao.po.TradeBidOrder;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -16,10 +16,10 @@ import static io.stacs.dapp.helloworld.callback.SmtCallbackHandler.SUFFIX_CALLBA
  * @since 2020/9/21
  */
 @Component("smtt-abs-subscription-bid-2-v1" + SUFFIX_CALLBACK)
-@RequiredArgsConstructor
 public class AbsBidCallbackHandler implements SmtCallbackHandler {
 
-    private final TradeBidOrderDao tradeBidOrderDao;
+    @Autowired
+    private TradeBidOrderDao tradeBidOrderDao;
 
     @Override
     public void handle(DrsSmtMessage message) {

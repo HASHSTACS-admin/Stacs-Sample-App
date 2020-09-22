@@ -4,8 +4,8 @@ import io.stacs.dapp.helloworld.constant.StatusEnum;
 import io.stacs.dapp.helloworld.dao.TradeBidOrderDao;
 import io.stacs.dapp.helloworld.dao.po.TradeBidOrder;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -19,10 +19,10 @@ import static io.stacs.dapp.helloworld.callback.SmtCallbackHandler.SUFFIX_CALLBA
  */
 @Slf4j
 @Component("smtt-abs-subscription-cancel-1-v1" + SUFFIX_CALLBACK)
-@RequiredArgsConstructor
 public class AbsCancelCallbackHandler implements SmtCallbackHandler {
 
-    private final TradeBidOrderDao tradeBidOrderDao;
+    @Autowired
+    private TradeBidOrderDao tradeBidOrderDao;
 
     @Override
     public void handle(DrsSmtMessage message) {
@@ -36,7 +36,10 @@ public class AbsCancelCallbackHandler implements SmtCallbackHandler {
             return;
         }
         if (message.success()) {
+            tradeBidOrder.setStatus(StatusEnum.ChainStatus.SUCCESS.getCode());
             tradeBidOrder.setBizStatus(StatusEnum.BidBizStatus.CANCELED.getCode());
+        } else {
+            tradeBidOrder.setStatus(StatusEnum.ChainStatus.FAIL.getCode());
         }
         tradeBidOrder.setUpdateAt(new Date());
         tradeBidOrderDao.save(tradeBidOrder);
