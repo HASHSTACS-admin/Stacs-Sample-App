@@ -22,7 +22,7 @@ public class IdentityRequest extends DemoBaseRequest {
     @Valid
     private IdentitySmtBody body;
 
-    @ApiModelProperty(value = "投资者类型", hidden = true)
+    @ApiModelProperty(value = "身份类型", hidden = true)
     private IdentityType identityType;
 
 }

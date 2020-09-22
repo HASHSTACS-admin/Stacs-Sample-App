@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * kyc类型，存在个人和机构
+ *
  * @author Su Wenbo
  * @since 2020/9/22
  */

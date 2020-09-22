@@ -1,12 +1,8 @@
 package io.stacs.dapp.helloworld.controller;
 
-import io.stacs.dapp.helloworld.constant.IdentityType;
 import io.stacs.dapp.helloworld.service.SmtDemoService;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.demo.DigitalCurrencySmtRequest;
-import io.stacs.dapp.helloworld.vo.demo.IdentityRequest;
-import io.stacs.dapp.helloworld.vo.demo.InstitutionBDRequest;
-import io.stacs.dapp.helloworld.vo.demo.PermissionRequest;
 import io.stacs.dapp.helloworld.vo.demo.TransferSmtRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,44 +55,6 @@ public class DemoController {
     public DrsResponse transfer(@Validated @RequestBody TransferSmtRequest request) {
 
         return smtDemoService.get("transfer").doDemo(request);
-    }
-
-    /**
-     * 列表格式的权限创建报文API
-     *
-     * @param request the request
-     * @return the permission
-     */
-    @ApiOperation(value = "列表格式的权限创建报文")
-    @PostMapping("/setPermission")
-    public DrsResponse setPermission(@Validated @RequestBody PermissionRequest request) {
-        return smtDemoService.get("smtpm-fix-permission-set-1-v1").doDemo(request);
-    }
-
-    /**
-     * 机构业务类的BD创建报文API
-     *
-     * @param request the request
-     * @return the permission
-     */
-    @ApiOperation(value = "机构业务类的BD创建报文")
-    @PostMapping("/setInstitutionBD")
-    public DrsResponse setInstitutionBD(@Validated @RequestBody InstitutionBDRequest request) {
-        return smtDemoService.get("smtbd-institution-business-special-1-v1").doDemo(request);
-    }
-
-    /**
-     * 机构业务类的BD创建报文API
-     *
-     * @param request the request
-     * @return the permission
-     */
-    @ApiOperation(value = "设置地址身份信息的报文")
-    @PostMapping("/setIdentity")
-    public DrsResponse setIdentity(@Validated @RequestBody IdentityRequest request,
-                                   @RequestParam IdentityType identityType) {
-        request.setIdentityType(identityType);
-        return smtDemoService.get("smti-individual-identity-set-1-v1").doDemo(request);
     }
 
 }

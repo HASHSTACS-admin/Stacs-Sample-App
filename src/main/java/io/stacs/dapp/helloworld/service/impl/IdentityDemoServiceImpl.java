@@ -1,7 +1,6 @@
 package io.stacs.dapp.helloworld.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import io.stacs.dapp.helloworld.dao.SmtPermissionDao;
 import io.stacs.dapp.helloworld.service.AbstractSendSmtMessageService;
 import io.stacs.dapp.helloworld.service.SmtDemoService;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
@@ -20,8 +19,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service("smti-individual-identity-set-1-v1")
 public class IdentityDemoServiceImpl extends AbstractSendSmtMessageService implements SmtDemoService {
-
-    private final SmtPermissionDao smtPermissionDao;
 
     /**
      * 设置地址身份信息
