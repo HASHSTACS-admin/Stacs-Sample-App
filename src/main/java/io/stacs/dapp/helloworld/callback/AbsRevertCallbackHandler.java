@@ -18,7 +18,7 @@ import static io.stacs.dapp.helloworld.callback.SmtCallbackHandler.SUFFIX_CALLBA
  * @since 2020/9/21
  */
 @Slf4j
-@Component("smtt-abs-subscription-dispute-1-v1" + SUFFIX_CALLBACK)
+@Component("smtt-abs-subscription-revert-1-v1" + SUFFIX_CALLBACK)
 public class AbsRevertCallbackHandler implements SmtCallbackHandler {
 
     @Autowired
