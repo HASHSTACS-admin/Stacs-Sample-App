@@ -3,11 +3,11 @@ package io.stacs.dapp.helloworld.controller;
 import io.stacs.dapp.helloworld.service.SmtDemoService;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.demo.AbsBDRequest;
-import io.stacs.dapp.helloworld.vo.demo.AbsCreateRequest;
-import io.stacs.dapp.helloworld.vo.demo.AbsOfferRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsBidRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsCancelRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsConfirmRequest;
+import io.stacs.dapp.helloworld.vo.demo.AbsCreateRequest;
+import io.stacs.dapp.helloworld.vo.demo.AbsOfferRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsPaymentRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsRefundRequest;
 import io.swagger.annotations.Api;
@@ -79,7 +79,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "买方出价认购ABS报文")
+    @ApiOperation(value = "买方出价认购ABS:smtt-abs-subscription-bid-2-v1")
     @PostMapping("bidAbs")
     @ResponseBody
     public DrsResponse bidAbs(@Validated @RequestBody AbsBidRequest request) {
@@ -93,7 +93,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "买方主动撤单ABS报文")
+    @ApiOperation(value = "买方主动撤单ABS:smtt-abs-subscription-cancel-1-v1")
     @PostMapping("cancelAbs")
     @ResponseBody
     public DrsResponse cancelAbs(@Validated @RequestBody AbsCancelRequest request) {
@@ -107,7 +107,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "买方付款ABS报文")
+    @ApiOperation(value = "买方付款ABS:smtt-abs-subscription-payment-1-v1")
     @PostMapping("paymentAbs")
     @ResponseBody
     public DrsResponse paymentAbs(@Validated @RequestBody AbsPaymentRequest request) {
@@ -121,7 +121,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "卖方确认收款ABS报文")
+    @ApiOperation(value = "卖方确认收款ABS:smtt-abs-subscription-confirm-1-v1")
     @PostMapping("confirmAbs")
     @ResponseBody
     public DrsResponse confirmAbs(@Validated @RequestBody AbsConfirmRequest request) {
@@ -135,7 +135,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "买/卖方发起退款ABS报文")
+    @ApiOperation(value = "买/卖方发起退款ABS:smtt-abs-subscription-refund-2-v1")
     @PostMapping("refundAbs")
     @ResponseBody
     public DrsResponse refundAbs(@Validated @RequestBody AbsRefundRequest request) {
