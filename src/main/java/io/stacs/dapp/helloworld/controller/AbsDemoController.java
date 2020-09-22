@@ -7,9 +7,11 @@ import io.stacs.dapp.helloworld.vo.demo.AbsBidRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsCancelRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsConfirmRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsCreateRequest;
+import io.stacs.dapp.helloworld.vo.demo.AbsDisputeRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsOfferRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsPaymentRequest;
 import io.stacs.dapp.helloworld.vo.demo.AbsRefundRequest;
+import io.stacs.dapp.helloworld.vo.demo.AbsRevertRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -141,6 +143,34 @@ public class AbsDemoController {
     public DrsResponse refundAbs(@Validated @RequestBody AbsRefundRequest request) {
         Assert.hasLength(request.getHeader().getSessionId(), "Session Id不能为空");
         return smtDemoService.get("smtt-abs-subscription-refund-2-v1").doDemo(request);
+    }
+
+    /**
+     * 买/卖方发起争议ABS报文
+     *
+     * @param request the request
+     * @return the drs response
+     */
+    @ApiOperation(value = "买/卖方发起争议:smtt-abs-subscription-dispute-1-v1")
+    @PostMapping("disputeAbs")
+    @ResponseBody
+    public DrsResponse disputeAbs(@Validated @RequestBody AbsDisputeRequest request) {
+        Assert.hasLength(request.getHeader().getSessionId(), "Session Id不能为空");
+        return smtDemoService.get("smtt-abs-subscription-dispute-1-v1").doDemo(request);
+    }
+
+    /**
+     * 买方退单ABS报文
+     *
+     * @param request the request
+     * @return the drs response
+     */
+    @ApiOperation(value = "买方退单:smtt-abs-subscription-revert-1-v1")
+    @PostMapping("revertAbs")
+    @ResponseBody
+    public DrsResponse revertAbs(@Validated @RequestBody AbsRevertRequest request) {
+        Assert.hasLength(request.getHeader().getSessionId(), "Session Id不能为空");
+        return smtDemoService.get("smtt-abs-subscription-revert-1-v1").doDemo(request);
     }
 
 }
