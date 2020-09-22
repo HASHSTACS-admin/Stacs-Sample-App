@@ -211,7 +211,7 @@ The overall architecture and sequence of information from your application to th
 10. Merchant Account Application retrieves the outcome of the initial API Request (as a Transaction in a Block on the STACS blockchain)
 ![](src/main/resources/assets/API_Flow_Step8to10.png)
  
- ## STACS DRS HTTP REST APIs
+## STACS DRS HTTP REST APIs
  
   In the file [DrsApiConstant.java](io.stacs.dapp.helloworld.constant.DrsApiConstant.java), you can see the 4 available API endpoints exposed by the DRS:
   1. Create a Wallet Address: `/smt/address/create`
@@ -219,7 +219,7 @@ The overall architecture and sequence of information from your application to th
   3. Query Balance of assets in a Wallet Address: `/smt/contract/balanceof`
   4. Query Blockchain Transaction Results: `/smt/message/getByIdentifierIdAndUuid`
   
-  ## Settility Message Type (SMT) - Smart Contract Function Format
+ ## Settility Message Type (SMT) - Smart Contract Function Format
   Settility Message Type (SMT) is an additional layer built to encapsulate smart contract functions and their required parameters to make it easy for business applications to invoke.
      
   Smart contracts uploaded to the blockchain are mapped to the SMT format where smart contract function parameters are standardized.  
