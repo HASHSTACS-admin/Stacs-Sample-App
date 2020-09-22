@@ -12,16 +12,16 @@ import java.io.Serializable;
  * @date 2020-09-15
  */
 @Data
-@ApiModel(value = "根据商户号和UUID查询报文结果参数")
+@ApiModel(value = "Query transaction results using Merchant Id and UUID")
 public class QuerySmtResultRequest implements Serializable {
 
     /**
      * uuid
      */
-    @ApiModelProperty(value = "uuid，可以在数据库中查询得到", required = true)
-    @NotBlank(message = "uuid不能为空")
+    @ApiModelProperty(value = "uuid", required = true)
+    @NotBlank(message = "uuid cannot be blank.")
     private String uuid;
-    @ApiModelProperty(value = "商户号,示例中直接取配置的商户号，输入无效")
+    @ApiModelProperty(value = "Merchant Id, retrieved from config and cannot be input by default")
     private String identifierId;
 
 }

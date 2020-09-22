@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class BalanceQueryRequest implements Serializable {
 
     /**
-     * 商户号
+     * Merchant Id
      */
     @NonNull
     private String identifierId;

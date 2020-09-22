@@ -14,23 +14,23 @@ import java.io.Serializable;
 public class AbsBDSmtBody implements Serializable {
 
 
-    @ApiModelProperty(value = "回购使用的permission", required = true)
-    @NotNull(message = "permission id 不能为空")
+    @ApiModelProperty(value = "permission verified for redemption", required = true)
+    @NotNull(message = "permission id cannot be null.")
     private String buybackPermissionId;
 
-    @ApiModelProperty(value = "回购冻结使用的permission", required = true)
-    @NotNull(message = "permission id 不能为空")
+    @ApiModelProperty(value = "permission verified for redemption freeze function", required = true)
+    @NotNull(message = "permission id cannot be null.")
     private String buybackFreezePermissionId;
-    @ApiModelProperty(value = "结息使用的permission", required = true)
-    @NotNull(message = "permission id 不能为空")
+    @ApiModelProperty(value = "permission verified for payment distribution", required = true)
+    @NotNull(message = "permission id cannot be null.")
     private String interestSettlePermissionId;
-    @ApiModelProperty(value = "增发使用的permission", required = true)
-    @NotNull(message = "permission id 不能为空")
+    @ApiModelProperty(value = "permission verified for additional issuance", required = true)
+    @NotNull(message = "permission id cannot be null.")
     private String additionalIssuePermissionId;
-    @ApiModelProperty(value = "资产冻结使用的permission", required = true)
-    @NotNull(message = "permission id 不能为空")
+    @ApiModelProperty(value = "permission verified for asset freeze function", required = true)
+    @NotNull(message = "permission id cannot be null.")
     private String tokenFreezePermissionId;
-    @ApiModelProperty(value = "资产解冻使用的permission", required = true)
-    @NotNull(message = "permission id 不能为空")
+    @ApiModelProperty(value = "permission verified for asset unfreeze function", required = true)
+    @NotNull(message = "permission id cannot be null.")
     private String tokenUnfreezePermissionId;
 }

@@ -12,10 +12,10 @@ import javax.validation.Valid;
  * @date 2020-09-13
  */
 @Data
-@ApiModel(value = "数字货币发行参数")
+@ApiModel(value = "Digital Currency Parameters")
 public class DigitalCurrencySmtRequest extends DemoBaseRequest {
 
-    @ApiModelProperty(value = "数字货币报文体数据", required = true)
+    @ApiModelProperty(value = "Digital Currency Message body", required = true)
     @Valid
     private DigitalCurrencySmtBody body;
 }

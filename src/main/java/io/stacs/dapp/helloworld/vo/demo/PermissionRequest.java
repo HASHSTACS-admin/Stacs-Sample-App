@@ -14,11 +14,11 @@ import javax.validation.Valid;
  * @since 2020/9/19
  */
 @Data
-@ApiModel(value = "permission创建参数")
+@ApiModel(value = "Permission request parameters")
 public class PermissionRequest extends DemoBaseRequest {
 
 
-    @ApiModelProperty(value = "创建permission报文体", required = true)
+    @ApiModelProperty(value = "Permission message body", required = true)
     @Valid
     private PermissionSmtBody body;
 }

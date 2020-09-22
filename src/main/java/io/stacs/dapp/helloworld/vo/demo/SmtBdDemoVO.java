@@ -18,19 +18,19 @@ import java.util.Date;
 @ApiModel("bd Info")
 public class SmtBdDemoVO {
 
-    @ApiModelProperty(value = "报文CODE")
+    @ApiModelProperty(value = "SMT Format code")
     private String smtCode;
 
     @ApiModelProperty(value = "BD id")
     private String bdId;
 
-    @ApiModelProperty(value = "状态:PROCESSING,SUCCESS,FAIL")
+    @ApiModelProperty(value = "Status:PROCESSING,SUCCESS,FAIL")
     private String status;
 
     @ApiModelProperty(value = "uuid")
     private String uuid;
 
-    @ApiModelProperty(value = "商户号")
+    @ApiModelProperty(value = "Merchant Id")
     private String identifierId;
 
     @ApiModelProperty(value = "message id")
@@ -39,14 +39,14 @@ public class SmtBdDemoVO {
     @ApiModelProperty(value = "session id")
     private String sessionId;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "creation timestamp")
     private Date createAt;
 
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "update timestamp")
     private Date updateAt;
 
     /**
-     * PO转VO
+     * PO to VO
      */
     public static SmtBdDemoVO parsePO(SmtBd bd) {
         SmtBdDemoVO vo = new SmtBdDemoVO();

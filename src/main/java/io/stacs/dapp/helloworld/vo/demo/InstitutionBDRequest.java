@@ -8,16 +8,16 @@ import lombok.Data;
 import javax.validation.Valid;
 
 /**
- * 机构业务类BD报文，创建参数
+ * Institution Type, BD parameters
  *
  * @author Su Wenbo
  * @since 2020/9/21
  */
 @Data
-@ApiModel(value = "机构业务类BD创建参数")
+@ApiModel(value = "Institution Type BD parameters")
 public class InstitutionBDRequest extends DemoBaseRequest {
 
-    @ApiModelProperty(value = "机构业务类BD报文体", required = true)
+    @ApiModelProperty(value = "Institution Type BD parameters", required = true)
     @Valid
     private InstitutionBDSmtBody body;
 

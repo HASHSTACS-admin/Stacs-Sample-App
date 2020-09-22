@@ -9,14 +9,14 @@ import javax.validation.Valid;
 
 /**
  * @author Huang Shengli
- * @Description 转账类:数字货币，ABS，债券，凭证
+ * @Description Transfer of digital currencies, ABS, debt, certificates
  * @date 2020-09-13
  */
 @Data
-@ApiModel(value = "数字货币，ABS，债券，凭证的转账")
+@ApiModel(value = "Digital Currency, ABS, bonds, certificates")
 public class TransferSmtRequest extends DemoBaseRequest {
 
-    @ApiModelProperty(value = "转账操作报文体", required = true)
+    @ApiModelProperty(value = "message body", required = true)
     @Valid
     private TransferSmtBody body;
 }

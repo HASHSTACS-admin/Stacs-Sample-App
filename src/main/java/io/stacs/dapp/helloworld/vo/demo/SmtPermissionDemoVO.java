@@ -21,16 +21,16 @@ public class SmtPermissionDemoVO {
     @ApiModelProperty(value = "permission id")
     private String permissionId;
 
-    @ApiModelProperty(value = "报文CODE")
+    @ApiModelProperty(value = "SMT format code")
     private String smtCode;
 
-    @ApiModelProperty(value = "状态:PROCESSING,SUCCESS,FAIL")
+    @ApiModelProperty(value = "Status:PROCESSING,SUCCESS,FAIL")
     private String status;
 
     @ApiModelProperty(value = "uuid")
     private String uuid;
 
-    @ApiModelProperty(value = "商户号")
+    @ApiModelProperty(value = "Merchant Id")
     private String identifierId;
 
     @ApiModelProperty(value = "message id")
@@ -39,20 +39,20 @@ public class SmtPermissionDemoVO {
     @ApiModelProperty(value = "message id")
     private String sessionId;
 
-    @ApiModelProperty(value = "对此permission拥有修改权限的地址，只能填写地址,[40!c,.,40!c]数组json格式字符串")
+    @ApiModelProperty(value = "address that has authority to modify this permission, accepted format is [40!c...,40!c] in json format")
     private String modifierAddress;
 
-    @ApiModelProperty(value = "拥有permission权限的地址，只能填写地址,[40!c,.,40!c]数组json格式字符串")
+    @ApiModelProperty(value = "address that this permission applies to, accepted format is [40!c...,40!c] in json format")
     private String authorizedAddress;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "creation timestamp")
     private Date createAt;
 
-    @ApiModelProperty(value = "更新时间")
+    @ApiModelProperty(value = "update timestamp")
     private Date updateAt;
 
     /**
-     * PO转VO
+     * PO to VO
      */
     public static SmtPermissionDemoVO parsePO(SmtPermission permission) {
         SmtPermissionDemoVO vo = new SmtPermissionDemoVO();
