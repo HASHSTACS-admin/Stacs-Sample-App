@@ -6,8 +6,7 @@ import io.stacs.dapp.helloworld.service.SmtDemoService;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
-import io.stacs.dapp.helloworld.vo.demo.IdentityRequest;
-import lombok.RequiredArgsConstructor;
+import io.stacs.dapp.helloworld.vo.demo.IndividualIdentityRequest;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,9 +15,8 @@ import org.springframework.stereotype.Service;
  * @author Su Wenbo
  * @since 2020/9/21
  */
-@RequiredArgsConstructor
-@Service("smti-individual-identity-set-1-v1")
-public class IdentityDemoServiceImpl extends AbstractSendSmtMessageService implements SmtDemoService {
+@Service("smti-institution-identity-set-1-v1")
+public class InstitutionIdentityDemoServiceImpl extends AbstractSendSmtMessageService implements SmtDemoService {
 
     /**
      * 设置地址身份信息
@@ -28,11 +26,11 @@ public class IdentityDemoServiceImpl extends AbstractSendSmtMessageService imple
      */
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
-        IdentityRequest identityRequest = (IdentityRequest) request;
+        IndividualIdentityRequest individualIdentityRequest = (IndividualIdentityRequest) request;
         //组装报文数据
         DrsSmtMessage message = buildBaseMessage(request);
         //报文体
-        DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(identityRequest.getBody()), DrsSmtMessage.SmtBody.class);
+        DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(individualIdentityRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
         //发送请求
         return doSend(message);

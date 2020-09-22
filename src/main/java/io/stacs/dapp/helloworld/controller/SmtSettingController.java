@@ -2,8 +2,9 @@ package io.stacs.dapp.helloworld.controller;
 
 import io.stacs.dapp.helloworld.service.SmtDemoService;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
-import io.stacs.dapp.helloworld.vo.demo.IdentityRequest;
+import io.stacs.dapp.helloworld.vo.demo.IndividualIdentityRequest;
 import io.stacs.dapp.helloworld.vo.demo.InstitutionBDRequest;
+import io.stacs.dapp.helloworld.vo.demo.InstitutionIdentityRequest;
 import io.stacs.dapp.helloworld.vo.demo.PermissionRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,7 +41,7 @@ public class SmtSettingController {
      * @param request the request
      * @return the permission
      */
-    @ApiOperation(value = "设置列表格式的权限报文")
+    @ApiOperation(value = "设置列表格式的权限报文:smtpm-fix-permission-set-1-v1")
     @PostMapping("/setPermission")
     public DrsResponse setPermission(@Validated @RequestBody PermissionRequest request) {
         return smtDemoService.get("smtpm-fix-permission-set-1-v1").doDemo(request);
@@ -52,23 +53,36 @@ public class SmtSettingController {
      * @param request the request
      * @return the permission
      */
-    @ApiOperation(value = "设置机构业务类的BD报文")
+    @ApiOperation(value = "设置机构业务类的BD报文:smtbd-institution-business-special-1-v1")
     @PostMapping("/setInstitutionBD")
     public DrsResponse setInstitutionBD(@Validated @RequestBody InstitutionBDRequest request) {
         return smtDemoService.get("smtbd-institution-business-special-1-v1").doDemo(request);
     }
 
     /**
-     * 设置地址身份信息的报文API
+     * 设置地址个人身份信息的报文API
      *
      * @param request the request
      * @return the permission
      */
-    @ApiOperation(value = "设置地址身份信息的报文")
-    @PostMapping("/setIdentity")
-    public DrsResponse setIdentity(@Validated @RequestBody IdentityRequest request) {
+    @ApiOperation(value = "设置地址个人身份信息的报文:smti-individual-identity-set-1-v1")
+    @PostMapping("/setIndividualIdentity")
+    public DrsResponse setIndividualIdentity(@Validated @RequestBody IndividualIdentityRequest request) {
         Assert.hasLength(request.getHeader().getSmtCode(), "Smt code不能为空");
         return smtDemoService.get("smti-individual-identity-set-1-v1").doDemo(request);
+    }
+
+    /**
+     * 设置地址机构身份信息的报文API
+     *
+     * @param request the request
+     * @return the permission
+     */
+    @ApiOperation(value = "设置地址机构身份信息的报文:smti-institution-identity-set-1-v1")
+    @PostMapping("/setInstitutionIdentity")
+    public DrsResponse setInstitutionIdentity(@Validated @RequestBody InstitutionIdentityRequest request) {
+        Assert.hasLength(request.getHeader().getSmtCode(), "Smt code不能为空");
+        return smtDemoService.get("smti-institution-identity-set-1-v1").doDemo(request);
     }
 
 }
