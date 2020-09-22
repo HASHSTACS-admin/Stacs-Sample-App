@@ -219,7 +219,7 @@ The overall architecture and sequence of information from your application to th
   3. Query Balance of assets in a Wallet Address: `/smt/contract/balanceof`
   4. Query Blockchain Transaction Results: `/smt/message/getByIdentifierIdAndUuid`
   
- ## Settility Message Type (SMT) - Smart Contract Function Format
+## Settility Message Type (SMT) - Smart Contract Function Format
   Settility Message Type (SMT) is an additional layer built to encapsulate smart contract functions and their required parameters to make it easy for business applications to invoke.
      
   Smart contracts uploaded to the blockchain are mapped to the SMT format where smart contract function parameters are standardized.  
