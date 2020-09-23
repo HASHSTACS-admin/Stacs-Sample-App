@@ -8,17 +8,18 @@ The provided sample application here has several examples illustrating how busin
 Reach out to the Solutions team at Stacs for questions at support@stacs.io
 
 ## Table of Contents
-* [Getting Started](#Getting-Started) 
-  * [Pre-requisites](#Pre-requisites)
-    * [Application Requirements](#Application-Requirements)
-    * [Blockchain Network Requirements (3 steps)](#Blockchain-Network-Requirements)
-* [STACS Blockchain Introduction](#STACS-Blockchain-Introduction)
-* [STACS DRS HTTP API Workflow](#STACS-DRS-HTTP-API-Workflow)
-  * [API Request Encryption](#API-Request-Encryption) 
-  * [API Request Decryption](#API-Request-Decryption)
-  * [Transaction Request Flow to and from the Blockchain](#Transaction-Request-Flow-to-and-from-the-Blockchain)
-* [STACS DRS HTTP REST APIs](#STACS-DRS-HTTP-REST-APIs)
-* [Settility Message Type (SMT)](#Settility-Message-Type-(SMT))
+* [Getting Started](#getting-started) 
+  * [Pre-requisites](#pre-requisites)
+    * [Application Requirements](#application-requirements)
+    * [Blockchain Network Requirements (3 steps)](#blockchain-network-requirements)
+* [STACS Blockchain Introduction](#stacs-blockchain-introduction)
+* [STACS DRS HTTP API Workflow](#stacs-drs-http-api-workflow)
+  * [API Request Encryption](#api-request-encryption) 
+  * [API Request Decryption](#api-request-decryption)
+  * [API Request Header and Body Construction](#api-request-header-and-body-construction)
+  * [Transaction Request Flow to and from the Blockchain](#transaction-request-flow-to-and-from-the-blockchain)
+* [STACS DRS HTTP REST APIs](#stacs-drs-http-rest-apis)
+* [Settility Message Type (SMT)](#settility-message-type-(smt))
 
 ## Getting Started
 To begin, please ensure that you have both the Application Requirements and Blockchain Requirements completed before you embark on this journey with the STACS Blockchain.
@@ -190,6 +191,46 @@ String jsonStringResp = new String(decryptBytes, DEFAULT_CHARSET);
 return JSONObject.parseObject(jsonStringResp);
 ```
 
+### API Request Header and Body Construction
+
+An API Message Request consists of 3 components:
+* header
+  * smt code - refer to SMT documentation for the relevant code
+  * encrypted AES-256 key is embedded here
+  * signature with your Merchant private key is embedded here
+* body
+  * json parameters is dependent on the SMT code used, refer to SMT documentation for the relevant parameters
+  * this Request Body is encrypted with the AES-256 key before being sent to the DRS
+* trailer
+
+```
+{
+"header" :{
+"messageSenderAddress" : "1c91145f0624245d75288f276547efdaad4a17c2" ,
+"identifierId" : "DBOCCNBJ088" ,
+"uuid" : "482677b9aa8e48c0abced1d7217756ff" ,
+"smtCode" : "smtt-abs-transfer-transfer-1-v1" ,
+"sessionId" : "" ,
+"messageId" : "" ,
+"aeskey": "",
+"signature":"",
+"version" : ""
+},
+"body" : {
+"assetId" : "C159782357864001000" ,
+"targetAddress" : "210188ecc46911f2aa3a1dab43dfd07fec0cb096" ,
+"quantity" : 10
+},
+"trailer" : {
+"authenticationTrailer" : "" ,
+"blockchainTransaction" : [],
+"extraData" : "" ,
+"responseCode" : "" ,
+"responseMessage" : ""
+}
+}
+```
+
 ### Transaction Request Flow to and from the Blockchain 
 
 ![](src/main/resources/assets/API_overall_flow.png)
@@ -219,8 +260,11 @@ The overall architecture and sequence of information from your application to th
   3. Query Balance of assets in a Wallet Address: `/smt/contract/balanceof`
   4. Query Blockchain Transaction Results: `/smt/message/getByIdentifierIdAndUuid`
   
-## Settility Message Type (SMT) - Smart Contract Function Format
-  Settility Message Type (SMT) is an additional layer built to encapsulate smart contract functions and their required parameters to make it easy for business applications to invoke.
+  The sample APIs provided in this sample application send the request to 1 of these 4 DRS APIs that are then forwarded to the blockchain network.
+  Sample APIs in the Swagger UI demonstrate use of the above APIs with the SMT format.
+  
+## Settlity Message Type (SMT) - Smart Contract Function Format
+  Settlity Message Type (SMT) is an additional layer built to encapsulate smart contract functions and their required parameters to make it easy for business applications to invoke.
      
   Smart contracts uploaded to the blockchain are mapped to the SMT format where smart contract function parameters are standardized.  
   
