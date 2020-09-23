@@ -19,7 +19,7 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "address_kyc_info", indexes = {@Index(columnList = "address", unique = true)})
+@Table(name = "address_kyc_info", indexes = {@Index(columnList = "address")})
 @org.hibernate.annotations.Table(appliesTo = "address_kyc_info", comment = "地址的kyc信息记录表")
 public class AddressKycInfo {
 

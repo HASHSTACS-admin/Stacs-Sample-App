@@ -46,20 +46,22 @@ public class InstitutionBDCallbackHandler implements SmtCallbackHandler {
         smtBd.setUpdateAt(new Date());
         smtBdDao.save(smtBd);
 
-        //插入数据到Bd Function Permission Relation
-        List<BdFunctionPermissionRelation> bdFunctionPermissionRelationList = new ArrayList<>();
-        Stream.of("freezeIdentityPermissionId", "addAttestationPermissionId", "unfreezeIdentityPermissionId", "setIdentityPermissionId")
-                .filter(o -> Objects.nonNull(body.get(o)))
-                .forEach(o -> {
-                    BdFunctionPermissionRelation bdFunctionPermissionRelation = new BdFunctionPermissionRelation();
-                    bdFunctionPermissionRelation.setBdId(bdId);
-                    bdFunctionPermissionRelation.setPermissionId(body.get(o).toString());
-                    bdFunctionPermissionRelation.setFunctionName(o);
-                    bdFunctionPermissionRelation.setCreateAt(new Date());
-                    bdFunctionPermissionRelation.setUpdateAt(new Date());
-                    bdFunctionPermissionRelationList.add(bdFunctionPermissionRelation);
-                });
-        bdFunctionPermissionRelationDao.saveAll(bdFunctionPermissionRelationList);
+        if (message.success()) {
+            //插入数据到Bd Function Permission Relation
+            List<BdFunctionPermissionRelation> bdFunctionPermissionRelationList = new ArrayList<>();
+            Stream.of("freezeIdentityPermissionId", "addAttestationPermissionId", "unfreezeIdentityPermissionId", "setIdentityPermissionId")
+                    .filter(o -> Objects.nonNull(body.get(o)))
+                    .forEach(o -> {
+                        BdFunctionPermissionRelation bdFunctionPermissionRelation = new BdFunctionPermissionRelation();
+                        bdFunctionPermissionRelation.setBdId(bdId);
+                        bdFunctionPermissionRelation.setPermissionId(body.get(o).toString());
+                        bdFunctionPermissionRelation.setFunctionName(o);
+                        bdFunctionPermissionRelation.setCreateAt(new Date());
+                        bdFunctionPermissionRelation.setUpdateAt(new Date());
+                        bdFunctionPermissionRelationList.add(bdFunctionPermissionRelation);
+                    });
+            bdFunctionPermissionRelationDao.saveAll(bdFunctionPermissionRelationList);
+        }
     }
 
 }
