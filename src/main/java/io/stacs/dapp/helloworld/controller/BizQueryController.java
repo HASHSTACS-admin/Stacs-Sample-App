@@ -33,7 +33,7 @@ public class BizQueryController {
     @ApiOperation(value = "根据商户号查询Abs")
     @GetMapping("absList")
     @ResponseBody
-    public DrsResponse<List<AssetAbsDemoVO>> absList(@ApiParam(value = "商户号") @Valid String identifierId) {
+    public DrsResponse<List<AssetAbsDemoVO>> absList(@ApiParam(value = "商户号") @RequestParam String identifierId) {
         return DrsResponse.success(bizQueryService.absList(identifierId));
     }
 
@@ -45,7 +45,7 @@ public class BizQueryController {
     @ApiOperation(value = "根据商户号查询BD")
     @GetMapping("bdList")
     @ResponseBody
-    public DrsResponse<List<SmtBdDemoVO>> bdList(@ApiParam(value = "商户号") @Valid String identifierId) {
+    public DrsResponse<List<SmtBdDemoVO>> bdList(@ApiParam(value = "商户号") @RequestParam String identifierId) {
         return DrsResponse.success(bizQueryService.bdList(identifierId));
     }
 
@@ -56,7 +56,7 @@ public class BizQueryController {
     @ApiOperation(value = "根据商户号查询Permission")
     @GetMapping("permissionList")
     @ResponseBody
-    public DrsResponse<List<SmtPermissionDemoVO>> permissionList(@ApiParam(value = "商户号") @Valid String identifierId) {
+    public DrsResponse<List<SmtPermissionDemoVO>> permissionList(@ApiParam(value = "商户号") @RequestParam String identifierId) {
         return DrsResponse.success(bizQueryService.permissionList(identifierId));
     }
 
@@ -68,7 +68,7 @@ public class BizQueryController {
     @ApiOperation(value = "根据bdId查询bd function")
     @GetMapping("functionList")
     @ResponseBody
-    public DrsResponse<List<BdFunctionPermissionRelationDemoVO>> functionList(@ApiParam(value = "bdId") @Valid String bdId) {
+    public DrsResponse<List<BdFunctionPermissionRelationDemoVO>> functionList(@ApiParam(value = "bdId") @RequestParam String bdId) {
         return DrsResponse.success(bizQueryService.functionList(bdId));
     }
 }
