@@ -35,8 +35,6 @@ public class PermissionCallbackHandler implements SmtCallbackHandler {
         } else {
             smtPermission.setStatus(StatusEnum.ChainStatus.FAIL.getCode());
         }
-        smtPermission.setMessageId(message.getHeader().getMessageId());
-        smtPermission.setSessionId(message.getHeader().getSessionId());
         smtPermission.setUpdateAt(new Date());
         smtPermissionDao.save(smtPermission);
     }

@@ -18,12 +18,14 @@ import java.util.stream.Stream;
 import static io.stacs.dapp.helloworld.callback.SmtCallbackHandler.SUFFIX_CALLBACK;
 
 /**
+ * Abs BD handler
+ *
  * @author Su Wenbo
  * @since 2020/9/21
  */
-@Component("smtbd-institution-business-special-1-v1" + SUFFIX_CALLBACK)
+@Component("smtbd-abs-abs-issue-1-v1" + SUFFIX_CALLBACK)
 @RequiredArgsConstructor
-public class InstitutionBDCallbackHandler implements SmtCallbackHandler {
+public class AbsBDCallbackHandler implements SmtCallbackHandler {
 
     private final SmtBdDao smtBdDao;
 
@@ -35,7 +37,7 @@ public class InstitutionBDCallbackHandler implements SmtCallbackHandler {
         DrsSmtMessage.SmtBody body = message.getBody();
         String bdId = body.getString("bdId");
 
-        //Update BD
+        //更新表Smt BD
         SmtBd smtBd = smtBdDao.findByUuid(uuid);
         smtBd.setBdId(bdId);
         if (message.success()) {
@@ -47,9 +49,9 @@ public class InstitutionBDCallbackHandler implements SmtCallbackHandler {
         smtBdDao.save(smtBd);
 
         if (message.success()) {
-            //Update database entity
+            //插入数据到Bd Function Permission Relation
             List<BdFunctionPermissionRelation> bdFunctionPermissionRelationList = new ArrayList<>();
-            Stream.of("freezeIdentityPermissionId", "addAttestationPermissionId", "unfreezeIdentityPermissionId", "setIdentityPermissionId")
+            Stream.of("buybackPermissionId", "buybackFreezePermissionId", "interestSettlePermissionId", "additionalIssuePermissionId", "tokenFreezePermissionId", "tokenUnfreezePermissionId")
                     .filter(o -> Objects.nonNull(body.get(o)))
                     .forEach(o -> {
                         BdFunctionPermissionRelation bdFunctionPermissionRelation = new BdFunctionPermissionRelation();

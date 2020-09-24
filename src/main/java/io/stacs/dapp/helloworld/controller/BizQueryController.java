@@ -18,7 +18,7 @@ import java.util.List;
  * @author: yezaiyong
  * @create: 2020-09-21 16:37
  **/
-@Api(tags = "SMT Business Query Endpoints")
+@Api(tags = "SMT Business Query endpoint")
 @Slf4j
 @RestController
 @RequestMapping("/smt/biz/query")
@@ -27,48 +27,48 @@ public class BizQueryController {
     @Autowired
     private BizQueryService bizQueryService;
     /**
-     * Uses Merchant Id to query Asset Backed Securities (ABS)
+     * Query of ABS by merchant id
      * @return
      */
-    @ApiOperation(value = "Use Merchant Id to query ABS")
+    @ApiOperation(value = "Query of ABS by merchant id")
     @GetMapping("absList")
     @ResponseBody
-    public DrsResponse<List<AssetAbsDemoVO>> absList(@ApiParam(value = "MerchantId") @Valid String identifierId) {
+    public DrsResponse<List<AssetAbsDemoVO>> absList(@ApiParam(value = "merchant id") @RequestParam String identifierId) {
         return DrsResponse.success(bizQueryService.absList(identifierId));
     }
 
 
     /**
-     *Uses Merchant Id to query BD
+     *Query BD by merchant id
      * @return
      */
-    @ApiOperation(value = "Uses Merchant Id to query BD")
+    @ApiOperation(value = "Query BD by merchant id")
     @GetMapping("bdList")
     @ResponseBody
-    public DrsResponse<List<SmtBdDemoVO>> bdList(@ApiParam(value = "MerchantId") @Valid String identifierId) {
+    public DrsResponse<List<SmtBdDemoVO>> bdList(@ApiParam(value = "merchant id") @RequestParam String identifierId) {
         return DrsResponse.success(bizQueryService.bdList(identifierId));
     }
 
     /**
-     *Uses Merchant Id to query Permission
+     *Query Permission by merchant id
      * @return
      */
-    @ApiOperation(value = "Users Merchant Id to query Permission")
+    @ApiOperation(value = "Query Permission by merchant id")
     @GetMapping("permissionList")
     @ResponseBody
-    public DrsResponse<List<SmtPermissionDemoVO>> permissionList(@ApiParam(value = "MerchantId") @Valid String identifierId) {
+    public DrsResponse<List<SmtPermissionDemoVO>> permissionList(@ApiParam(value = "merchant id") @RequestParam String identifierId) {
         return DrsResponse.success(bizQueryService.permissionList(identifierId));
     }
 
 
     /**
-     * Uses ID of BD to query status of BD on the blockchain
+     * Query BD by BdId
      * @return
      */
-    @ApiOperation(value = "uses ID of BD to query status of BD on the blockchain")
+    @ApiOperation(value = "Query BD by BdId")
     @GetMapping("functionList")
     @ResponseBody
-    public DrsResponse<List<BdFunctionPermissionRelationDemoVO>> functionList(@ApiParam(value = "bdId") @Valid String bdId) {
+    public DrsResponse<List<BdFunctionPermissionRelationDemoVO>> functionList(@ApiParam(value = "bdId") @RequestParam String bdId) {
         return DrsResponse.success(bizQueryService.functionList(bdId));
     }
 }

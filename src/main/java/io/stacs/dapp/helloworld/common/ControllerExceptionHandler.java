@@ -30,4 +30,14 @@ public class ControllerExceptionHandler {
         }
         return DrsResponse.fail("error", retMsg);
     }
+
+    /**
+     * Spring Assert 校验参数异常检查
+     */
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public DrsResponse illegalArgumentExceptionHandler(IllegalArgumentException e) {
+        return DrsResponse.fail("error", e.getMessage());
+    }
+
 }

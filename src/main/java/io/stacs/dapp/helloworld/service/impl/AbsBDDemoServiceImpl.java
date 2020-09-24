@@ -39,6 +39,7 @@ public class AbsBDDemoServiceImpl extends AbstractSendSmtMessageService implemen
         AbsBDRequest bdRequest = (AbsBDRequest) request;
         //Setup Message using SMT format
         DrsSmtMessage message = buildBaseMessage(request);
+        bdRequest.getHeader().setUuid(message.getHeader().getUuid());
         message.getHeader().setSmtCode("smtbd-abs-abs-issue-1-v1");
         //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(bdRequest.getBody()), DrsSmtMessage.SmtBody.class);
@@ -48,9 +49,9 @@ public class AbsBDDemoServiceImpl extends AbstractSendSmtMessageService implemen
         if (!drsResponse.success()) {
             return drsResponse;
         }
-        //Run Business logic
-        doBusiness(drsResponse, bdRequest);
-        //Returned response from DRS
+        //doBusiness
+        doBusiness(drsResponse, bdRequest, message.getHeader());
+        //returned response from DRS
         return drsResponse;
     }
 
@@ -59,17 +60,17 @@ public class AbsBDDemoServiceImpl extends AbstractSendSmtMessageService implemen
      *
      * @param drsResponse
      */
-    private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsBDRequest bdRequest) {
+    private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsBDRequest bdRequest, DrsSmtMessage.SmtHeader header) {
         //Save to database
         SmtBd absBd = new SmtBd();
         absBd.setCreateAt(new Date());
         absBd.setUpdateAt(new Date());
-        absBd.setIdentifierId(bdRequest.getHeader().getIdentifierId());
+        absBd.setIdentifierId(header.getIdentifierId());
         absBd.setMessageId(drsResponse.getData().getMessageId());
         absBd.setSessionId(drsResponse.getData().getSessionId());
         absBd.setSmtCode("smtbd-abs-abs-issue-1-v1");
         absBd.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
-        absBd.setUuid(bdRequest.getHeader().getUuid());
+        absBd.setUuid(header.getUuid());
         //save
         smtBdDao.save(absBd);
     }

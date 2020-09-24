@@ -35,7 +35,7 @@ public class DemoBaseRequest implements Serializable {
         @ApiModelProperty(value = "Sender Address (sender has to pre-generate an address before setting this value)", required = true)
         @NotBlank(message = "Sender address cannot be blank.")
         private String messageSenderAddress;
-        @ApiModelProperty(value = "session id, is sent by the DRS callback API, not shown in the demo UI", hidden = true)
+        @ApiModelProperty(value = "session id, is sent by the DRS callback API, not shown in the demo UI")
         private String sessionId;
         @NotBlank(message = "SMT Format Code cannot be blank")
         @ApiModelProperty(value = "SMT Format Code", required = true)
