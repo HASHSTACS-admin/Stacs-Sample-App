@@ -42,8 +42,8 @@ public class AssetAbs {
     private String ownerAddress;
     @Column(nullable = false, columnDefinition = "decimal(32,8) comment 'quantity of securities'")
     private BigDecimal quantity;
-    @Column(nullable = true, columnDefinition = "decimal(32,8) comment 'par value per token'")
-    private BigDecimal parValuePerToken;
+    @Column(nullable = true, columnDefinition = "varchar(36) comment 'par value per token'")
+    private String parValuePerToken;
     @Column(nullable = true, columnDefinition = "varchar(32) comment 'currency for settlement'")
     private String settlementCurrency;
     @Column(nullable = true, columnDefinition = "int(3) comment 'day count convention for calculating interest, for example 360 or 365'")

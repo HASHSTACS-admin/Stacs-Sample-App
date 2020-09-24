@@ -23,26 +23,29 @@ public class AbsSmtBody implements Serializable {
     @ApiModelProperty(value = "unique asset id", required = true)
     @NotBlank(message = "asset id cannot be blank")
     private String assetId;
+    @ApiModelProperty(value = "Bd Id (obtained from BD API response)", required = true)
+    @NotBlank(message = "Bd id cannot be blank")
+    private String bdId;
     @ApiModelProperty(value = "asset name", required = true)
-    @NotBlank(message = "asset name cannot be blank.")
+    @NotBlank(message = "asset name cannot be blank")
     private String assetName;
-    @ApiModelProperty(value = "ABS type")
+    @ApiModelProperty(value = "ABS Type")
     private String absType;
     @ApiModelProperty(value = "issuer name")
     private String issuerName;
     @ApiModelProperty(value = "unique identifier code for the asset")
     private String uniqueIdentifierCode;
     @ApiModelProperty(value = "Owner address, assets after issuance will all reside in this address", required = true)
-    @NotBlank(message = "owner address cannot be blank.")
+    @NotBlank(message = "owner address cannot be blank")
     private String ownerAddress;
     @ApiModelProperty(value = "asset quantity", required = true)
-    @NotNull(message = "asset quantity cannot be null.")
+    @NotNull(message = "sset quantity cannot be null")
     private BigDecimal quantity;
     @ApiModelProperty(value = "par value per token")
     private String parValuePerToken;
     @ApiModelProperty(value = "settlement currency")
     private String settlementCurrency;
-    @ApiModelProperty(value = "day count convention, used in calculating interest or coupon payments, for example 360/365")
+    @ApiModelProperty(value = "day count convention, used in calculating interest or coupon payments, for example 360/365   ")
     private Integer dayCountConvention;
     @ApiModelProperty(value = "Coupon Payment frequency, QUARTER:Quarterly, HALF_YEAR:Semi-annually, YEAR:Annually", allowableValues = "QUARTER,HALF_YEAR,YEAR")
     private String couponFrequency;
@@ -51,7 +54,7 @@ public class AbsSmtBody implements Serializable {
     @ApiModelProperty(value = "redemption date")
     private List<Date> callDate;
     @ApiModelProperty(value = "token id for coupon payment and redemption", required = true)
-    @NotBlank(message = "token ID cannot be blank.")
+    @NotBlank(message = "token ID cannot be blank")
     private String disbursementTokenId;
     @ApiModelProperty(value = "KYC:prohibited list for Individual Type")
     private List<Kyc> individualProhibited;

@@ -11,6 +11,7 @@ import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.AbsCreateRequest;
 import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
 import io.stacs.dapp.helloworld.vo.drs.AbsSmtBody;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,8 +61,8 @@ public class AbsDemoServiceImpl extends AbstractSendSmtMessageService implements
         if (!drsResponse.success()) {
             return drsResponse;
         }
-        //run business logic
-        doBusiness(drsResponse, absRequest);
+        //doBusiness
+        doBusiness(drsResponse, absRequest, message.getHeader());
         //returned response from DRS
         return drsResponse;
     }
@@ -71,33 +72,27 @@ public class AbsDemoServiceImpl extends AbstractSendSmtMessageService implements
      *
      * @param drsResponse
      */
-    private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsCreateRequest absRequest) {
-        //Save to database
+    private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsCreateRequest absRequest, DrsSmtMessage.SmtHeader header) {
+        //save to database
         AssetAbs abs = new AssetAbs();
+        BeanUtils.copyProperties(absRequest.getBody(), abs);
         abs.setCreateAt(new Date());
         abs.setUpdateAt(new Date());
-        abs.setIdentifierId(absRequest.getHeader().getIdentifierId());
+        abs.setIdentifierId(header.getIdentifierId());
         abs.setMessageId(drsResponse.getData().getMessageId());
         abs.setSessionId(drsResponse.getData().getSessionId());
         abs.setSmtCode("smta-abs-corporation-issue-1-v1");
         abs.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
-        abs.setUuid(absRequest.getHeader().getUuid());
-        //save to database
+        abs.setUuid(header.getUuid());
+        //entity data state
         AbsSmtBody absBody = absRequest.getBody();
-        abs.setAbsType(absBody.getAbsType());
-        abs.setAssetId(absBody.getAssetId());
-        abs.setAssetName(absBody.getAssetName());
+
         abs.setBizStatus(StatusEnum.BizStatus.NORMAL.getCode());
         abs.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
-        abs.setIssuerName(absBody.getIssuerName());
         if (!CollectionUtils.isEmpty(absBody.getCallDate())) {
             List<Long> calldate = absBody.getCallDate().stream().map(x -> x.getTime() / 1000).collect(Collectors.toList());
             abs.setCallDate(JSON.toJSONString(calldate));
         }
-        abs.setCouponFrequency(absBody.getCouponFrequency());
-        abs.setDayCountConvention(absBody.getDayCountConvention());
-        abs.setDisbursementTokenId(absBody.getDisbursementTokenId());
-        abs.setFirstSettlementDate(absBody.getFirstSettlementDate());
         if (!CollectionUtils.isEmpty(absBody.getIndividualPermitted())) {
             abs.setIndividualPermitted(JSON.toJSONString(absBody.getIndividualPermitted()));
         }

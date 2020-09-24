@@ -5,7 +5,7 @@ import com.alibaba.fastjson.TypeReference;
 import io.stacs.dapp.helloworld.config.DrsConfig;
 import io.stacs.dapp.helloworld.httpclient.DrsClient;
 import io.stacs.dapp.helloworld.service.SmtQueryService;
-import io.stacs.dapp.helloworld.utils.UUIDUtil;
+import io.stacs.dapp.helloworld.utils.CommonUtil;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
 import io.stacs.dapp.helloworld.vo.demo.BalanceOfRequest;
@@ -29,7 +29,7 @@ public class SmtQueryServiceImpl implements SmtQueryService {
     private DrsConfig drsConfig;
 
     /**
-     * Get Address
+     * Get wallet address
      *
      * @return
      */
@@ -37,9 +37,9 @@ public class SmtQueryServiceImpl implements SmtQueryService {
     public DrsResponse getAddress() {
 
         AddressCreateRequest createRequest = AddressCreateRequest.builder()
-                //Create unique uuid
-                .uuid(UUIDUtil.uuid())
-                //Set merchant id
+                //Create uuid
+                .uuid(CommonUtil.uuid())
+                //merchant id
                 .identifierId(drsConfig.getMyIdentifierId())
                 .build();
         JSONObject response = DrsClient.post(drsConfig.getCreateAddressUrl(), createRequest);
@@ -49,7 +49,7 @@ public class SmtQueryServiceImpl implements SmtQueryService {
     }
 
     /**
-     * Query balance of an address
+     * query balance of wallet address for an asset
      *
      * @param request
      * @return
@@ -57,11 +57,11 @@ public class SmtQueryServiceImpl implements SmtQueryService {
     @Override
     public DrsResponse balanceOf(BalanceOfRequest request) {
         BalanceQueryRequest drsBalanceQueryRequest = BalanceQueryRequest.builder()
-                //Set address
+                //address to be queried
                 .address(request.getAddress())
-                //set digital asset id
+                //asset id
                 .assetId(request.getAssetId())
-                //set merchant id
+                //merchant id
                 .identifierId(drsConfig.getMyIdentifierId())
                 .build();
         JSONObject response = DrsClient.post(drsConfig.getBalanceOfUrl(), drsBalanceQueryRequest);
@@ -70,7 +70,7 @@ public class SmtQueryServiceImpl implements SmtQueryService {
     }
 
     /**
-     * Query Transaction status using Merchant Id and Uuid
+     * query tx outcomes based on merchant id and uuid
      *
      * @param request
      * @return

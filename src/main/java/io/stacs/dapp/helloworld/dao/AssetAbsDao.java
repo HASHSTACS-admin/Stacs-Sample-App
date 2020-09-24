@@ -8,10 +8,19 @@ import java.util.List;
 public interface AssetAbsDao extends JpaRepository<AssetAbs, Long> {
 
     /**
-     * Query by Merchant id for Asset Backed Securities (ABS)
+     * Query ABS by Merchant Id
+     *
      * @param identifierId
      * @return
      */
     List<AssetAbs> findByIdentifierId(String identifierId);
+
+    /**
+     * Query ABS by Uuid
+     *
+     * @param uuid
+     * @return
+     */
+    AssetAbs findByUuid(String uuid);
 
 }

@@ -1,6 +1,6 @@
 package io.stacs.dapp.helloworld.vo.drs;
 
-import io.stacs.dapp.helloworld.vo.Kyc;
+import io.stacs.dapp.helloworld.vo.IndividualIdentityKyc;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @since 2020/9/19
  */
 @Data
-public class IdentitySmtBody implements Serializable {
+public class IndividualIdentitySmtBody implements Serializable {
 
     @ApiModelProperty(value = "target address, requires address to have Identity on the chain", required = true)
     @NotNull(message = "target address cannot be null")
@@ -23,7 +23,7 @@ public class IdentitySmtBody implements Serializable {
     @ApiModelProperty(value = "array format, uses ISO 3166-1 alpha-2 standard (official assignment code) to indicate country or residence", required = true)
     @NotNull(message = "Identity cannot be null")
     @NotEmpty(message = "Identity cannot be empty")
-    private List<Kyc> identity;
+    private List<IndividualIdentityKyc> identity;
 
     @ApiModelProperty(value = "BD ID used by identity", required = true)
     @NotNull(message = "BD ID cannot be null")
