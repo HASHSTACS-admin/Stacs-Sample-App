@@ -19,7 +19,7 @@ Reach out to the Solutions team at Stacs for questions at support@stacs.io
   * [API Request Header and Body Construction](#api-request-header-and-body-construction)
   * [Transaction Request Flow to and from the Blockchain](#transaction-request-flow-to-and-from-the-blockchain)
 * [STACS DRS HTTP REST APIs](#stacs-drs-http-rest-apis)
-* [Settility Message Type (SMT)](#settility-message-type-(smt))
+* [Settlity Message Type (SMT)](#settlity-message-type-(smt))
 
 ## Getting Started
 To begin, please ensure that you have both the Application Requirements and Blockchain Requirements completed before you embark on this journey with the STACS Blockchain.
