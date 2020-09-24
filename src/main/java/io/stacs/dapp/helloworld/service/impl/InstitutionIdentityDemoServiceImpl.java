@@ -10,7 +10,7 @@ import io.stacs.dapp.helloworld.vo.demo.InstitutionIdentityRequest;
 import org.springframework.stereotype.Service;
 
 /**
- * 设置地址身份信息的报文服务
+ * Create Identity for Institution Type
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class InstitutionIdentityDemoServiceImpl extends AbstractSendSmtMessageService implements SmtDemoService {
 
     /**
-     * 设置地址身份信息
+     * Create Identity for Institution Type
      *
      * @param request permission request
      * @return drs response
@@ -27,13 +27,13 @@ public class InstitutionIdentityDemoServiceImpl extends AbstractSendSmtMessageSe
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
         InstitutionIdentityRequest institutionIdentityRequest = (InstitutionIdentityRequest) request;
-        //组装报文数据
+        //Create Request Message
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smti-institution-identity-set-1-v1");
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(institutionIdentityRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
-        //发送请求
+        //Send API Request
         return doSend(message);
     }
 

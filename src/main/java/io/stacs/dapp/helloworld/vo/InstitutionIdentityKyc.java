@@ -10,18 +10,18 @@ import java.io.Serializable;
 /**
  * @author HuangShengli
  * @ClassName Kyc
- * @Description Kyc 信息
+ * @Description Kyc
  * @since 2020/9/21
  */
 @Data
-@ApiModel(value = "机构KYC信息")
+@ApiModel(value = "Institution Type KYC Info")
 public class InstitutionIdentityKyc implements Serializable {
 
-    @ApiModelProperty(value = "注册国家，采用ISO 3166-1 alpha-2标准（正式分配代码）", required = true)
+    @ApiModelProperty(value = "country of incorporation, uses ISO 3166-1 alpha-2 standard (official assignment code) to indicate country or residence", required = true)
     @JSONField(name = "CountryOfIncorporation")
     private String CountryOfIncorporation;
 
-    @ApiModelProperty(value = "运行国家", required = true)
+    @ApiModelProperty(value = "country of operation", required = true)
     @JSONField(name = "CountryOfOperation")
     private String CountryOfOperation;
 

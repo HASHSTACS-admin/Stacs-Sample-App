@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * 买方出价认购ABS参数，创建参数的Body
+ * ABS Bid order
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -16,8 +16,8 @@ import java.math.BigDecimal;
 @Data
 public class AbsBidSmtBody implements Serializable {
 
-    @ApiModelProperty(value = "购买数量", required = true)
-    @NotNull(message = "购买数量不能为空")
+    @ApiModelProperty(value = "quantity", required = true)
+    @NotNull(message = "quantity cannot be null")
     private BigDecimal quantity;
 
 }

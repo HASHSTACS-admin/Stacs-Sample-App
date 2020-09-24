@@ -18,7 +18,7 @@ public class IdentityCallbackHandler {
 
     public void handleIdentityCallBack(DrsSmtMessage message, Byte identityType) {
         if (message.success()) {
-            //插入数据到 address kyc info
+            //update database with address kyc info
             AddressKycInfo addressKycInfo = new AddressKycInfo();
             DrsSmtMessage.SmtBody body = message.getBody();
             addressKycInfo.setAddress(body.getString("targetAddress"));

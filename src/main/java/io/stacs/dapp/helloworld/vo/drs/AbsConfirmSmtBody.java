@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * 卖方确认收款ABS报文，创建参数的Body
+ * Order confirmation of ABS
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -15,8 +15,8 @@ import java.io.Serializable;
 @Data
 public class AbsConfirmSmtBody implements Serializable {
 
-    @ApiModelProperty(value = "bid报文的message ID，确定是要确认哪一个订单；可以不用对方付款也可以直接确认收款", required = true)
-    @NotNull(message = "messageId不能为空")
+    @ApiModelProperty(value = "bid message ID, can be used to confirm collection directly without payment by the other party", required = true)
+    @NotNull(message = "messageId cannot be null")
     private String messageId;
 
 }

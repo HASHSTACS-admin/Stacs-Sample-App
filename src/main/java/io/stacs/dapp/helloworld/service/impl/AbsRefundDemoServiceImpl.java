@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * 买/卖方发起退款ABS报文服务
+ * Refund of ABS Subscription
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -29,14 +29,14 @@ public class AbsRefundDemoServiceImpl extends AbstractSendSmtMessageService impl
     private TradeOfferOrderDao tradeOfferOrderDao;
 
     /**
-     * 买/卖方发起退款ABS
+     * Refund of ABS Subscription
      *
      * @param request permission request
      * @return drs response
      */
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
-        //查询offer单
+        //query offer order
         String sessionId = request.getHeader().getSessionId();
         TradeOfferOrder tradeOfferOrder = tradeOfferOrderDao.findBySessionId(sessionId);
         if (Objects.isNull(tradeOfferOrder)) {
@@ -49,22 +49,22 @@ public class AbsRefundDemoServiceImpl extends AbstractSendSmtMessageService impl
             return DrsResponse.fail("error", "The current state does not support refund!");
         }
 
-        //组装报文数据
+        //Create Request Message
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-subscription-refund-2-v1");
         message.getHeader().setSessionId(request.getHeader().getSessionId());
-        //发送请求
+        //Send API Request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
             return drsResponse;
         }
-        //做额外逻辑
+        //run business logic
         doBusiness(tradeOfferOrder);
         return drsResponse;
     }
 
     private void doBusiness(TradeOfferOrder tradeOfferOrder) {
-        //更新状态，存数据库
+        //save to database
         tradeOfferOrder.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
         tradeOfferOrder.setUpdateAt(new Date());
         tradeOfferOrderDao.save(tradeOfferOrder);

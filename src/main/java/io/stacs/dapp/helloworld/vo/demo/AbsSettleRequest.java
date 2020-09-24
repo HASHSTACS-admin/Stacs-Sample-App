@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 2020/9/22
  */
 @Data
-@ApiModel(value = "ABS offer单买/卖方发起结算报文参数")
+@ApiModel(value = "ABS offer settlement request")
 public class AbsSettleRequest extends DemoBaseRequest {
 
 }

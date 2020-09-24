@@ -37,7 +37,7 @@ public class AbsBDCallbackHandler implements SmtCallbackHandler {
         DrsSmtMessage.SmtBody body = message.getBody();
         String bdId = body.getString("bdId");
 
-        //更新表Smt BD
+        //Update BD
         SmtBd smtBd = smtBdDao.findByUuid(uuid);
         smtBd.setBdId(bdId);
         if (message.success()) {
@@ -49,7 +49,7 @@ public class AbsBDCallbackHandler implements SmtCallbackHandler {
         smtBdDao.save(smtBd);
 
         if (message.success()) {
-            //插入数据到Bd Function Permission Relation
+            //Update BD and Permission relation in database
             List<BdFunctionPermissionRelation> bdFunctionPermissionRelationList = new ArrayList<>();
             Stream.of("buybackPermissionId", "buybackFreezePermissionId", "interestSettlePermissionId", "additionalIssuePermissionId", "tokenFreezePermissionId", "tokenUnfreezePermissionId")
                     .filter(o -> Objects.nonNull(body.get(o)))

@@ -14,10 +14,10 @@ import javax.validation.Valid;
  * @since 2020/9/19
  */
 @Data
-@ApiModel(value = "机构Identity设置报文参数")
+@ApiModel(value = "Institution Type Identity")
 public class InstitutionIdentityRequest extends DemoBaseRequest {
 
-    @ApiModelProperty(value = "机构Identity设置报文体", required = true)
+    @ApiModelProperty(value = "Institution Type Identity", required = true)
     @Valid
     private InstitutionIdentitySmtBody body;
 

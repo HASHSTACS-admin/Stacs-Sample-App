@@ -14,10 +14,10 @@ import javax.validation.Valid;
  * @since 2020/9/19
  */
 @Data
-@ApiModel(value = "个人Identity设置报文参数")
+@ApiModel(value = "Individual Type Identity")
 public class IndividualIdentityRequest extends DemoBaseRequest {
 
-    @ApiModelProperty(value = "个人Identity设置报文体", required = true)
+    @ApiModelProperty(value = "Individual Type Identity", required = true)
     @Valid
     private IndividualIdentitySmtBody body;
 

@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * 买方付款ABS报文服务
+ * Payment for ABS subscription
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -34,7 +34,7 @@ public class AbsPaymentDemoServiceImpl extends AbstractSendSmtMessageService imp
     private TradeOfferOrderDao tradeOfferOrderDao;
 
     /**
-     * 买方付款ABS
+     * Payment for ABS subscription
      *
      * @param request permission request
      * @return drs response
@@ -43,13 +43,13 @@ public class AbsPaymentDemoServiceImpl extends AbstractSendSmtMessageService imp
     public DrsResponse doDemo(DemoBaseRequest request) {
         AbsPaymentRequest absPaymentRequest = (AbsPaymentRequest) request;
 
-        //查询bid单子
+        //query bid order
         String messageId = absPaymentRequest.getBody().getMessageId();
         TradeBidOrder tradeBidOrder = tradeBidOrderDao.findByMessageId(messageId);
-        //查询offer单
+        //query offer order
         String sessionId = request.getHeader().getSessionId();
         TradeOfferOrder tradeOfferOrder = tradeOfferOrderDao.findBySessionId(sessionId);
-        //校验
+        //verification
         if (Objects.isNull(tradeBidOrder)) {
             return DrsResponse.fail("error", "The order to be canceled does not exist!");
         }
@@ -60,25 +60,25 @@ public class AbsPaymentDemoServiceImpl extends AbstractSendSmtMessageService imp
             return DrsResponse.fail("error", "status is illegal!");
         }
 
-        //组装报文数据
+        //Create Request Message
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-subscription-payment-1-v1");
         message.getHeader().setSessionId(request.getHeader().getSessionId());
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(absPaymentRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
-        //发送请求
+        //Send API request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
             return drsResponse;
         }
-        //做额外逻辑
+        //run business logic
         doBusiness(tradeBidOrder);
         return drsResponse;
     }
 
     private void doBusiness(TradeBidOrder tradeBidOrder) {
-        //更新状态，存数据库
+        //save to database
         tradeBidOrder.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
         tradeBidOrder.setUpdateAt(new Date());
         tradeBidOrderDao.save(tradeBidOrder);

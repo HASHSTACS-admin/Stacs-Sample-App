@@ -32,7 +32,7 @@ public class ControllerExceptionHandler {
     }
 
     /**
-     * Spring Assert 校验参数异常检查
+     * Spring Assert check for illegal arguments
      */
     @ExceptionHandler(value = IllegalArgumentException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

@@ -29,7 +29,7 @@ public class AbsPaymentCallbackHandler implements SmtCallbackHandler {
         DrsSmtMessage.SmtBody body = message.getBody();
         String messageId = body.getString("messageId");
 
-        //更新表trade bid order
+        //update trade bid order
         TradeBidOrder tradeBidOrder = tradeBidOrderDao.findByMessageId(messageId);
         if (Objects.isNull(tradeBidOrder)) {
             log.warn("Cannot find trade bid order by message id.");

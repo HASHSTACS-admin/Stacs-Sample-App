@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * 买方出价认购ABS报文服务
+ * Bid order for ABS
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -37,7 +37,7 @@ public class AbsBidDemoServiceImpl extends AbstractSendSmtMessageService impleme
     private TradeBidOrderDao tradeBidOrderDao;
 
     /**
-     * 买方出价认购ABS
+     * bid order to purchase ABS
      *
      * @param request permission request
      * @return drs response
@@ -46,9 +46,9 @@ public class AbsBidDemoServiceImpl extends AbstractSendSmtMessageService impleme
     public DrsResponse doDemo(DemoBaseRequest request) {
         AbsBidRequest absBidRequest = (AbsBidRequest) request;
         String sessionId = request.getHeader().getSessionId();
-        //查询offer单
+        //query offer
         TradeOfferOrder tradeOfferOrder = tradeOfferOrderDao.findBySessionId(sessionId);
-        //校验
+        //verification
         if (Objects.isNull(tradeOfferOrder)) {
             return DrsResponse.fail("error", "Trade offer order doesn't exist!");
         }
@@ -82,19 +82,19 @@ public class AbsBidDemoServiceImpl extends AbstractSendSmtMessageService impleme
             }
         }
 
-        //组装报文数据
+        //Setup Message
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-subscription-bid-2-v1");
         message.getHeader().setSessionId(sessionId);
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(absBidRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
-        //发送请求
+        //Send API request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
             return drsResponse;
         }
-        //做额外逻辑
+        //Run business logic
         doBusiness(message, drsResponse, tradeOfferOrder.getAssetId());
         return drsResponse;
     }
@@ -102,7 +102,7 @@ public class AbsBidDemoServiceImpl extends AbstractSendSmtMessageService impleme
     private void doBusiness(DrsSmtMessage message,
                             DrsResponse<DrsResponse.SmtResult> smtResultDrsResponse,
                             String assetId) {
-        //组装trade bid order，存数据库
+        //save to database
         TradeBidOrder tradeBidOrder = new TradeBidOrder();
         tradeBidOrder.setSmtCode(message.getHeader().getSmtCode());
         tradeBidOrder.setAssetId(assetId);

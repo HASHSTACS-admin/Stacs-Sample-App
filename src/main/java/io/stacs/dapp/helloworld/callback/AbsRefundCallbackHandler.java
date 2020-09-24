@@ -33,7 +33,7 @@ public class AbsRefundCallbackHandler implements SmtCallbackHandler {
     public void handle(DrsSmtMessage message) {
         String sessionId = message.getHeader().getSessionId();
 
-        //更新表trade bid order
+        //update trade bid order
         TradeOfferOrder tradeOfferOrder = tradeOfferOrderDao.findBySessionId(sessionId);
         List<TradeBidOrder> tradeBidOrders = tradeBidOrderDao.findByOfferSessionId(sessionId);
         if (message.success()) {
