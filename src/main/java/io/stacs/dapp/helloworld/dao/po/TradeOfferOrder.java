@@ -9,73 +9,73 @@ import java.util.Date;
 /**
  * @author HuangShengli
  * @ClassName TradeOfferOrder
- * @Description 交易类Offer订单表
+ * @Description Trade Offer Order
  * @since 2020/9/19
  */
 @Data
 @Entity
 @Table(name = "trade_offer_order", indexes = {@Index(columnList = "uuid", unique = true)})
-@org.hibernate.annotations.Table(appliesTo = "trade_offer_order", comment = "交易类Offer订单表")
+@org.hibernate.annotations.Table(appliesTo = "trade_offer_order", comment = "Trade Offer Order")
 public class TradeOfferOrder {
     /**
-     * 主键id
-     * 自增长
+     * primary id
+     * auto increment
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, columnDefinition = "bigint(20)  comment '主键ID'")
+    @Column(nullable = false, columnDefinition = "bigint(20)  comment 'primary id'")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "varchar(128) comment '报文CODE'")
+    @Column(nullable = false, columnDefinition = "varchar(128) comment 'SMT Format code'")
     private String smtCode;
-    @Column(nullable = false, columnDefinition = "varchar(32) comment '资产代码'")
+    @Column(nullable = false, columnDefinition = "varchar(32) comment 'asset id'")
     private String assetId;
-    @Column(nullable = false, columnDefinition = "varchar(40) comment '售卖人地址'")
+    @Column(nullable = false, columnDefinition = "varchar(40) comment 'offer address'")
     private String offerAddress;
-    @Column(nullable = false, columnDefinition = "decimal(32,8) comment '本次售卖数量'")
+    @Column(nullable = false, columnDefinition = "decimal(32,8) comment 'quantity'")
     private BigDecimal quantity;
-    @Column(nullable = false, columnDefinition = "decimal(32,8) comment '单价'")
+    @Column(nullable = false, columnDefinition = "decimal(32,8) comment 'unit price'")
     private BigDecimal unitPrice;
-    @Column(nullable = true, columnDefinition = "varchar(32) comment '接受的付款token，必须是已发行的token'")
+    @Column(nullable = true, columnDefinition = "varchar(32) comment 'payment currency (token id), digital currency has to be issued prior to this order'")
     private String paymentCurrencyId;
-    @Column(nullable = true, columnDefinition = "char(3) comment '接受的付款法币'")
+    @Column(nullable = true, columnDefinition = "char(3) comment 'payment currency'")
     private String paymentCurrency;
-    @Column(nullable = true, columnDefinition = "varchar(40) comment '对手方地址，该地址会传入合约'")
+    @Column(nullable = true, columnDefinition = "varchar(40) comment 'counterparty address'")
     private String countPartyAddress;
-    @Column(nullable = false, columnDefinition = "decimal(32,8) comment '单个地址能购买的总量，必须大于等于minSizePerTrad，小于等于卖出数量'")
+    @Column(nullable = false, columnDefinition = "decimal(32,8) comment 'max quantity that can be purchased by a single address, must be >= minSizePerTrade and <= quantity sold'")
     private BigDecimal maxSizePerAddress;
-    @Column(nullable = false, columnDefinition = "decimal(32,8) comment '单次最低购买量'")
+    @Column(nullable = false, columnDefinition = "decimal(32,8) comment 'min size per trade'")
     private BigDecimal minSizePerTrade;
-    @Column(nullable = true, columnDefinition = "decimal(32,8) comment '倍数，小于等于卖出数量，只能以此数字的整倍数进行购买'")
+    @Column(nullable = true, columnDefinition = "decimal(32,8) comment 'lot size'")
     private BigDecimal lotSize;
-    @Column(nullable = false, columnDefinition = "datetime comment '买家可开始下单的时间'")
+    @Column(nullable = false, columnDefinition = "datetime comment 'order start time'")
     private Date orderStartTime;
-    @Column(nullable = false, columnDefinition = "datetime comment '买家下单截止时间，unix时间戳格式，必须大于等于orderStartTime'")
+    @Column(nullable = false, columnDefinition = "datetime comment 'order end time, in UNIX timestamp format, must be >= orderStartTime'")
     private Date orderEndTime;
-    @Column(nullable = false, columnDefinition = "datetime comment '买家付款截止时间，unix时间戳格式，必须大于等于orderEndTime'")
+    @Column(nullable = false, columnDefinition = "datetime comment 'payment end time, in UNIX timestamp format, must >= orderEndTime'")
     private Date paymentEndTime;
-    @Column(nullable = true, columnDefinition = "datetime comment '结算时间，不填写则在条件满足后立即自动结算，填写后则在结算时间到达以及交易条件满足后，需要一方（通常是买方）来发起结算，必须大于orderEndTime'")
+    @Column(nullable = true, columnDefinition = "datetime comment 'if this is blank, settlement will occur immediately after conditions are met. Else, 1 party, usually the buyer, is required to initiate settlement after the settlement time and transaction conditions are fulfilled. This must be >= orderEndTime'")
     private Date settleTime;
-    @Column(nullable = true, columnDefinition = "varchar(128) comment '发起认购时想要告知的额外信息'")
+    @Column(nullable = true, columnDefinition = "varchar(128) comment 'additional information for subscription'")
     private String subscriptionInfo;
-    @Column(nullable = true, columnDefinition = "varchar(40) comment '本次发行的合约地址，合约地址与assets ID一一对应'")
+    @Column(nullable = true, columnDefinition = "varchar(40) comment 'contract address, 1-1 relation mapping to the asset id'")
     private String contractAddress;
-    @Column(nullable = false, columnDefinition = "tinyint comment '状态:0-PROCESSING,1-SUCCESS,2-FAIL'")
+    @Column(nullable = false, columnDefinition = "tinyint comment 'status:0-PROCESSING,1-SUCCESS,2-FAIL'")
     private Byte status;
-    @Column(nullable = false, columnDefinition = "tinyint comment '状态:0-发布,1-退款,2-结算,3-结束'")
+    @Column(nullable = false, columnDefinition = "tinyint comment 'status:0-release,1-refund,2-settlement,3-end'")
     private Byte bizStatus;
     @Column(nullable = false, columnDefinition = "varchar(128) comment 'uuid'")
     private String uuid;
-    @Column(nullable = false, columnDefinition = "varchar(20) comment '商户号'")
+    @Column(nullable = false, columnDefinition = "varchar(20) comment 'merchant id'")
     private String identifierId;
-    @Column(nullable = true, columnDefinition = "varchar(255) comment 'message id，由DRS返回'")
+    @Column(nullable = true, columnDefinition = "varchar(255) comment 'message id, sent via DRS callback API'")
     private String messageId;
-    @Column(nullable = true, columnDefinition = "varchar(255) comment 'session id，由DRS返回'")
+    @Column(nullable = true, columnDefinition = "varchar(255) comment 'session id, sent via DRS callback API'")
     private String sessionId;
-    @Column(nullable = true, columnDefinition = "varchar(255) comment '备注信息'")
+    @Column(nullable = true, columnDefinition = "varchar(255) comment 'remark'")
     private String remark;
-    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP comment '创建时间'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP comment 'creation timestamp'")
     private Date createAt;
-    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'update timestamp'")
     private Date updateAt;
 }

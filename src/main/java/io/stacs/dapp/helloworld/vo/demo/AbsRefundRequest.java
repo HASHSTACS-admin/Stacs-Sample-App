@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 2020/9/19
  */
 @Data
-@ApiModel(value = "买/卖方发起退款ABS报文参数")
+@ApiModel(value = "Refund request for ABS")
 public class AbsRefundRequest extends DemoBaseRequest {
 
 }

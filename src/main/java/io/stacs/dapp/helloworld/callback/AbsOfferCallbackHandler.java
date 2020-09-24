@@ -30,7 +30,7 @@ public class AbsOfferCallbackHandler implements SmtCallbackHandler {
         DrsSmtMessage.SmtBody body = message.getBody();
         String contractAddress = body.getString("contractAddress");
 
-        //更新表offer 订单表
+        //update offer
         TradeOfferOrder order = tradeOfferOrderDao.findByUuid(uuid);
         order.setContractAddress(contractAddress);
         if (message.success()) {

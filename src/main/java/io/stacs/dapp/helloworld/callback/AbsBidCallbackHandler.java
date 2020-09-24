@@ -25,7 +25,7 @@ public class AbsBidCallbackHandler implements SmtCallbackHandler {
     public void handle(DrsSmtMessage message) {
         String uuid = message.getHeader().getUuid();
 
-        //更新表trade bid order
+        //update trade bid order
         TradeBidOrder tradeBidOrder = tradeBidOrderDao.findByUuid(uuid);
         if (message.success()) {
             tradeBidOrder.setStatus(StatusEnum.ChainStatus.SUCCESS.getCode());

@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * 卖方确认收款ABS报文服务
+ * confirm subscription of ABS
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -29,7 +29,7 @@ public class AbsConfirmDemoServiceImpl extends AbstractSendSmtMessageService imp
     private TradeBidOrderDao tradeBidOrderDao;
 
     /**
-     * 卖方确认收款ABS
+     * confirm subscription of ABS
      *
      * @param request permission request
      * @return drs response
@@ -38,7 +38,7 @@ public class AbsConfirmDemoServiceImpl extends AbstractSendSmtMessageService imp
     public DrsResponse doDemo(DemoBaseRequest request) {
         AbsConfirmRequest absConfirmRequest = (AbsConfirmRequest) request;
 
-        //查询bid单子
+        //Query bid order
         String messageId = absConfirmRequest.getBody().getMessageId();
         TradeBidOrder tradeBidOrder = tradeBidOrderDao.findByMessageId(messageId);
         if (Objects.isNull(tradeBidOrder)) {
@@ -50,25 +50,25 @@ public class AbsConfirmDemoServiceImpl extends AbstractSendSmtMessageService imp
             return DrsResponse.fail("error", "status is not allow confirm!");
         }
 
-        //组装报文数据
+        //Create Request Message
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-subscription-confirm-1-v1");
         message.getHeader().setSessionId(request.getHeader().getSessionId());
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(absConfirmRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
-        //发送请求
+        //Send API Request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
             return drsResponse;
         }
-        //做额外逻辑
+        //Run business logic
         doBusiness(tradeBidOrder);
         return drsResponse;
     }
 
     private void doBusiness(TradeBidOrder tradeBidOrder) {
-        //更新状态，存数据库
+        //Save to database
         tradeBidOrder.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
         tradeBidOrder.setUpdateAt(new Date());
         tradeBidOrderDao.save(tradeBidOrder);

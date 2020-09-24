@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * 买方退单ABS报文服务
+ * buyer reject ABS subscription order
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -29,7 +29,7 @@ public class AbsRevertDemoServiceImpl extends AbstractSendSmtMessageService impl
     private TradeBidOrderDao tradeBidOrderDao;
 
     /**
-     * 买方退单ABS
+     * buyer reject ABS subscription order
      *
      * @param request permission request
      * @return drs response
@@ -38,10 +38,10 @@ public class AbsRevertDemoServiceImpl extends AbstractSendSmtMessageService impl
     public DrsResponse doDemo(DemoBaseRequest request) {
         AbsRevertRequest absRevertRequest = (AbsRevertRequest) request;
 
-        //查询bid单子
+        //query bid order
         String messageId = absRevertRequest.getBody().getMessageId();
         TradeBidOrder tradeBidOrder = tradeBidOrderDao.findByMessageId(messageId);
-        //校验
+        //verification
         if (Objects.isNull(tradeBidOrder)) {
             return DrsResponse.fail("error", "The order to be canceled does not exist!");
         }
@@ -49,25 +49,25 @@ public class AbsRevertDemoServiceImpl extends AbstractSendSmtMessageService impl
             return DrsResponse.fail("error", "The order status does not allow revert!");
         }
 
-        //组装报文数据
+        //Create Request Message
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-subscription-revert-1-v1");
         message.getHeader().setSessionId(request.getHeader().getSessionId());
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(absRevertRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
-        //发送请求
+        //Send API Request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
             return drsResponse;
         }
-        //做额外逻辑
+        //run business logic
         doBusiness(tradeBidOrder);
         return drsResponse;
     }
 
     private void doBusiness(TradeBidOrder tradeBidOrder) {
-        //更新状态，存数据库
+        //save to database
         tradeBidOrder.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
         tradeBidOrder.setUpdateAt(new Date());
         tradeBidOrderDao.save(tradeBidOrder);

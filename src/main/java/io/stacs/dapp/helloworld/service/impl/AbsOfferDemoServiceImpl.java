@@ -20,7 +20,7 @@ import java.util.Date;
 
 /**
  * @author Huang Shengli
- * @Description 发布ABS offer单
+ * @Description Issue ABS Offer Order
  * @date 2020-09-21
  */
 @Service("smtt-abs-subscription-offer-3-v1")
@@ -30,7 +30,7 @@ public class AbsOfferDemoServiceImpl extends AbstractSendSmtMessageService imple
     private TradeOfferOrderDao tradeOfferOrderDao;
 
     /**
-     * abs的BD发布
+     * Issue ABS Offer Order
      *
      * @param request
      * @return
@@ -39,12 +39,12 @@ public class AbsOfferDemoServiceImpl extends AbstractSendSmtMessageService imple
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
         AbsOfferRequest offerRequest = (AbsOfferRequest) request;
-        //组装报文数据
+        //Create Request Message
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-subscription-offer-3-v1");
-        //报文体
+        //Message Body
         DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(offerRequest.getBody()), DrsSmtMessage.SmtBody.class);
-        //特殊处理日期格式
+        //process timestamp parameters
         body.put("orderStartTime", CommonUtil.getSmtDateTime(offerRequest.getBody().getOrderStartTime()));
         body.put("orderEndTime", CommonUtil.getSmtDateTime(offerRequest.getBody().getOrderEndTime()));
         body.put("paymentEndTime", CommonUtil.getSmtDateTime(offerRequest.getBody().getPaymentEndTime()));
@@ -54,29 +54,29 @@ public class AbsOfferDemoServiceImpl extends AbstractSendSmtMessageService imple
         }
 
         message.setBody(body);
-        //发起DRS请求
+        //Send API Request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
             return drsResponse;
         }
         //doBusiness
         doBusiness(drsResponse, offerRequest, message.getHeader());
-        //请求DRS
+        //Returned response from DRS
         return drsResponse;
     }
 
     /**
-     * 业务处理
+     * Run business logic
      *
      * @param drsResponse
      * @param offerRequest
      */
     private void doBusiness(DrsResponse<DrsResponse.SmtResult> drsResponse, AbsOfferRequest offerRequest, DrsSmtMessage.SmtHeader header) {
-        //保存到bd表
+        //save
         TradeOfferOrder order = new TradeOfferOrder();
-        //业务数据
+        //save data state
         BeanUtils.copyProperties(offerRequest.getBody(), order);
-        //通用信息
+        //save to database
         order.setCreateAt(new Date());
         order.setUpdateAt(new Date());
         order.setIdentifierId(header.getIdentifierId());

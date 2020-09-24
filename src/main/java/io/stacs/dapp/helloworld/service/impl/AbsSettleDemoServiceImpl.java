@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * 买/卖方发起结算ABS报文服务
+ * Settlement of ABS Subscription
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -27,14 +27,14 @@ public class AbsSettleDemoServiceImpl extends AbstractSendSmtMessageService impl
     private TradeOfferOrderDao tradeOfferOrderDao;
 
     /**
-     * 买/卖方发起结算
+     * Settlement of ABS Subscription
      *
      * @param request permission request
      * @return drs response
      */
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
-        //组装报文数据
+        //Create Request Message
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-subscription-settle-2-v1");
         message.getHeader().setSessionId(request.getHeader().getSessionId());
@@ -42,7 +42,7 @@ public class AbsSettleDemoServiceImpl extends AbstractSendSmtMessageService impl
         if (Objects.isNull(order)) {
             return DrsResponse.fail("error", "offer order is not exists");
         }
-        //判断是否支持延迟结算
+        //Check if delayed settlement is supported
         Date settleTime = order.getSettleTime();
         if (Objects.isNull(settleTime)) {
             return DrsResponse.fail("error", "not allowed this operation for this order");
@@ -57,7 +57,7 @@ public class AbsSettleDemoServiceImpl extends AbstractSendSmtMessageService impl
                 return DrsResponse.fail("error", "not allowed this operation for current status");
         }
 
-        //发送请求
+        //Send API Request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
             return drsResponse;

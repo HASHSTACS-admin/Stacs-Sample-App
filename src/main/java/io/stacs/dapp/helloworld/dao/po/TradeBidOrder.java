@@ -9,59 +9,59 @@ import java.util.Date;
 /**
  * @author HuangShengli
  * @ClassName TradeBidOrder
- * @Description 交易类Bid订单表
+ * @Description Trade Bid Order
  * @since 2020/9/19
  */
 @Data
 @Entity
 @Table(name = "trade_bid_order", indexes = {@Index(columnList = "uuid", unique = true)})
-@org.hibernate.annotations.Table(appliesTo = "trade_bid_order", comment = "交易类Bid订单表")
+@org.hibernate.annotations.Table(appliesTo = "trade_bid_order", comment = "trade bid order")
 public class TradeBidOrder {
     /**
-     * 主键id
-     * 自增长
+     * primary id
+     * auto increment
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, columnDefinition = "bigint(20)  comment '主键ID'")
+    @Column(nullable = false, columnDefinition = "bigint(20)  comment 'primary id'")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "varchar(128) comment '报文CODE'")
+    @Column(nullable = false, columnDefinition = "varchar(128) comment 'SMT format code'")
     private String smtCode;
-    @Column(nullable = false, columnDefinition = "varchar(32) comment '认购资产代码'")
+    @Column(nullable = false, columnDefinition = "varchar(32) comment 'asset id'")
     private String assetId;
-    @Column(nullable = false, columnDefinition = "varchar(64) comment '售卖单sessionId'")
+    @Column(nullable = false, columnDefinition = "varchar(64) comment 'offer session id'")
     private String offerSessionId;
 
-    @Column(nullable = false, columnDefinition = "varchar(40) comment '购买人地址'")
+    @Column(nullable = false, columnDefinition = "varchar(40) comment 'bid address'")
     private String bidAddress;
-    @Column(nullable = false, columnDefinition = "decimal(32,8) comment '购买数量'")
+    @Column(nullable = false, columnDefinition = "decimal(32,8) comment 'quantity'")
     private BigDecimal quantity;
 
-    @Column(nullable = true, columnDefinition = "decimal(32,8) comment '支付token数量'")
+    @Column(nullable = true, columnDefinition = "decimal(32,8) comment 'payment amount'")
     private BigDecimal paymentAmount;
 
-    @Column(nullable = true, columnDefinition = "varchar(32) comment '支付的token ID'")
+    @Column(nullable = true, columnDefinition = "varchar(32) comment 'payment currency (token id)'")
     private String paymentCurrencyId;
 
-    @Column(nullable = true, columnDefinition = "varchar(128) comment '额外信息'")
+    @Column(nullable = true, columnDefinition = "varchar(128) comment 'payment info'")
     private String paymentInfo;
-    @Column(nullable = false, columnDefinition = "tinyint comment '状态:0-PROCESSING,1-SUCCESS,2-FAIL'")
+    @Column(nullable = false, columnDefinition = "tinyint comment 'state:0-PROCESSING,1-SUCCESS,2-FAIL'")
     private Byte status;
-    @Column(nullable = false, columnDefinition = "tinyint comment '状态:0-已认购, 1-已支付, 2-卖方已确认，3-已退款, 4-争议中, 5-已撤销,6-已结算'")
+    @Column(nullable = false, columnDefinition = "tinyint comment 'state:0-purchased, 1-paid, 2-seller confirmed，3-refunded, 4-dispute in progress, 5-rescinded,6-settled'")
     private Byte bizStatus;
     @Column(nullable = false, columnDefinition = "varchar(128) comment 'uuid'")
     private String uuid;
-    @Column(nullable = false, columnDefinition = "varchar(20) comment '商户号'")
+    @Column(nullable = false, columnDefinition = "varchar(20) comment 'merchant id'")
     private String identifierId;
-    @Column(nullable = true, columnDefinition = "varchar(255) comment 'message id，由DRS返回'")
+    @Column(nullable = true, columnDefinition = "varchar(255) comment 'message id, sent via DRS callback API'")
     private String messageId;
-    @Column(nullable = true, columnDefinition = "varchar(255) comment 'session id，由DRS返回'")
+    @Column(nullable = true, columnDefinition = "varchar(255) comment 'session id, sent via DRS callback API'")
     private String sessionId;
-    @Column(nullable = true, columnDefinition = "varchar(255) comment '备注信息'")
+    @Column(nullable = true, columnDefinition = "varchar(255) comment 'remark'")
     private String remark;
-    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP comment '创建时间'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP comment 'creation timestamp'")
     private Date createAt;
-    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间'")
+    @Column(nullable = false, columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'update timestamp'")
     private Date updateAt;
 }

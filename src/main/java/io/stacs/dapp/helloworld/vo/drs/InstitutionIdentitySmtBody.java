@@ -16,17 +16,17 @@ import java.util.List;
 @Data
 public class InstitutionIdentitySmtBody implements Serializable {
 
-    @ApiModelProperty(value = "目标地址，即需要被添加身份信息的地址", required = true)
-    @NotNull(message = "目标地址不能为空")
+    @ApiModelProperty(value = "target address, requires address to have Identity on the chain", required = true)
+    @NotNull(message = "target address cannot be null")
     private String targetAddress;
 
-    @ApiModelProperty(value = "数组格式，采用ISO 3166-1 alpha-2标准（正式分配代码）表示国家或居留地", required = true)
-    @NotNull(message = "Identity不能为空")
-    @NotEmpty(message = "Identity不能为空")
+    @ApiModelProperty(value = "array format, uses ISO 3166-1 alpha-2 standard (official assignment code) to indicate country or residence", required = true)
+    @NotNull(message = "Identity cannot be null")
+    @NotEmpty(message = "Identity cannot be empty")
     private List<InstitutionIdentityKyc> identity;
 
-    @ApiModelProperty(value = "添加身份信息使用的bdId", required = true)
-    @NotNull(message = "BD ID不能为空")
+    @ApiModelProperty(value = "BD ID used by identity", required = true)
+    @NotNull(message = "BD ID cannot be null")
     private String bdId;
 
 }

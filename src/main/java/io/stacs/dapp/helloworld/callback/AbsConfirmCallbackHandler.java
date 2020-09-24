@@ -34,7 +34,7 @@ public class AbsConfirmCallbackHandler implements SmtCallbackHandler {
         DrsSmtMessage.SmtBody body = message.getBody();
         String messageId = body.getString("messageId");
 
-        //更新表trade bid order
+        //update trade bid order
         TradeBidOrder tradeBidOrder = tradeBidOrderDao.findByMessageId(messageId);
         if (Objects.isNull(tradeBidOrder)) {
             log.warn("Cannot find trade bid order by message id.");
@@ -43,7 +43,7 @@ public class AbsConfirmCallbackHandler implements SmtCallbackHandler {
         if (message.success()) {
             tradeBidOrder.setStatus(StatusEnum.ChainStatus.SUCCESS.getCode());
             tradeBidOrder.setBizStatus(StatusEnum.BidBizStatus.CONFIRMED.getCode());
-            //查询trade offer order， 是否延迟结算
+            //query trade offer order and check if settlement is delayed
             String sessionId = message.getHeader().getSessionId();
             TradeOfferOrder tradeOfferOrder = tradeOfferOrderDao.findBySessionId(sessionId);
             if (tradeOfferOrder != null &&

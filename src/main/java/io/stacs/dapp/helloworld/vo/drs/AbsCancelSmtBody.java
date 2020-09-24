@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * 买方主动撤单ABS报文，创建参数的Body
+ * Buyer reject ABS order
  *
  * @author Su Wenbo
  * @since 2020/9/21
@@ -15,11 +15,11 @@ import java.io.Serializable;
 @Data
 public class AbsCancelSmtBody implements Serializable {
 
-    @ApiModelProperty(value = "bid报文的message ID，确定对哪一个订单撤单", required = true)
-    @NotNull(message = "messageId不能为空")
+    @ApiModelProperty(value = "bid message Id", required = true)
+    @NotNull(message = "messageId cannot be null")
     private String messageId;
 
-    @ApiModelProperty(value = "填写后会存储在这笔区块链交易的extend data里", required = false)
+    @ApiModelProperty(value = "additional info that is saved to the blockchain", required = false)
     private String info;
 
 }

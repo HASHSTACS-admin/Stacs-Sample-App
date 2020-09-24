@@ -14,10 +14,10 @@ import javax.validation.Valid;
  * @since 2020/9/19
  */
 @Data
-@ApiModel(value = "买方出价认购ABS参数")
+@ApiModel(value = "ABS Bid Request by Buyer")
 public class AbsBidRequest extends DemoBaseRequest {
 
-    @ApiModelProperty(value = "买方出价认购ABS报文体", required = true)
+    @ApiModelProperty(value = "ABS Bid Request by Buyer", required = true)
     @Valid
     private AbsBidSmtBody body;
 

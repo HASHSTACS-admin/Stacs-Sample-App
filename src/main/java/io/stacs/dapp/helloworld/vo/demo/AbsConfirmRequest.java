@@ -14,10 +14,10 @@ import javax.validation.Valid;
  * @since 2020/9/19
  */
 @Data
-@ApiModel(value = "卖方确认收款ABS报文参数")
+@ApiModel(value = "confirmation of payment for ABS by seller")
 public class AbsConfirmRequest extends DemoBaseRequest {
 
-    @ApiModelProperty(value = "卖方确认收款ABS报文体", required = true)
+    @ApiModelProperty(value = "confirmation of payment for ABS by seller", required = true)
     @Valid
     private AbsPaymentSmtBody body;
 

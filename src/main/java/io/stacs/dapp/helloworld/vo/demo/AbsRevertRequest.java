@@ -14,10 +14,10 @@ import javax.validation.Valid;
  * @since 2020/9/19
  */
 @Data
-@ApiModel(value = "买方退单ABS报文参数")
+@ApiModel(value = "Rejection request of ABS by buyer")
 public class AbsRevertRequest extends DemoBaseRequest {
 
-    @ApiModelProperty(value = "买方退单ABS报文体", required = true)
+    @ApiModelProperty(value = "Rejection request of ABS by buyer", required = true)
     @Valid
     private AbsDisputeSmtBody body;
 

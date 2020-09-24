@@ -34,7 +34,7 @@ public class AbsSettleCallbackHandler implements SmtCallbackHandler {
         String sessionId = message.getHeader().getSessionId();
         DrsSmtMessage.SmtBody body = message.getBody();
 
-        //更新表offer 订单表
+        //update offer
         TradeOfferOrder order = tradeOfferOrderDao.findBySessionId(sessionId);
         if (message.success()) {
             order.setStatus(StatusEnum.ChainStatus.SUCCESS.getCode());
