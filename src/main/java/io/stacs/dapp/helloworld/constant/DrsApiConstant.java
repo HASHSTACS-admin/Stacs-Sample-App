@@ -17,6 +17,7 @@ public interface DrsApiConstant {
      * 所有报文发送的统一url
      */
     String SMT_SEND_URL = "/endpoint";
+
     /**
      * 查询余额url
      */
@@ -26,4 +27,10 @@ public interface DrsApiConstant {
      * 根据商户号和UUID查询报文结果
      */
     String QUERY_SMT_RESULT = "/smt/message/getByIdentifierIdAndUuid";
+
+    /**
+     * 通过资产ID查询该资产的所有持有地址以及每个持有地址的余额
+     */
+    String QUERY_ASSET_HOLDER = "/smt/query/asset/holders";
+
 }

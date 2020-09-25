@@ -37,4 +37,8 @@ public class DrsConfig implements DrsApiConstant {
         return url + QUERY_SMT_RESULT;
     }
 
+    public String getAssetHolderUrl() {
+        return url + QUERY_ASSET_HOLDER;
+    }
+
 }

@@ -1,6 +1,7 @@
 package io.stacs.dapp.helloworld.service;
 
 import io.stacs.dapp.helloworld.vo.DrsResponse;
+import io.stacs.dapp.helloworld.vo.demo.AssetHoldersRequest;
 import io.stacs.dapp.helloworld.vo.demo.BalanceOfRequest;
 import io.stacs.dapp.helloworld.vo.demo.QuerySmtResultRequest;
 
@@ -35,4 +36,13 @@ public interface SmtQueryService {
      * @return
      */
     DrsResponse querySmtResult(QuerySmtResultRequest request);
+
+    /**
+     * 查询资产的所有地址和余额
+     *
+     * @param request the request
+     * @return drs response
+     */
+    DrsResponse assetHolders(AssetHoldersRequest request);
+
 }

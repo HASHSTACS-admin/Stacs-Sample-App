@@ -2,6 +2,7 @@ package io.stacs.dapp.helloworld.controller;
 
 import io.stacs.dapp.helloworld.service.SmtQueryService;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
+import io.stacs.dapp.helloworld.vo.demo.AssetHoldersRequest;
 import io.stacs.dapp.helloworld.vo.demo.BalanceOfRequest;
 import io.stacs.dapp.helloworld.vo.demo.QuerySmtResultRequest;
 import io.swagger.annotations.Api;
@@ -9,7 +10,12 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author HuangShengli
@@ -62,4 +68,22 @@ public class DrsQueryController {
             return DrsResponse.fail("error", e.getMessage());
         }
     }
+
+    /**
+     * 通过资产ID查询该资产的所有持有地址以及每个持有地址的余额
+     *
+     * @param request the request
+     * @return the drs response
+     */
+    @ApiOperation(value = "查询资产的Holders", notes = "通过资产ID查询该资产的所有持有地址以及每个持有地址的余额")
+    @PostMapping("/assetHolders")
+    @ResponseBody
+    public DrsResponse assetHolders(@Validated @RequestBody AssetHoldersRequest request) {
+        try {
+            return smtQueryService.assetHolders(request);
+        } catch (Exception e) {
+            return DrsResponse.fail("error", e.getMessage());
+        }
+    }
+
 }
