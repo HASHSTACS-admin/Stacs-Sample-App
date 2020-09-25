@@ -77,7 +77,7 @@ public class AbsBidDemoServiceImpl extends AbstractSendSmtMessageService impleme
         if (Objects.nonNull(tradeOfferOrder.getLotSize())
                 && BigDecimal.ZERO.compareTo(tradeOfferOrder.getLotSize()) != 0) {
             BigDecimal number = quantity.divide(tradeOfferOrder.getLotSize(), 4, BigDecimal.ROUND_HALF_UP);
-            if (new BigDecimal(number.intValue()).compareTo(number) == 0) {
+            if (new BigDecimal(number.intValue()).compareTo(number) != 0) {
                 return DrsResponse.fail("error", "amount not an integer multiple!");
             }
         }

@@ -31,6 +31,6 @@ public interface DrsApiConstant {
     /**
      * 通过资产ID查询该资产的所有持有地址以及每个持有地址的余额
      */
-    String QUERY_ASSET_HOLDER = "/smt/query/asset/holders";
+    String QUERY_ASSET_HOLDER = "/v1/smt/query/asset/holders";
 
 }

@@ -20,6 +20,6 @@ public class AbsBuybackFreezeSmtBody implements Serializable {
     private String assetId;
 
     @ApiModelProperty(value = "附带信息")
-    private String description;
+    private String info;
 
 }

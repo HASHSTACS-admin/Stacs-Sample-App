@@ -10,7 +10,7 @@ import io.stacs.dapp.helloworld.service.SmtDemoService;
 import io.stacs.dapp.helloworld.utils.CommonUtil;
 import io.stacs.dapp.helloworld.vo.DrsResponse;
 import io.stacs.dapp.helloworld.vo.DrsSmtMessage;
-import io.stacs.dapp.helloworld.vo.demo.AddSnapshotRequest;
+import io.stacs.dapp.helloworld.vo.demo.AbsBuybackFreezeRequest;
 import io.stacs.dapp.helloworld.vo.demo.DemoBaseRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,13 +32,13 @@ public class AbsBuybackFreezeDemoServiceImpl extends AbstractSendSmtMessageServi
 
     @Override
     public DrsResponse doDemo(DemoBaseRequest request) {
-        AddSnapshotRequest snapshotRequest = (AddSnapshotRequest) request;
+        AbsBuybackFreezeRequest absBuybackFreezeRequest = (AbsBuybackFreezeRequest) request;
 
         //组装报文数据
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-buyback-freeze-2-v1");
         //报文体
-        DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(snapshotRequest.getBody()), DrsSmtMessage.SmtBody.class);
+        DrsSmtMessage.SmtBody body = JSON.parseObject(JSON.toJSONString(absBuybackFreezeRequest.getBody()), DrsSmtMessage.SmtBody.class);
         message.setBody(body);
         //发送请求
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);

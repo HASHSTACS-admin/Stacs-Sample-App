@@ -53,11 +53,11 @@ public class AbsDisputeDemoServiceImpl extends AbstractSendSmtMessageService imp
         if (Objects.isNull(tradeBidOrder)) {
             return DrsResponse.fail("error", "The order to be canceled does not exist!");
         }
-        if (tradeOfferOrder.getPaymentEndTime().before(new Date())) {
-            return DrsResponse.fail("error", "current time is greater than paymentDeadline!");
+        if (tradeOfferOrder.getPaymentEndTime().after(new Date())) {
+            return DrsResponse.fail("error", "Please after the deadline payment for dispute!");
         }
-        if (!StatusEnum.BidBizStatus.SUBSCRIBED.getCode().equals(tradeBidOrder.getBizStatus())) {
-            return DrsResponse.fail("error", "status is illegal!");
+        if (!StatusEnum.BidBizStatus.PAYMENT.getCode().equals(tradeBidOrder.getBizStatus())) {
+            return DrsResponse.fail("error", "order status does not support agree to dispute!");
         }
 
         //组装报文数据
