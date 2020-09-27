@@ -53,6 +53,8 @@ public class AbsRefundDemoServiceImpl extends AbstractSendSmtMessageService impl
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-subscription-refund-2-v1");
         message.getHeader().setSessionId(request.getHeader().getSessionId());
+        //报文体
+        message.setBody(new DrsSmtMessage.SmtBody());
         //发送请求
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {

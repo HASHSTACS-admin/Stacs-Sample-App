@@ -64,11 +64,11 @@ public class AbsOperationController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "ABS结息:smtt-abs-interestSettle-pay-1-v1")
+    @ApiOperation(value = "ABS结息:smtt-abs-interestSettle-settle-1-v1")
     @PostMapping("/abs/interestSettle")
     @ResponseBody
     public DrsResponse absInterestSettle(@Validated @RequestBody AbsInterestSettleRequest request) {
-        return smtDemoService.get("smtt-abs-interestSettle-pay-1-v1").doDemo(request);
+        return smtDemoService.get("smtt-abs-interestSettle-settle-1-v1").doDemo(request);
     }
 
     /**

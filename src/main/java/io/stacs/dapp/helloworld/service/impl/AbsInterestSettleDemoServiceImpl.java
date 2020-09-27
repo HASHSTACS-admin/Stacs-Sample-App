@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * @author Su Wenbo
  * @since 2020/9/24
  */
-@Service("smtt-abs-interestSettle-pay-1-v1")
+@Service("smtt-abs-interestSettle-settle-1-v1")
 public class AbsInterestSettleDemoServiceImpl extends AbstractSendSmtMessageService implements SmtDemoService {
 
     @Override
@@ -31,7 +31,7 @@ public class AbsInterestSettleDemoServiceImpl extends AbstractSendSmtMessageServ
 
         //组装报文数据
         DrsSmtMessage message = buildBaseMessage(request);
-        message.getHeader().setSmtCode("smtt-abs-interestSettle-pay-1-v1");
+        message.getHeader().setSmtCode("smtt-abs-interestSettle-settle-1-v1");
 
         //报文体
         AbsInterestSettleSmtBody absInterestSettleSmtBody = absInterestSettleRequest.getBody();

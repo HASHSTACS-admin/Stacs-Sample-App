@@ -47,7 +47,7 @@ public class AddSnapshotDemoServiceImpl extends AbstractSendSmtMessageService im
         }
         //做额外逻辑
         Long operationId = doBusiness(message, drsResponse);
-        return DrsResponse.success(Collections.singletonMap("operationId", operationId));
+        return DrsResponse.success(Collections.singletonMap("operationId", String.valueOf(operationId)));
     }
 
     private Long doBusiness(DrsSmtMessage message, DrsResponse<DrsResponse.SmtResult> drsResponse) {

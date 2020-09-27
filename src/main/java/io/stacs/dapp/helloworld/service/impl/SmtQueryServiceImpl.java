@@ -112,7 +112,7 @@ public class SmtQueryServiceImpl implements SmtQueryService {
             if (Objects.isNull(assetOperation)) {
                 return DrsResponse.fail("error", "Operation doesn't exist!");
             }
-            if (StatusEnum.ChainStatus.SUCCESS.getCode().equals(assetOperation.getStatus())) {
+            if (!StatusEnum.ChainStatus.SUCCESS.getCode().equals(assetOperation.getStatus())) {
                 return DrsResponse.fail("error", "Operation incomplete or failed!");
             }
             if (AssetOperationType.BUYBACK_FREEZE.getCode().equals(assetOperation.getType())
@@ -142,8 +142,7 @@ public class SmtQueryServiceImpl implements SmtQueryService {
         blockHeight = drsResponse.getData().getBlockHeight();
         int pageNo = drsResponse.getData().getNumber();
         int totalPages = drsResponse.getData().getTotalPages();
-        while (pageNo < totalPages) {
-            pageNo++;
+        while (++pageNo < totalPages) {
             DrsResponse<DrsAssetHoldersResult> loopDrsResponse = doQueryAssetHolders(assetId, blockHeight, pageNo, PageConstant.DEFAULT_PAGE_SIZE);
             //如何调用失败，返回
             if (!loopDrsResponse.success()) {
