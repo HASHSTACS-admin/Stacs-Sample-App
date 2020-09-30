@@ -53,6 +53,8 @@ public class AbsRefundDemoServiceImpl extends AbstractSendSmtMessageService impl
         DrsSmtMessage message = buildBaseMessage(request);
         message.getHeader().setSmtCode("smtt-abs-subscription-refund-2-v1");
         message.getHeader().setSessionId(request.getHeader().getSessionId());
+        //Message Body
+        message.setBody(new DrsSmtMessage.SmtBody());
         //Send API Request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {
@@ -64,7 +66,7 @@ public class AbsRefundDemoServiceImpl extends AbstractSendSmtMessageService impl
     }
 
     private void doBusiness(TradeOfferOrder tradeOfferOrder) {
-        //save to database
+        //update database
         tradeOfferOrder.setStatus(StatusEnum.ChainStatus.PROCESSING.getCode());
         tradeOfferOrder.setUpdateAt(new Date());
         tradeOfferOrderDao.save(tradeOfferOrder);

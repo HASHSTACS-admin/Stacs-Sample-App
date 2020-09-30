@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.net.ssl.X509TrustManager;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
@@ -49,7 +50,7 @@ public class DrsClient {
             .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .connectionPool(new ConnectionPool())
-            .sslSocketFactory(SslSocketHelper.getSSLSocketFactory())
+            .sslSocketFactory(SslSocketHelper.getSSLSocketFactory(), (X509TrustManager) SslSocketHelper.getTrustManager()[0])
             .hostnameVerifier(SslSocketHelper.getHostnameVerifier())
             .build();
 

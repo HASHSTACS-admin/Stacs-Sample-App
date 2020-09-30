@@ -1,6 +1,9 @@
 package io.stacs.dapp.helloworld.utils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -25,4 +28,16 @@ public class CommonUtil {
         }
         return datetime.getTime() / 1000;
     }
+
+    /**
+     * Current value is suitable for low concurrency scenarios
+     *
+     * @return the long
+     */
+    public static long nextTimeId() {
+        String now = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS").format(LocalDateTime.now());
+        int buffer = new Random().nextInt(99);
+        return Long.parseLong(now) * 100 + buffer;
+    }
+
 }

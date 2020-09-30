@@ -17,6 +17,7 @@ public interface DrsApiConstant {
      * Invoke Smart Contract Functions (with SMT) URL 
      */
     String SMT_SEND_URL = "/endpoint";
+
     /**
      * Query Balance of Wallet Address URL
      */
@@ -26,4 +27,10 @@ public interface DrsApiConstant {
      * Query Blockchain Transaction Results
      */
     String QUERY_SMT_RESULT = "/smt/message/getByIdentifierIdAndUuid";
+
+    /**
+     * Query that retrives all addresses that holds a particular asset, and returns the balance of each address for that particular asset
+     */
+    String QUERY_ASSET_HOLDER = "/v1/smt/query/asset/holders";
+
 }

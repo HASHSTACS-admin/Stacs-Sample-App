@@ -254,13 +254,14 @@ The overall architecture and sequence of information from your application to th
  
 ## STACS DRS HTTP REST APIs
  
-  In the file [DrsApiConstant.java](io.stacs.dapp.helloworld.constant.DrsApiConstant.java), you can see the 4 available API endpoints exposed by the DRS:
+  In the file [DrsApiConstant.java](io.stacs.dapp.helloworld.constant.DrsApiConstant.java), you can see the 5 available API endpoints exposed by the DRS:
   1. Create a Wallet Address: `/smt/address/create`
   2. Invoke Smart Contract Functions (using SMT format): `/endpoint`
   3. Query Balance of assets in a Wallet Address: `/smt/contract/balanceof`
   4. Query Blockchain Transaction Results: `/smt/message/getByIdentifierIdAndUuid`
+  5. Query Addresses and their balance for an Asset: `/v1/smt/query/asset/holders`
   
-  The sample APIs provided in this sample application send the request to 1 of these 4 DRS APIs that are then forwarded to the blockchain network.
+  The sample APIs provided in this sample application send the request to 1 of these 5 DRS APIs that are then forwarded to the blockchain network.
   Sample APIs in the Swagger UI demonstrate use of the above APIs with the SMT format.
   
 ## Settlity Message Type (SMT) - Smart Contract Function Format

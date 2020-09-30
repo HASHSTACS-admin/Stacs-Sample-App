@@ -52,11 +52,13 @@ public class AbsSettleDemoServiceImpl extends AbstractSendSmtMessageService impl
         }
         if (StatusEnum.OfferBizStatus.REFUND != StatusEnum.OfferBizStatus.getByCode(order.getBizStatus()) ||
                 StatusEnum.ChainStatus.SUCCESS != StatusEnum.ChainStatus.getByCode(order.getStatus())) {
-            if (StatusEnum.OfferBizStatus.SETTLEMENT != StatusEnum.OfferBizStatus.getByCode(order.getBizStatus()) &&
-                    StatusEnum.ChainStatus.FAIL != StatusEnum.ChainStatus.getByCode(order.getStatus()))
+            if (StatusEnum.OfferBizStatus.SETTLEMENT == StatusEnum.OfferBizStatus.getByCode(order.getBizStatus()) &&
+                    StatusEnum.ChainStatus.FAIL == StatusEnum.ChainStatus.getByCode(order.getStatus()))
                 return DrsResponse.fail("error", "not allowed this operation for current status");
         }
 
+        //Message Body
+        message.setBody(new DrsSmtMessage.SmtBody());
         //Send API Request
         DrsResponse<DrsResponse.SmtResult> drsResponse = doSend(message);
         if (!drsResponse.success()) {

@@ -2,12 +2,11 @@ spring:
   devtools:
     restart:
       enabled: false
-  #Local Database connection details
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/helloworld?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
-    username: root
-    password: 123456
+    url: jdbc:mysql://localhost:3306/helloworld?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: stacs
+    password: Welcome1!
   jpa:
     properties:
       hibernate:
@@ -20,19 +19,19 @@ logging:
   config: classpath:logback-local.xml
   level:
     root: info
-#Demo Application Service Port
+#开启服务的端口
 server:
   port: 18080
 helloworld:
   drs:
-    #drs URL
-    url: http://192.168.58.63:9080
-    #drs public key
-    publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjurOT7QzWzroV6Vk3vHJVWP5lCr+M1TawgpINXqzrmbW989rh1kUduCWIcKk27G2hlniN85eeen9FDpqYRmZJsxkGfF13K3dtUVLLLhDIlzBAQUmEQpf6Ih7Jz8D+G2TNUIHl8TZLkM1vCOSmoDhK7hTLC+u8IUoSyqeCVgwI+EuALcs4Y0rh/dHmm2xhZliNE4YFwFYyIMpeebpRWIk0h7CWZBVVKNC5wda9Mnc/+EFZi1H69zbHL8qZ9YCjFqUXEcPjaV7JQengfebTzgfdHBu9T1onyUUs6mlImYOelDzLHZyAHsHQbqWtRF9kGd1fAMIWHJ2V/ovQXAIfWRubwIDAQAB
-    #merchant public key
+    #DRS URL
+    url: http://10.200.174.160:30178
+    #DRS Public Key
+    publicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjrkoJBPDNox9kIZfEzFR6RtNh0IgnbveC0XC3DLeAx4IYt+VJSbNvj0vOHN8pNOVnWVn+wEpBtk67yASP6GVhCb81+uz0skfh3AkMhUWCuVB3OhgePVdcFOpPlpZqwZB2Zmgo3d/BUF336X12DxWsJAGR8Dol6/kNIVQnW26uVs6AidSZr9ijdm5SDA/rB+LLlmBhJqL/R+9ZowhSWpAlw0stQ5H3VxS8jVjQygHfhsJPVc49BDqj+kp4aSN4Rgt3Qg/Cu7As23qsnzLxk0F0YUL/A5si4PZ71z7cFP+YisSw/m3U/4ghCw0H/4BaOIxrugOQM4xspb3aJjFifNWUQIDAQAB
+    #Your Public Key
     myPublicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCuj/NCg39NBUQ566d4qHMSHTr640wr2b+tFJXhdR8yjweVampDGE8Aa/EFBMtWAveVNEkaJjegmv0Q3BUAthXGtGAzOn9IMzB4LKCZakngPy5fi/MLhvFcQFtd0rDwHSIIiQgL1azuYeQYv0Eet74wBkuwMYcD0UG3Q+CZdnsbpQIDAQAB
-    #merchant private key 
+    #Your Private Key
     myPrivateKey: MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAK6P80KDf00FRDnrp3iocxIdOvrjTCvZv60UleF1HzKPB5VqakMYTwBr8QUEy1YC95U0SRomN6Ca/RDcFQC2Fca0YDM6f0gzMHgsoJlqSeA/Ll+L8wuG8VxAW13SsPAdIgiJCAvVrO5h5Bi/QR63vjAGS7AxhwPRQbdD4Jl2exulAgMBAAECgYEAjEIZoU3rEUW0Bh302BvxKZLW+xN69pjlS/qIWzkyMft+im2QqAx2Hc6dP/0ULC4CJJ54RkyC0cb2o39SWNn1L/Wn/UZDBz8o4TrgDL6JtAN9hixG+dNcShG+P1x1UiV1PaXnQeGlfUpJ3Za6JFSq8L4RN1cl13CE+CFEWcg1O5kCQQD2pjUrWAaWRJMQF0oKsGfKsL1LycoawpYPtxSxAF+L+1CQ4/OvYymV5fLFVqSbe4+dX8QdSIX7oAtswyxR4NKzAkEAtS4e7ozdgzaCHyBP21LyMUH0deesMMYeB0wo4GfGRhKCNGGLpWbMI4219oiZU8/eFCVZjMafQEhNi1md+EKkRwJAWJTuyYdOrk8ohgHnPJmIXTpGcd6h8CRsYm59Ruh8aDi1AaRsk1PIzqYMH6Vzbsfcl0ealm3CeNFM6R3bX/ifkwJASFQwLwV3TPGOwsRQfPtBCp8M66DgIdyFkl46F1P2WHT9G9IxQIeoSS1Cjjf8FfRu8NX0SPnmC3CR3GabZMed8wJAKnxAplWP9xbpNIqA3kXPTWwRUKTvmFJlkjai10n9dxBProGCO0s58rsEt/3S9k6h+Os96pyJIDbMTyMhDtc/hg==
-    #merchant ID
-    myIdentifierId: GICJGDMZHdqzzf
+    #Merchant Id
+    myIdentifierId: NICLEVISUCNCD888
 
