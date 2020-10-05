@@ -30,7 +30,7 @@ public class BizQueryController {
      * Query of ABS by merchant id
      * @return
      */
-    @ApiOperation(value = "Query of ABS by merchant id")
+    @ApiOperation(value = "DB Query - Query of ABS by merchant id")
     @GetMapping("absList")
     @ResponseBody
     public DrsResponse<List<AssetAbsDemoVO>> absList(@ApiParam(value = "merchant id") @RequestParam String identifierId) {
@@ -42,7 +42,7 @@ public class BizQueryController {
      *Query BD by merchant id
      * @return
      */
-    @ApiOperation(value = "Query BD by merchant id")
+    @ApiOperation(value = "DB Query - Query BD by merchant id")
     @GetMapping("bdList")
     @ResponseBody
     public DrsResponse<List<SmtBdDemoVO>> bdList(@ApiParam(value = "merchant id") @RequestParam String identifierId) {
@@ -53,7 +53,7 @@ public class BizQueryController {
      *Query Permission by merchant id
      * @return
      */
-    @ApiOperation(value = "Query Permission by merchant id")
+    @ApiOperation(value = "DB Query - Query Permission by merchant id")
     @GetMapping("permissionList")
     @ResponseBody
     public DrsResponse<List<SmtPermissionDemoVO>> permissionList(@ApiParam(value = "merchant id") @RequestParam String identifierId) {
@@ -65,7 +65,7 @@ public class BizQueryController {
      * Query BD by BdId
      * @return
      */
-    @ApiOperation(value = "Query BD by BdId")
+    @ApiOperation(value = "DB Query - Query BD by BdId")
     @GetMapping("functionList")
     @ResponseBody
     public DrsResponse<List<BdFunctionPermissionRelationDemoVO>> functionList(@ApiParam(value = "bdId") @RequestParam String bdId) {

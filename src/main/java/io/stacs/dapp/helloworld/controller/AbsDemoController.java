@@ -32,7 +32,7 @@ public class AbsDemoController {
     /**
      * @return
      */
-    @ApiOperation(value = "Issue BD for ABS:smtbd-abs-abs-issue-1-v1")
+    @ApiOperation(value = "/endpoint - Issue BD for ABS:smtbd-abs-abs-issue-1-v1")
     @PostMapping("issueAbsBd")
     @ResponseBody
     public DrsResponse issueBD(@Validated @RequestBody AbsBDRequest request) {
@@ -43,7 +43,7 @@ public class AbsDemoController {
     /**
      * @return
      */
-    @ApiOperation(value = "Issue ABS:smta-abs-corporation-issue-1-v1")
+    @ApiOperation(value = "/endpoint - Issue ABS:smta-abs-corporation-issue-1-v1")
     @PostMapping("issueAbs")
     @ResponseBody
     public DrsResponse issueAbs(@Validated @RequestBody AbsCreateRequest request) {
@@ -54,7 +54,7 @@ public class AbsDemoController {
     /**
      * @return
      */
-    @ApiOperation(value = "Issue offer for ABS:smtt-abs-subscription-offer-3-v1")
+    @ApiOperation(value = "/endpoint - Issue offer for ABS:smtt-abs-subscription-offer-3-v1")
     @PostMapping("offerAbs")
     @ResponseBody
     public DrsResponse issueAbs(@Validated @RequestBody AbsOfferRequest request) {
@@ -77,7 +77,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "bid to purchase ABS:smtt-abs-subscription-bid-2-v1")
+    @ApiOperation(value = "/endpoint - bid to purchase ABS:smtt-abs-subscription-bid-2-v1")
     @PostMapping("bidAbs")
     @ResponseBody
     public DrsResponse bidAbs(@Validated @RequestBody AbsBidRequest request) {
@@ -91,7 +91,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "cancellation of ABS:smtt-abs-subscription-cancel-1-v1")
+    @ApiOperation(value = "/endpoint - cancellation of ABS:smtt-abs-subscription-cancel-1-v1")
     @PostMapping("cancelAbs")
     @ResponseBody
     public DrsResponse cancelAbs(@Validated @RequestBody AbsCancelRequest request) {
@@ -105,7 +105,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "payment for ABS:smtt-abs-subscription-payment-1-v1")
+    @ApiOperation(value = "/endpoint - payment for ABS:smtt-abs-subscription-payment-1-v1")
     @PostMapping("paymentAbs")
     @ResponseBody
     public DrsResponse paymentAbs(@Validated @RequestBody AbsPaymentRequest request) {
@@ -119,7 +119,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "seller confirmation of ABS purchase:smtt-abs-subscription-confirm-1-v1")
+    @ApiOperation(value = "/endpoint - seller confirmation of ABS purchase:smtt-abs-subscription-confirm-1-v1")
     @PostMapping("confirmAbs")
     @ResponseBody
     public DrsResponse confirmAbs(@Validated @RequestBody AbsConfirmRequest request) {
@@ -133,7 +133,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "refund request for ABS:smtt-abs-subscription-refund-2-v1")
+    @ApiOperation(value = "/endpoint - refund request for ABS:smtt-abs-subscription-refund-2-v1")
     @PostMapping("refundAbs")
     @ResponseBody
     public DrsResponse refundAbs(@Validated @RequestBody AbsRefundRequest request) {
@@ -147,7 +147,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "delayed settlement of ABS:smtt-abs-subscription-settle-2-v1")
+    @ApiOperation(value = "/endpoint - delayed settlement of ABS:smtt-abs-subscription-settle-2-v1")
     @PostMapping("settleAbs")
     @ResponseBody
     public DrsResponse settleAbs(@Validated @RequestBody AbsSettleRequest request) {
@@ -161,7 +161,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "dispute request for ABS:smtt-abs-subscription-dispute-1-v1")
+    @ApiOperation(value = "/endpoint - dispute request for ABS:smtt-abs-subscription-dispute-1-v1")
     @PostMapping("disputeAbs")
     @ResponseBody
     public DrsResponse disputeAbs(@Validated @RequestBody AbsDisputeRequest request) {
@@ -175,7 +175,7 @@ public class AbsDemoController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "buyer rejects offer for ABS:smtt-abs-subscription-revert-1-v1")
+    @ApiOperation(value = "/endpoint - buyer rejects offer for ABS:smtt-abs-subscription-revert-1-v1")
     @PostMapping("revertAbs")
     @ResponseBody
     public DrsResponse revertAbs(@Validated @RequestBody AbsRevertRequest request) {

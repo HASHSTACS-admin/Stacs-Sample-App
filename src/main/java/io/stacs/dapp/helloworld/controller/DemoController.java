@@ -37,7 +37,7 @@ public class DemoController {
      *
      * @return
      */
-    @ApiOperation(value = "Issue Digital Currency")
+    @ApiOperation(value = "/endpoint - Issue Digital Currency")
     @PostMapping("issueDigitalCurrency")
     @ResponseBody
     public DrsResponse issueDigitalCurrency(@Validated @RequestBody DigitalCurrencySmtRequest request) {
@@ -49,7 +49,7 @@ public class DemoController {
      *
      * @return
      */
-    @ApiOperation(value = "Transfer (Bonds, ABS, DIgital Currency, Certificates)")
+    @ApiOperation(value = "/endpoint - Transfer (Bonds, ABS, DIgital Currency, Certificates)")
     @PostMapping("transfer")
     @ResponseBody
     public DrsResponse transfer(@Validated @RequestBody TransferSmtRequest request) {

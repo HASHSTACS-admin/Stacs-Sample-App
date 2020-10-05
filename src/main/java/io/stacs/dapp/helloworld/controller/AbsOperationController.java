@@ -38,7 +38,7 @@ public class AbsOperationController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "snapshot:smtc-snapshot-snapshot-add-1-v1")
+    @ApiOperation(value = "/endpoint - snapshot:smtc-snapshot-snapshot-add-1-v1")
     @PostMapping("/addSnapshot")
     @ResponseBody
     public DrsResponse addSnapshot(@Validated @RequestBody AddSnapshotRequest request) {
@@ -51,7 +51,7 @@ public class AbsOperationController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "ABS redemption freeze:smtt-abs-buyback-freeze-2-v1")
+    @ApiOperation(value = "/endpoint - ABS redemption freeze:smtt-abs-buyback-freeze-2-v1")
     @PostMapping("/abs/buybackFreeze")
     @ResponseBody
     public DrsResponse absBuybackFreeze(@Validated @RequestBody AbsBuybackFreezeRequest request) {
@@ -64,7 +64,7 @@ public class AbsOperationController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "ABS payment:smtt-abs-interestSettle-settle-1-v1")
+    @ApiOperation(value = "/endpoint - ABS payment:smtt-abs-interestSettle-settle-1-v1")
     @PostMapping("/abs/interestSettle")
     @ResponseBody
     public DrsResponse absInterestSettle(@Validated @RequestBody AbsInterestSettleRequest request) {
@@ -77,7 +77,7 @@ public class AbsOperationController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "ABS redemption:smtt-abs-buyback-buyback-1-v1")
+    @ApiOperation(value = "/endpoint - ABS redemption:smtt-abs-buyback-buyback-1-v1")
     @PostMapping("/abs/buyback")
     @ResponseBody
     public DrsResponse absBuyback(@Validated @RequestBody AbsBuybackRequest request) {

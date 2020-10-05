@@ -41,7 +41,7 @@ public class SmtSettingController {
      * @param request the request
      * @return the permission
      */
-    @ApiOperation(value = "setup permission using SMT format:smtpm-fix-permission-set-1-v1")
+    @ApiOperation(value = "/endpoint - setup permission using SMT format:smtpm-fix-permission-set-1-v1")
     @PostMapping("/setPermission")
     public DrsResponse setPermission(@Validated @RequestBody PermissionRequest request) {
         return smtDemoService.get("smtpm-fix-permission-set-1-v1").doDemo(request);
@@ -53,7 +53,7 @@ public class SmtSettingController {
      * @param request the request
      * @return the permission
      */
-    @ApiOperation(value = "Setup Institution BD:smtbd-institution-business-special-1-v1")
+    @ApiOperation(value = "/endpoint - Setup Institution BD:smtbd-institution-business-special-1-v1")
     @PostMapping("/setInstitutionBD")
     public DrsResponse setInstitutionBD(@Validated @RequestBody InstitutionBDRequest request) {
         return smtDemoService.get("smtbd-institution-business-special-1-v1").doDemo(request);
@@ -65,7 +65,7 @@ public class SmtSettingController {
      * @param request the request
      * @return the permission
      */
-    @ApiOperation(value = "Setup Identity for Individual Type using SMT format:smti-individual-identity-set-1-v1")
+    @ApiOperation(value = "/endpoint - Setup Identity for Individual Type using SMT format:smti-individual-identity-set-1-v1")
     @PostMapping("/setIndividualIdentity")
     public DrsResponse setIndividualIdentity(@Validated @RequestBody IndividualIdentityRequest request) {
         Assert.hasLength(request.getHeader().getSmtCode(), "Smt code cannot be empty");
@@ -78,7 +78,7 @@ public class SmtSettingController {
      * @param request the request
      * @return the permission
      */
-    @ApiOperation(value = "Setup Identity for Institution Type using SMT format:smti-institution-identity-set-1-v1")
+    @ApiOperation(value = "/endpoint - Setup Identity for Institution Type using SMT format:smti-institution-identity-set-1-v1")
     @PostMapping("/setInstitutionIdentity")
     public DrsResponse setInstitutionIdentity(@Validated @RequestBody InstitutionIdentityRequest request) {
         Assert.hasLength(request.getHeader().getSmtCode(), "Smt code cannot be empty");

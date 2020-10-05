@@ -33,7 +33,7 @@ public class DrsQueryController {
     SmtQueryService smtQueryService;
 
 
-    @ApiOperation(value = "Token Balance Query", notes = "Balance Query Request")
+    @ApiOperation(value = "/smt/contract/balanceOf - Token Balance Query", notes = "Balance Query Request")
     @PostMapping("/balanceOf")
     @ResponseBody
     public DrsResponse balanceOf(@Validated @RequestBody BalanceOfRequest request) {
@@ -45,7 +45,7 @@ public class DrsQueryController {
         }
     }
 
-    @ApiOperation(value = "Query Address")
+    @ApiOperation(value = "/smt/address/create - Query Address")
     @GetMapping("/getAddress")
     @ResponseBody
     public DrsResponse getAddress() {
@@ -58,7 +58,7 @@ public class DrsQueryController {
         }
     }
 
-    @ApiOperation(value = "Query Transaction Status using SMT by Merchant Id and Uuid")
+    @ApiOperation(value = "/smt/message/getByIdentifierIdAndUuid - Query Transaction Status using SMT by Merchant Id and Uuid")
     @PostMapping("/querySmtResult")
     @ResponseBody
     public DrsResponse querySmtResult(@Validated @RequestBody QuerySmtResultRequest request) {
@@ -74,7 +74,7 @@ public class DrsQueryController {
      * @param request the request
      * @return the drs response
      */
-    @ApiOperation(value = "query asset holders", notes = "Get all addresses and their balance of a particular asset using asset id")
+    @ApiOperation(value = "/v1/smt/query/asset/holders - query asset holders", notes = "Get all addresses and their balance of a particular asset using asset id")
     @PostMapping("/assetHolders")
     @ResponseBody
     public DrsResponse assetHolders(@Validated @RequestBody AssetHoldersRequest request) {
