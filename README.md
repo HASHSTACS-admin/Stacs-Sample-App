@@ -1,28 +1,28 @@
-# STACS Blockchain Sample Application
-The STACS Blockchain is a Permissioned Blockchain Network built by Hashstacs that exposes HTTP REST API endpoints for applications to connect and interact with the underlying distributed ledger. This sample application contains all essential tools for communicating with a node residing in a STACS network including encryption of HTTP requests and decryption of HTTP responses since encryption in transit is enforced.
+# STACS Settlity - Sample Application
+Settlity is a Permissioned Blockchain Network built and managed by Hashstacs that exposes HTTP REST API endpoints for applications to connect and interact with the underlying distributed ledger, the Stacs blockchain. This sample application contains all essential tools for communicating with a node residing within Settlity including encryption of HTTP requests and decryption of HTTP responses since encryption in transit is enforced.
 
-STACS enables business applications to sit on top of a STACS Permissioned Blockchain Network and run business processes by invoking smart contract functions.
+STACS enables business applications to sit on top of Settlity and run business processes by invoking smart contract functions linked to the underlying hosted blockchain infrastructure.
 
-The provided sample application here has several examples illustrating how business applications can send transaction requests to a STACS Blockchain network and includes sample code for encryption and decryption of HTTP API messages.
+The provided sample application here has several examples illustrating how business applications can send transaction requests to Settlity and includes sample code for encryption and decryption of HTTP API messages.
 
-Reach out to the Solutions team at Stacs for questions at support@stacs.io
+Reach out to the Support team at Stacs for questions at support@stacs.io
 
 ## Table of Contents
 * [Getting Started](#getting-started) 
   * [Pre-requisites](#pre-requisites)
     * [Application Requirements](#application-requirements)
-    * [Blockchain Network Requirements (3 steps)](#blockchain-network-requirements)
+    * [Settlity Network Requirements (3 steps)](#settlity-network-requirements)
 * [STACS Blockchain Introduction](#stacs-blockchain-introduction)
 * [STACS DRS HTTP API Workflow](#stacs-drs-http-api-workflow)
   * [API Request Encryption](#api-request-encryption) 
   * [API Request Decryption](#api-request-decryption)
   * [API Request Header and Body Construction](#api-request-header-and-body-construction)
-  * [Transaction Request Flow to and from the Blockchain](#transaction-request-flow-to-and-from-the-blockchain)
+  * [Transaction Request Flow to and from the Network](#transaction-request-flow-to-and-from-the-network)
 * [STACS DRS HTTP REST APIs](#stacs-drs-http-rest-apis)
 * [Settlity Message Type (SMT)](#settlity-message-type-(smt))
 
 ## Getting Started
-To begin, please ensure that you have both the Application Requirements and Blockchain Requirements completed before you embark on this journey with the STACS Blockchain.
+To begin, please ensure that you have both the Application Requirements and Settlity Network Requirements completed before you embark on this journey.
 
 ### Pre-requisites
 #### Application Requirements
@@ -36,9 +36,9 @@ To run the application, you will need:
 CREATE DATABASE `helloworld` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
 ```  
 
-#### Blockchain Network Requirements
+#### Settlity Network Requirements
 
-You will need to register for a merchant account with a STACS blockchain network operator before you can send the sample API calls to the blockchain successfully. The following describes the steps you will need to take in order to start interfacing with the STACS blockchain.
+You will need to register for a merchant account before you can send the sample API calls to the network successfully. The following describes the steps you will need to take in order to start interfacing with Settlity.
 
 ##### 1. Create a RSA asymmetric key pair 
 Before you register, you will need to first create an RSA asymmetric key pair.
@@ -68,15 +68,14 @@ openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
 ![](src/main/resources/assets/option2_rsakeygen.png)
 
 ##### 2. Setup an available API endpoint to receive callbacks
-The STACS blockchain DRS module (see [STACS Blockchain Introduction](#STACS-Blockchain-Introduction)) supports the asynchronous ability to send back transaction status and details once your transaction requests have been completed at the data consensus layer of the blockchain.
-This provides the sample application with a robust, real-time update on transaction requests.
+Settlity and the underlying blockchain network has an additional layer, the DRS module (see [STACS Blockchain Introduction](#STACS-Blockchain-Introduction)) which supports the asynchronous ability to send back transaction status and details once your transaction requests have been completed at the data consensus layer of the blockchain.
+This provides this sample application with a robust, real-time update on transaction requests.
 
 You will need to setup a HTTP API endpoint in order to receive callbacks in real-time. 
 
-##### 3. Request for a merchant account with the node operator
-If you are looking to work with the Settility Studios blockchain network, please send your request to the following email address. 
+##### 3. Request for a merchant account with the Support team
 
-Details required by the node operators are as follows:
+Details required by the Support team are as follows:
 * Your RSA Public Key
 * API Endpoint for receiving callbacks
 
@@ -104,13 +103,13 @@ Once the application is running, you can use the built-in Swagger UI on your bro
 ![](src/main/resources/assets/sample_swaggerui.png)
 
 ## STACS Blockchain Introduction
-A node operator will be running blockchain nodes and a Domain Runtime System (DRS) in order to process remote API requests.
+Settlity is a managed blockchain service that hosts several nodes of the Stacs blockchain and a Domain Runtime System (DRS) application.
 
 ![](src/main/resources/assets/drs_architecture.png)
 
-The DRS has a multi-tenant architecture that manages API calls from business applications.
+The DRS has a multi-tenant architecture that manages API calls from business applications to the underlying blockchain nodes.
 This includes authorization of 3rd party developers and securing API requests to the blockchain by enforcing security-in-transit with encrypted HTTP requests to the blockchain.
-The DRS enables hosting of multiple nodes to support High Availability 
+The DRS enables hosting and management of multiple nodes to support High Availability. 
  
  ## STACS DRS HTTP API Workflow
 
@@ -231,7 +230,7 @@ An API Message Request consists of 3 components:
 }
 ```
 
-### Transaction Request Flow to and from the Blockchain 
+### Transaction Request Flow to and from the Network 
 
 ![](src/main/resources/assets/API_overall_flow.png)
 
@@ -253,21 +252,36 @@ The overall architecture and sequence of information from your application to th
 ![](src/main/resources/assets/API_Flow_Step8to10.png)
  
 ## STACS DRS HTTP REST APIs
- 
-  In the file [DrsApiConstant.java](io.stacs.dapp.helloworld.constant.DrsApiConstant.java), you can see the 5 available API endpoints exposed by the DRS:
+    
+  There are 14 REST API endpoints in total. 
+     
+  In the file [DrsApiConstant.java](io.stacs.dapp.helloworld.constant.DrsApiConstant.java), you can see 5 available API endpoints exposed by the DRS:
   1. Create a Wallet Address: `/smt/address/create`
   2. Invoke Smart Contract Functions (using SMT format): `/endpoint`
   3. Query Balance of assets in a Wallet Address: `/smt/contract/balanceof`
   4. Query Blockchain Transaction Results: `/smt/message/getByIdentifierIdAndUuid`
   5. Query Addresses and their balance for an Asset: `/v1/smt/query/asset/holders`
   
-  The sample APIs provided in this sample application send the request to 1 of these 5 DRS APIs that are then forwarded to the blockchain network.
+  There are 9 additional API endpoints not in this sample application:
+  6. Query list of assets: `/v1/smt/query/asset/list`
+  7. Query details of an asset: `/v1/smt/query/asset/info`
+  8. Query total supply of an asset: `/v1/smt/query/asset/totalSupply`
+  9. Query wallet addresses and their balance for a particular asset: `/v1/smt/query/asset/holders`
+  10. Query total authorized amount of assets for a particular wallet address: `/v1/smt/query/asset/approval`
+  11. Query wallet address identity on the chain: `/v1/smt/query/address/identityinfo`
+  12. Query all assets and balance for a particular wallet: `/v1/smt/query/address/asset/list`
+  13. Query all transactions of an address: `/v1/smt/query/address/txRelation/list`
+  14. Query transaction details by txId: `/v1/smt/query/transaction/info`
+  
+  The sample APIs provided in this sample application send the request to 1 of these 5 DRS APIs that are then forwarded to the Settlity.
   Sample APIs in the Swagger UI demonstrate use of the above APIs with the SMT format.
   
-## Settlity Message Type (SMT) - Smart Contract Function Format
-  Settlity Message Type (SMT) is an additional layer built to encapsulate smart contract functions and their required parameters to make it easy for business applications to invoke.
-     
-  Smart contracts uploaded to the blockchain are mapped to the SMT format where smart contract function parameters are standardized.  
+  Do reach out to the Settlity support team for more information on all API endpoints and their parameters. 
   
-  Do reach out to the node operator for more information on the SMT format and invoke functions of active smart contracts on the blockchain easily with the SMT format.
+## Settlity Message Type (SMT) - Smart Contract Function Format
+  Settlity Message Type (SMT) is an additional layer built into the API endpoints to encapsulate smart contract functions and their required parameters to make it easy for business applications to invoke.
+     
+  Smart contracts uploaded to the blockchain are mapped to a SMT format so that smart contract function parameters are standardized.  
+  
+  Do reach out to the Settlity support team for detailed documentation on how to use the SMT format to invoke smart contract function calls to Settlity.
     
