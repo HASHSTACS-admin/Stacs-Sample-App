@@ -263,15 +263,16 @@ The overall architecture and sequence of information from your application to th
   5. Query Addresses and their balance for an Asset: `/v1/smt/query/asset/holders`
   
   There are 9 additional API endpoints not in this sample application:
-  6. Query list of assets: `/v1/smt/query/asset/list`
-  7. Query details of an asset: `/v1/smt/query/asset/info`
-  8. Query total supply of an asset: `/v1/smt/query/asset/totalSupply`
-  9. Query wallet addresses and their balance for a particular asset: `/v1/smt/query/asset/holders`
-  10. Query total authorized amount of assets for a particular wallet address: `/v1/smt/query/asset/approval`
-  11. Query wallet address identity on the chain: `/v1/smt/query/address/identityinfo`
-  12. Query all assets and balance for a particular wallet: `/v1/smt/query/address/asset/list`
-  13. Query all transactions of an address: `/v1/smt/query/address/txRelation/list`
-  14. Query transaction details by txId: `/v1/smt/query/transaction/info`
+  
+  6. Query list of assets: `/v1/smt/query/asset/list` 
+  7. Query details of an asset: `/v1/smt/query/asset/info` 
+  8. Query total supply of an asset: `/v1/smt/query/asset/totalSupply` 
+  9. Query wallet addresses and their balance for a particular asset: `/v1/smt/query/asset/holders` 
+  10. Query total authorized amount of assets for a particular wallet address: `/v1/smt/query/asset/approval` 
+  11. Query wallet address identity on the chain: `/v1/smt/query/address/identityinfo` 
+  12. Query all assets and balance for a particular wallet: `/v1/smt/query/address/asset/list` 
+  13. Query all transactions of an address: `/v1/smt/query/address/txRelation/list` 
+  14. Query transaction details by txId: `/v1/smt/query/transaction/info` 
   
   The sample APIs provided in this sample application send the request to 1 of these 5 DRS APIs that are then forwarded to the Settlity.
   Sample APIs in the Swagger UI demonstrate use of the above APIs with the SMT format.
